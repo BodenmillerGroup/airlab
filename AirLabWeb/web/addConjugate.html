@@ -1,0 +1,32 @@
+<center>
+	<thead>
+      <!--<tr><th colspan="6"><h3>Bodenmiller laboratory | Antibody inventory<p></h3></th></tr>-->
+    </thead>
+
+  <table>
+    <script type="text/javascript">alert(SelectedLot);</script>
+    <tbody>
+      <tr>
+      <!--<td>Number</td>-->
+      <tr><td width="30%">Protein Name</td><td width="70%" align="right">{{data.selectedLot.proName}}</td></tr>
+      <tr><td width="30%">Clone</td><td width="70%" align="right">{{data.selectedLot.cloName}}</td></tr>
+      <tr><td width="30%">Lot</td><td width="70%" align="right">{{data.selectedLot.lotNumber}}</td></tr>
+      <!--<tr><td width="30%">Contributor</td><td width="70%" align="right"><select ng-model="data.contributor" ng-options="person as person for person in people"></td></tr>-->
+      <tr><td width="30%">Concentration</td><td width="70%" align="right"><input type="text" ng-model = "data.concentration" placeholder="in ug/mL"></td></tr>
+      <tr><td width="30%">Label</td><td width="70%" align="right">
+      
+	  <select ng-model="data.tag" ng-options="tag.tagTagId as tag.tagName + tag.tagMW for tag in tagsList">
+	    
+		<!--<option ng-repeat="tag in tagsList" value={{tag}}>{{tag.tagName + tag.tagMW}}</option>-->
+		
+	</select>
+	      
+      </td></tr>
+      <!--<tr width="30%"><td>Tube number</td><td>{{data.selectedLot.labBBTubeNumber}}</td></tr>-->
+      
+
+    </tbody>
+  </table>
+  <button ng-click="returnHome()">Cancel and Return to list</button>
+  <button ng-click="addConjugateConfirm()">Add Conjugate</button>
+ </center>

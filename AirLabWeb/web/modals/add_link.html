@@ -1,0 +1,26 @@
+<div>
+	<div class="modal fade" id="addLink" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Add Link</h4>
+	      </div>
+	      <div class="modal-body">
+		    <div class="input-group">
+			  <span class="input-group-addon">Title:</span>
+			  <input class="form-control" ng-model="dataModal.name" placeholder="Title...">
+			</div>  
+			<div class="input-group">
+			  <span class="input-group-addon">URL</span>
+			  <input class="form-control" ng-model="dataModal.url" placeholder="http://...">
+			</div>
+			You are adding a link. It may be possible that the link stops working at any time. Be sure that you add stable URLs. If you add links to Google Calendar or other resources that require log-in. You will need to login independently in another tab probably. AirLab does not handle account information for other sites. This is just a utility to gather research-related resources for ease of use with AirLab.
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="nextAddLinkModal()">OK</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

@@ -1,0 +1,66 @@
+<div class="modal fade" id="addConjugate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">Conjugate Information:</h4>
+      </div>
+      <div class="modal-body">
+	    
+	    <div class="ngdialog-message">
+				<h3>{{!dataModal.labLabeledAntibodyId? 'New':'Edit'}}  Conjugate</h3>	
+		</div>
+		<div style="font-size:14px;">
+			<div class="input-group">
+			  <span class="input-group-addon">
+			  		Protein Name: {{allGetters.protein(allGetters.clone(allGetters.lot(dataModal.labLotId).lotCloneId).cloProteinId).proName}}
+			  </span>
+			</div>
+			<div class="input-group">
+			  <span class="input-group-addon">
+			  		Clone: {{allGetters.clone(allGetters.lot(dataModal.labLotId).lotCloneId).cloName}}
+			  </span>
+			</div>
+			<div class="input-group">
+			  <span class="input-group-addon">
+			  		Lot: <!-- {{allGetters.lot(dataModal.labLotId).lotNumber}} -->
+			  </span>
+		      <select class="input-group form-control" ng-model="dataModal.labLotId" 
+					ng-options="lot.reiReagentInstanceId as lot.lotNumber for lot in allGetters.lotsByClone(allGetters.clone(allGetters.lot(dataModal.labLotId).lotCloneId).cloCloneId)"></select>
+			  <input type="text" ng-model="lotS">
+			  <select class="input-group form-control" ng-model="dataModal.labLotId" 
+					ng-options="lot.reiReagentInstanceId as lot.lotNumber for lot in baseData.lotsList | filter:lotS"></select>					
+			</div>
+			
+			<hr>
+			
+			<div class="input-group"  style="width:100%;">
+			  <span class="input-group-addon" style="width:130px;">
+			  		Concentration:
+			  </span>
+			  <input class="input-group form-control" type="text" ng-model = "dataModal.labConcentration" placeholder="in ug/mL"><br>
+			</div>			
+			<br>			
+			<div class="input-group"  style="width:100%;">
+			  <span class="input-group-addon" style="width:130px;">
+			  		Tag:
+			  </span>
+			  <select class="input-group form-control" ng-model="dataModal.labTagId" ng-options="tag.tagTagId as tag.tagName + tag.tagMW for tag in baseData.tagsList"></select>
+			</div>			
+			<br>
+			<div class="input-group"  style="width:100%;">
+			  <span class="input-group-addon" style="width:130px;">
+			  		Labeled by:
+			  </span>
+			  <select class="input-group form-control" ng-model="dataModal.labContributorId" ng-options="person.perPersonId as person.perName for person in baseData.peopleList"></select>
+			</div>		
+
+		</div>
+	    
+      </div>
+      <div class="modal-footer">		      
+        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="nextAddConjugateModal()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<center>
+	<h1>Request access to lab</h1>
+</center>
+<div class="input-group">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-search"></span>
+  </span>
+  <input type="text" class="form-control" placeholder="Search for a lab" aria-describedby="basic-addon1" ng-model="search">
+  <span class="input-group-addon">
+		<span class="glyphicon glyphicon-remove" ng-click="search = null"></span>
+  </span>
+</div>
+<br>
+<br>
+
+<div class="list-group">		
+	<div style="text-align: left;" class="list-group-item" ng-repeat="lab in baseData.groupsList | filter:search" ng-if="search.length > 3"  >
+		<button class="btn btn-success" style="margin-bottom:10px;" ng-click="requestLab(lab)" style="float: center;">Request Access</button>		
+		{{lab.grpName}}<br><small ng-if="lab.grpInstitution">({{lab.grpInstitution}})</small>
+	</div>
+</div>

@@ -1,0 +1,45 @@
+<div style="width: 20%; float: left;">
+	<div class="panel panel-default">
+	  <button class="btn btn-default"><span class="glyphicon glyphicon-plus" ng-click="addLink(true)" data-toggle="modal" data-target="#addLink"></span></button>	
+		<div class="panel-heading" role="tab">
+		  <h4 class="panel-title">
+		    Lab Links
+		  </h4>
+		</div>
+		<div class="list-group">
+			<a class="list-group-item" ng-repeat="page in allGetters.favoritesGroup().links" ng-click="selected(page)">
+				<span class="glyphicon glyphicon-trash" style="float: left" ng-if="page.createdBy == self()"></span>				
+				{{page.name}}
+				<span ng-click="dataModal = page" class="glyphicon glyphicon-edit" style="float: right" data-toggle="modal" data-target="#addLink"></span>
+			</a>
+		</div>
+	</div>
+	<div class="panel panel-default">
+	  <button class="btn btn-default"><span class="glyphicon glyphicon-plus" ng-click="addLink(false)" data-toggle="modal" data-target="#addLink"></span></button>	
+		<div class="panel-heading" role="tab">
+		  <h4 class="panel-title">
+		    My Links
+		  </h4>
+		</div>
+		<div class="list-group">
+			<a class="list-group-item" ng-repeat="page in  allGetters.favorites().links" ng-click="selected(page)">
+				<span class="glyphicon glyphicon-trash" style="float: left" ng-if="page.createdBy == self()"></span>				
+				{{page.name}}
+				<span ng-click="dataModal = page" class="glyphicon glyphicon-edit" style="float: right" data-toggle="modal" data-target="#addLink"></span>								
+			</a>		
+		</div>	
+	</div>
+</div>
+
+<div style="width: 79%; float: right; margin: 0px; padding: 0px;">
+	<center>
+		<iframe ng-src="{{selectedPage}}" 
+			style="border: 0" width="100%" height="600" frameborder="0" scrolling="yes">
+		</iframe>
+	</center>
+</div>
+
+<div id="add_link"></div>
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_link', 'add_link.html');
+</script>

@@ -1,0 +1,39 @@
+<div class="modal fade" id="settingsProject" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">Project: {{dataModal.plnTitle}}</h4>
+      </div>
+      <div class="modal-body">
+	      
+	 	<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon">Project name:</span>
+		  <input type="text" class="input-group form-control" ng-model="dataModal.plnTitle">
+		</div> 
+		<br>
+		<h4>Share with:</h4>
+		<button class="btn btn-default" ng-click="addPair()"><span class="glyphicon glyphicon-plus"></span></button>	
+		<br>				
+		<br>
+		<br>
+		<div class="input-group" ng-repeat="pair in dataModal.pairs track by $index" style="width: 100%">
+			
+			<select style="width: 46%" class="input-group form-control" ng-model="pair.key" 
+				ng-options="person.gpeGroupPersonId as person.perName for person in baseData.peopleList"
+				ng-change="changeDictKey(pair, pair.key)">
+			</select>
+			<select style="width: 46%" class="input-group form-control" ng-model="pair.value" 
+				ng-options="$index as n for n in ['See only', 'See and write own experiments', 'Full access'] track by $index"
+					ng-change="changeDictValue(pair, pair.value)">		
+			</select>
+			<button  ng-click="removePair($index)"><span class="glyphicon glyphicon-trash"></span></button>
+		</div>
+		
+      </div>
+      <div class="modal-footer">		      
+        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="nextSettingsProjectModal()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

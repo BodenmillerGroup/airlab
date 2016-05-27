@@ -1,0 +1,88 @@
+<div class="input-group">
+  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+  <input type="text" class="form-control" placeholder="Search for antibodies" aria-describedby="basic-addon1" ng-model="search">
+</div>
+<br>
+
+<table width="100%">
+	<tbody>
+		<tr ng-repeat="conjugate in baseData.conjugatesList | filter:search">
+			<td style="padding-left:40px;">
+				<span class="badge"style="background-color: #e4ab0d;">{{conjugate.labBBTubeNumber}}</span> 
+				<span  ng-class="{red_text: conjugate.tubIsLow == '1', crossed_text: conjugate.tubFinishedBy > 0}">
+				
+				<label class="label label-danger" ng-if="allGetters.clone(allGetters.lot(conjugate.labLotId).lotCloneId).cloCloneId == null">NO CLONE</label>
+				<label class="label label-warning" ng-if="allGetters.lot(conjugate.labLotId).lotLotId == null">NO LOT</label>				
+				{{conjugate.proName?'':lazyConjugate(conjugate)}}
+				anti-{{conjugate.phospho}}
+				{{conjugate.proName}} 
+				({{conjugate.cloName}})
+				<strong>{{conjugate.tag}}</strong>
+				{{conjugate.person?'':lazyConjugate(conjugate)}}
+				Labeled by {{conjugate.person}} ({{labelDate(conjugate.labDateOfLabeling)}}) {{conjugate.labConcentration}}</span>
+			</td>
+			<td>
+				<div class="btn-group">
+					  <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a href="#" onclick="return false;" 
+						    ng-click="editConjugate(conjugate)"  data-toggle="modal" data-target="#addConjugate"><span class="glyphicon glyphicon-pencil"></span>   Edit Conjugate</a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a href="#" onclick="return false;" 
+								    ng-click="markLow(conjugate)"  
+									data-toggle="modal" 
+									data-target="#confirmChange"  
+									ng-if="conjugate.tubFinishedBy == 0 && conjugate.tubIsLow == 0">
+								    <span class="glyphicon glyphicon-arrow-down"></span>   Mark as low</a></li>
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="undomarkLow(conjugate)" 
+									ng-if="conjugate.tubFinishedBy == 0 && conjugate.tubIsLow != 0"  
+									data-toggle="modal" 
+									data-target="#confirmChange" >
+								    Undo mark as low</a></li>
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="markFinished(conjugate)"
+									ng-if="conjugate.tubFinishedBy == 0" 
+									data-toggle="modal" 
+									data-target="#confirmChange" >
+								    <span class="glyphicon glyphicon-trash"></span>   Mark as finished</a></li>
+								<li><a href="#" onclick="return false;" 
+									ng-click="undomarkFinished(conjugate)" 
+									ng-if="conjugate.tubFinishedBy != 0"  
+									data-toggle="modal" 
+									data-target="#confirmChange" >
+									Undo mark as finished</a></li>						    				
+						<!--<button class="blue_button" style="background-color:red color:white;;" ng-click="addValidationNote(conjugate)">Add Note</button> -->
+					  </ul>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<div id="add_lot"></div>
+<div id="add_conjugate"></div>
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_lot', 'add_lot.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_conjugate', 'add_conjugate.html');
+</script>
+
+<!-- Confirm change -->
+<div class="modal fade" id="confirmChange" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmedChanges()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirm Change -->

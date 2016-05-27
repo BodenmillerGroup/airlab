@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ADBAddPlaceViewController">
+            <connections>
+                <outlet property="boxesLabel" destination="Xdv-2M-MeC" id="Lyw-fN-T6l"/>
+                <outlet property="boxesPanel" destination="E1u-OT-DHc" id="iyq-4r-nnc"/>
+                <outlet property="boxesSwitch" destination="NxO-bK-3Lj" id="UDU-aj-4aL"/>
+                <outlet property="boxesYes" destination="RXC-4u-Fg4" id="8bR-iL-8qa"/>
+                <outlet property="createButton" destination="OLo-rr-lUf" id="SQN-On-NhO"/>
+                <outlet property="layout2Label" destination="dQm-Tm-h4N" id="FBZ-fw-Mk8"/>
+                <outlet property="layout2Switch" destination="knv-Vg-r9f" id="kGB-rQ-ceg"/>
+                <outlet property="layoutLabel" destination="3KG-g8-d6k" id="zj1-GY-Axl"/>
+                <outlet property="layoutPanel" destination="f0K-f7-tWH" id="fXt-q8-fp3"/>
+                <outlet property="layoutSwitch" destination="ihA-DH-Uv2" id="npX-z1-uX6"/>
+                <outlet property="name" destination="2sb-09-0Id" id="mHg-Cw-Khg"/>
+                <outlet property="racksLabel" destination="HWE-Er-Czb" id="3xw-8u-NpQ"/>
+                <outlet property="racksPanel" destination="WEG-nK-vXj" id="V9P-my-Ycm"/>
+                <outlet property="racksSwitch" destination="s4f-nq-XMh" id="1f6-vK-aZ9"/>
+                <outlet property="racksYes" destination="PsF-hs-Tgf" id="BW9-dS-RnB"/>
+                <outlet property="shelvesLabel" destination="53l-he-IAi" id="EAP-Rd-KMm"/>
+                <outlet property="shelvesPanel" destination="kuf-bV-SKc" id="1A9-Ao-Vyc"/>
+                <outlet property="shelvesSwitch" destination="M1h-by-xM9" id="wl5-rB-q5G"/>
+                <outlet property="temperature" destination="yB6-Tw-qAc" id="c6L-FG-454"/>
+                <outlet property="typePlace" destination="9aY-m8-dN7" id="eLa-TK-84j"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="739" height="495"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="9aY-m8-dN7">
+                    <rect key="frame" x="20" y="35" width="707" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <segments>
+                        <segment title="Cupboard"/>
+                        <segment title="4/-20/-80/-130C" width="119"/>
+                        <segment title="Liquid Nitrogen" width="124"/>
+                        <segment title="Rack"/>
+                        <segment title="Box"/>
+                        <segment title="Cage"/>
+                        <segment title="Other"/>
+                    </segments>
+                    <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="typeChanged:" destination="-1" eventType="valueChanged" id="JNQ-kq-roX"/>
+                    </connections>
+                </segmentedControl>
+                <view contentMode="scaleToFill" id="kuf-bV-SKc">
+                    <rect key="frame" x="20" y="142" width="707" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="1" maximumValue="10" id="M1h-by-xM9">
+                            <rect key="frame" x="509" y="21" width="94" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="stepperChanged:" destination="-1" eventType="valueChanged" id="bWX-0x-QOe"/>
+                            </connections>
+                        </stepper>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of shelves:     " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="53l-he-IAi">
+                            <rect key="frame" x="91" y="25" width="324" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94473930027173914" green="0.94473930027173914" blue="0.94473930027173914" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" id="WEG-nK-vXj">
+                    <rect key="frame" x="20" y="214" width="707" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="1" maximumValue="10" id="s4f-nq-XMh">
+                            <rect key="frame" x="510" y="21" width="94" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="stepperChanged:" destination="-1" eventType="valueChanged" id="gWZ-bl-XeD"/>
+                            </connections>
+                        </stepper>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of racks per shelf:     " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HWE-Er-Czb">
+                            <rect key="frame" x="91" y="25" width="309" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="PsF-hs-Tgf">
+                            <rect key="frame" x="12" y="19" width="51" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="onTintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="switchChanged:" destination="-1" eventType="valueChanged" id="ajc-B4-rS1"/>
+                            </connections>
+                        </switch>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94473930029999997" green="0.94473930029999997" blue="0.94473930029999997" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" id="E1u-OT-DHc">
+                    <rect key="frame" x="20" y="286" width="707" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minimumValue="1" maximumValue="10" id="NxO-bK-3Lj">
+                            <rect key="frame" x="509" y="21" width="94" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="stepperChanged:" destination="-1" eventType="valueChanged" id="fiR-a5-R5a"/>
+                            </connections>
+                        </stepper>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of boxes per rack:     " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xdv-2M-MeC">
+                            <rect key="frame" x="91" y="25" width="302" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="RXC-4u-Fg4">
+                            <rect key="frame" x="11" y="19" width="51" height="31"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="onTintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="switchChanged:" destination="-1" eventType="valueChanged" id="2tt-U5-IwO"/>
+                            </connections>
+                        </switch>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94473930029999997" green="0.94473930029999997" blue="0.94473930029999997" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" id="f0K-f7-tWH">
+                    <rect key="frame" x="20" y="358" width="707" height="110"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="9" minimumValue="1" maximumValue="30" id="ihA-DH-Uv2">
+                            <rect key="frame" x="508" y="21" width="94" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="stepperChanged:" destination="-1" eventType="valueChanged" id="ndE-BQ-NYd"/>
+                            </connections>
+                        </stepper>
+                        <stepper opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="9" minimumValue="1" maximumValue="30" id="knv-Vg-r9f">
+                            <rect key="frame" x="508" y="65" width="94" height="29"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="stepperChanged:" destination="-1" eventType="valueChanged" id="5uu-TI-571"/>
+                            </connections>
+                        </stepper>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of rows per box:     " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3KG-g8-d6k">
+                            <rect key="frame" x="91" y="25" width="308" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Number of colums per box:     " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dQm-Tm-h4N">
+                            <rect key="frame" x="91" y="69" width="308" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94473930029999997" green="0.94473930029999997" blue="0.94473930029999997" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="2sb-09-0Id">
+                    <rect key="frame" x="88" y="93" width="242" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AJI-GZ-G2Q">
+                    <rect key="frame" x="20" y="97" width="60" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="yB6-Tw-qAc">
+                    <rect key="frame" x="388" y="94" width="339" height="29"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <segments>
+                        <segment title="4C"/>
+                        <segment title="-20C"/>
+                        <segment title="-80C"/>
+                        <segment title="-130C"/>
+                    </segments>
+                    <color key="tintColor" red="0.30935634870000001" green="0.57504670520000001" blue="0.22200162909999999" alpha="1" colorSpace="calibratedRGB"/>
+                </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="OLo-rr-lUf">
+                    <rect key="frame" x="616" y="445" width="77" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <state key="normal" title="Create">
+                        <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addPlace" destination="-1" eventType="touchUpInside" id="Rj4-10-8mQ"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

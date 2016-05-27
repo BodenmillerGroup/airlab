@@ -1,0 +1,45 @@
+<div class="input-group">
+  <span class="input-group-addon glyphicon glyphicon-search"></span>
+  <input type="text" class="form-control" placeholder="Search project" aria-describedby="basic-addon1" ng-model="search">
+</div>
+<div class="input-group">
+  <span class="input-group-addon glyphicon glyphicon-search"></span>
+  <input type="text" class="form-control" placeholder="Search within projects" aria-describedby="basic-addon1" ng-model="searchEnsayo">
+</div>
+
+<br><br><br>
+	
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat="plan in baseData.plansSharedList | filter:search" align="left">
+    <div class="panel-heading" role="tab" id="head_{{plan.plnPlanId}}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elem_{{plan.plnPlanId}}" aria-expanded="false" aria-controls="elem_{{plan.plnPlanId}}" onclick="return false;">
+          {{plan.plnTitle}}
+        </a>
+        	<span style="float:right;">Experiments
+				<span class="badge">
+					{{allGetters.ensayosShared(plan.plnPlanId).length}}
+				</span>
+        	</span>
+      </h4>
+    </div>
+    <div id="elem_{{plan.plnPlanId}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="head_{{plan.plnPlanId}}">
+      <div class="panel-body">
+	    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="addEnsayo(plan)">
+			Add Experiment <span class="glyphicon glyphicon-plus"></span>
+		</button>	
+		<br><br><br>
+		<div class="list-group">
+			<a class="list-group-item"  ng-repeat="ensayo in allGetters.ensayosShared(plan.plnPlanId) | filter:searchEnsayo" ng-click="clicked(ensayo)">
+			  {{ensayo.enyTitle}}
+			</a>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="settings_project"></div>				
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('settings_project', 'settings_project.html');
+</script>

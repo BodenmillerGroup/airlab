@@ -1,0 +1,69 @@
+<h3>{{panel.panName}}</h3>
+<div>
+	<button class="btn btn-default" ng-click="back()" style="margin: 5px; float:left;"><span class="glyphicon glyphicon-chevron-left"></span>   Back</button>
+	<button class="btn btn-success" ng-if="isMyPanel()" ng-click="resave(panelDetails)" style="margin: 5px;">Save changes   <span class="glyphicon glyphicon-floppy-disk"></button>
+</div>
+
+<br><br><br>
+
+
+<div>
+	Percentage oxidation <input type="text" ng-model="oxidation" value="3.0" style="width: 40px;" ng-change="computePanel()">%
+	<br>
+	<br>
+	+1 <input type="text" ng-model="one" style="width: 40px;"  ng-change="computePanel()">%
+	<br>
+	<br>
+	Calculate impurities <input type="checkbox" ng-model="impurities" ng-change="computePanel()">
+	<br><br>
+	All same intensity <input type="checkbox" ng-model="allSame" ng-change="computePanel()">
+	<span ng-if="allSame"><br><input type="text" ng-model="allSameValue" style="width: 40px;"  ng-change="computePanel()"> counts</span>
+	<br>
+	<br>
+	All same Tolerance <input type="checkbox" ng-model="allSameTolerance" ng-change="computePanel()">
+	<span ng-if="allSameTolerance"><br><input type="text" ng-model="allSameToleranceTolerance" style="width: 40px;"  ng-change="computePanel()"> counts</span>
+	<br>
+	<br>
+</div>
+<!-- {{panelDesigned}} -->
+<div>
+	<div style="width:100%; height: 600px;" id="theSVG" ng-if="panelDesigned">
+		<div class="bubbles" data="panelDesigned" datalength = "panelDesigned.length" variablexaxis="'emitted'" variableyaxis ="'received'" variableradius="'signal'" variablecolor="'type'" id="theSVG" counter="acounter">
+		</div>
+	</div>	
+</div>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="head">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" href="#settingsPanel" aria-expanded="false" aria-controls="settingsPanel" onclick="return false;">
+          Channel Settings
+        </a>
+      </h4>
+    </div>
+    <div id="settingsPanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="head">
+      <div class="list-group">
+		<div
+					  ng-repeat="linker in panelDetails | filter:search | orderBy:tagMW" style="text-align: left;"
+					  ng-class="{red_text: allGetters.conjugate(linker.plaLabeledAntibodyId, linker).tubIsLow == '1', 
+						  crossed_text: allGetters.conjugate(linker.plaLabeledAntibodyId, linker).tubFinishedBy > 0}" class="list-group-item">
+				{{makeBool(linker)}}
+				<input type="checkbox" ng-model="linker.ignore" ng-change="computePanel()">
+		<!-- 	    {{allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labBBTubeNumber}} -->
+			    {{allGetters.tag(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labTagId, linker).tagName+allGetters.tag(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labTagId, linker).tagMW}}
+			    {{allGetters.protein(allGetters.clone(allGetters.lot(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labLotId).lotCloneId, linker).cloProteinId, linker).proName}}
+			    {{allGetters.clone(allGetters.lot(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labLotId).lotCloneId, linker).cloName}}
+			    
+				<span style="float: right; font-size: 12px;">Tolerance: 
+					<input style="width: 40px; " type="text" ng-model="linker.plaTolerance" ng-change="computePanel()">
+				</span>	    
+			    
+				<span style="float: right; font-size: 12px;">Counts Expected: 
+		    	    <input style="width: 40px;" type="text" ng-model="linker.plaExpected" ng-value="linker.plaExpected | number" ng-change="computePanel()">&nbsp;&nbsp;&nbsp;
+				</span>				 
+			</div>        
+      </div>
+    </div>
+  </div>
+</div>

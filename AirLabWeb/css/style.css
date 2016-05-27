@@ -1,0 +1,539 @@
+#control_color_background_about { background-color: #e3b92d; }
+#control_color_background_navi { background-color: #000000; }
+#control_color_background_content { background-color: #3b2e03; }
+#control_color_text_about_name { background-color: #fafafa; }
+#control_color_text_about_date { background-color: #fafafa; }
+#control_color_text_about_location { background-color: #fafafa; }
+#control_color_text_about_message { background-color: #FFFFFF; }
+#control_color_text_navigation_links { background-color: #fafafa; }
+#control_color_text_content { background-color: #fafafa; }
+#control_color_text_headers { background-color: #fafafa; }
+#control_color_text_links { background-color: #3b2e03; }
+#about { background: rgba(227,185,45,0.5); }
+#navi { background: rgba(0,0,0,0.6); }
+#contenido { background: rgba(0,0,0,0.3); }
+#content { background: rgba(253,155,6,1); }
+#about_name { color: #fafafa; }
+#about_date { color: #fafafa; }
+#about_location { color: #fafafa; }
+#about_message { color: #FFFFFF; }
+#content { color: #fafafa; }
+#container a, #container a:visited, #container a:active, #container a:hover { color: #fc8d04; }
+#navigation_links li a, #navigation_links li a:visited, #navigation_links li a:active, #navigation_links li a:hover { color: #fafafa; }
+#content h1 { color: #fafafa; }
+#content h2 { color: #fafafa; }
+#content h3 { color: #fafafa; }
+#about_name { font-size: 80px; }
+#about_date { font-size: 48px; }
+#about_location { font-size: 45px; }
+#about_message { font-size: 12px; }
+#content { font-size: 24px; }
+#navigation_links { font-size: 28px; }
+#content h1 { font-size: 55px; }
+#content h2 { font-size: 38px; }
+#content h3 { font-size: 28px; }
+#content h5 { font-size: 18px; }
+#about_name { font-family: 'Pacifico'; }
+#about_date { font-family: 'Playball'; }
+#content_invite { 
+	font-family: 'Playball'; 
+	font-size: 36px;
+	text-align: center;
+	color: #c8be5f;
+	padding: 20px;
+	background: rgba(0,0,0,0.6);
+	
+}
+#content_invite a:link {
+    color: #FF0000;
+}
+#content_invite h1 {font-size: : 120px;}
+#about_location { font-family: 'Blackjack'; }
+#about_message { font-family: 'Yanone Kaffeesatz'; }
+#navigation_links { font-family: 'Ostrich Sans'; }
+#content { font-family: 'Open Sans Condensed'; }
+#content h1 { font-family: 'Ostrich Sans'; }
+#content h2 { font-family: 'Ostrich Sans'; }
+#content h3 { font-family: 'Open Sans Condensed'; }
+#content h5 { font-family: 'Open Sans Condensed'; }
+#button { font-family: 'Open Sans Condensed';color: white;}
+#home_navigation_title { text-transform: capitalize; }
+#about_date { text-transform: capitalize; }
+      
+      
+        #content #rsvp #rsvp-form #rsvp-content {
+          background-color: #ffffff;
+          color: #000000;
+          border-radius: 4px;
+        }
+      
+        #content #rsvp #rsvp-form {
+          background-color: #ffffff;
+          border-radius: 4px;
+          padding: 14px;
+        }
+      #content #rsvp #rsvp-form { background-image: url(//d27bu0n70kzs4u.cloudfront.net/assets/mail-stripes-9d3becbb1c4c5880652f645dad50af3c.png); }
+        #content #rsvp #rsvp-form #rsvp-content #rsvp-heading #rsvp-couple #rsvp-names {
+          color: #000000;
+          font-size: 24px;
+        }
+        #content #rsvp #rsvp-form #rsvp-content #rsvp-heading #rsvp-couple #rsvp-date {
+          color: #000000;
+          font-size: 18px;
+        }
+      
+        #content #rsvp #rsvp-form #rsvp-content ul#rsvp-fields-form > li.field-display label.field-label-display {
+          color: #000000;
+          font-size: 16px;
+        }
+        #content #rsvp #rsvp-form #rsvp-content ul#rsvp-fields-form > li.field-display input[type="text"], #content #rsvp #rsvp-form #rsvp-content ul#rsvp-fields-form > li.field-display textarea, #content #rsvp #rsvp-form #rsvp-content ul#rsvp-fields-form > li.field-display label.field-display-choice {
+          color: #000000;
+          font-size: 16px;
+        }
+      
+        #content #rsvp #rsvp-form #rsvp-content ul#rsvp-fields-form button[type="submit"] {
+          background: #6d97cc;
+          color: #d61313;
+          font-size: 14px;
+          border-radius: 4px;
+        }
+        
+#profile_link{
+	font-family: "Ostrich Sans";
+	font-size: 28px;
+	float: right;
+}
+
+
+
+#navigation_links{
+	margin: 0px;
+	padding: 8px;
+	background-color: #f98c06;/*rgba(0,0,0,0.6);*/
+	
+	font-size: 28px;
+	font-family: "Ostrich Sans";
+}
+
+#navi{
+	position: fixed;
+	float: center;
+	text-align: left;
+	width: 99%;
+	margin-top: 0px;
+    vertical-align: baseline;
+}
+
+#navi ul li{
+	margin-left: 20px;
+	display: inline-block;
+}
+
+a:visited, a:link
+{
+	text-decoration: none;
+	color: #f98c06;
+}
+
+body{
+	color: gray;
+	font-family: Helvetica;
+	font-size: 20px;
+}
+
+#logo{
+	padding-left: 0px;
+}
+
+#welcome_message{
+	text-align: center;
+	font-size: 26px;
+}
+
+.odd_row{
+	background-color: white;
+}
+
+.even_row{
+	/*background-color: rgba(127,127,127,0.38);*/
+	background-color: rgba(250,140,5,0.48);
+	color: white;
+}
+
+#footer {
+   position:fixed;
+   bottom:0;
+   width:100%;
+   height:14px;   /* Height of the footer */
+   text-align: center;
+   font-size: 12px;
+}
+
+/*Modal from http://www.webdesignerdepot.com/2012/10/creating-a-modal-window-with-html5-and-css3/*/
+
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.modalDialog > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+}
+
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.close:hover { background: #00d9ff; }
+
+#modal-form{
+	font-size: 14px;
+}
+
+table, td, th {
+    border: 0px;
+    border-bottom: 1px solid gray;
+    border-collapse: collapse;
+}
+
+.clean_table{
+	border-style: hidden;
+	padding-bottom: 5px;
+}
+
+button {
+  display: inline-block;
+  margin: 5px 5px 5px 5px;
+  padding: 2.5px 2.5px;
+  font-size: 11px;
+  line-height: 1.8;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 4;
+  border: none;
+  width: 100px;/* override inline*/
+  float: right;
+}
+
+button:focus {
+  outline: none;
+}
+
+.green_button{
+	background: rgb(28, 184, 65);
+	color: white;
+}
+
+.red_button{
+	background: rgb(202, 60, 60);
+	color: white;
+}
+
+.white_button{
+	background: rgba(255,255,255,1);
+	color: gray;
+}
+
+.dim_red_button{
+	background: rgba(202, 60, 60, 0.3);
+	color: white;
+}
+
+.gray_button{
+	background: rgba(203,204,201,1);
+	color: white;
+}
+
+.dim_gray_button{
+	background: rgba(202, 60, 60, 0.3);
+	color: white;
+}
+
+.blue_button{
+	background: rgb(66, 184, 221);
+	color: white;
+}
+
+.orange_button{
+	background: rgb(223, 117, 20);
+	color: white;
+}
+
+.orange_button_inverted{
+	background: white;
+	color: rgb(223, 117, 20);
+}
+
+.red_text{
+	color: red;
+}
+
+.crossed_text{
+	color: #bfb6b6;
+	text-decoration: line-through;
+}
+
+/*modales angular*/
+.modal-open {
+    overflow: hidden
+}
+
+.modal {
+    display: none;
+    overflow: auto;
+    overflow-y: scroll;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    -webkit-overflow-scrolling: touch;
+    outline: 0
+}
+
+.modal.fade .modal-dialog {
+    -webkit-transform: translate(0, -25%);
+    -ms-transform: translate(0, -25%);
+    transform: translate(0, -25%);
+    -webkit-transition: -webkit-transform .3s ease-out;
+    -moz-transition: -moz-transform .3s ease-out;
+    -o-transition: -o-transform .3s ease-out;
+    transition: transform .3s ease-out
+}
+
+.modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0)
+}
+
+.modal-dialog {
+    position: relative;
+    width: auto;
+    margin: 10px
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #999;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+    background-clip: padding-box;
+    outline: 0
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1040;
+    background-color: #000
+}
+
+.modal-backdrop.fade {
+    opacity: 0;
+    filter: alpha(opacity=0)
+}
+
+.modal-backdrop.in {
+    opacity: .5;
+    filter: alpha(opacity=50)
+}
+
+.modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    min-height: 16.42857143px
+}
+
+.modal-header .close {
+    margin-top: -2px
+}
+
+.modal-title {
+    margin: 0;
+    line-height: 1.42857143
+}
+
+.modal-body {
+    position: relative;
+    padding: 20px
+}
+
+.modal-footer {
+    margin-top: 15px;
+    padding: 19px 20px 20px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5
+}
+
+.modal-footer .btn+.btn {
+    margin-left: 5px;
+    margin-bottom: 0
+}
+
+.modal-footer .btn-group .btn+.btn {
+    margin-left: -1px
+}
+
+.modal-footer .btn-block+.btn-block {
+    margin-left: 0
+}
+
+/*Accordion https://github.com/sherwaniusman/angular-accordion */
+.collapsible-item {
+  margin-bottom: 10px;
+}
+
+.collapsible-item .title {
+  padding: 10px;
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #b91414 0%, #e6e6e6 100%);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  border: 1px solid #ccc;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  cursor: pointer;
+}
+
+.collapsible-item .title .icon {
+  float: right;
+  height: 20px;
+  width: 20px;
+  font-size: 19px !important;
+  padding-right: 1px;
+}
+
+.collapsible-item .title .iconleft {
+  float: left !important;
+}
+
+.collapsible-item .body {
+  position: relative;
+  top: -4px;
+  max-height: 0;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  border-top: 0;
+  z-index: -1;
+  -webkit-transition: max-height 0.5s ease;
+     -moz-transition: max-height 0.5s ease;
+       -o-transition: max-height 0.5s ease;
+          transition: max-height 0.5s ease;
+}
+
+.collapsible-item .body .content {
+  padding: 20px 15px;
+}
+
+.collapsible-item.open .body {
+  max-height: 600px;
+  z-index: 1;
+}
+
+.collapsible-item.open .title {
+  -webkit-border-radius: 5px 5px 0 0;
+     -moz-border-radius: 5px 5px 0 0;
+          border-radius: 5px 5px 0 0;
+}
+/*End accordion*/
+
+.progress-bar {
+    width: 300px; height: 14px;
+    border-radius: 10px;
+    border: 1px solid #CCC;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#6666cc), to(#4b4b95));
+    border-image: initial;
+}
+.uploaded {
+    padding: 0;
+    height: 14px;
+    border-radius: 10px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#66cc00), to(#4b9500));
+    border-image: initial;
+}
+.dropbox {
+    width: 15em;
+    height: 3em;
+    border: 2px solid #DDD;
+    border-radius: 8px;
+    background-color: #FEFFEC;
+    text-align: center;
+    color: #BBB;
+    font-size: 2em;
+    font-family: Arial, sans-serif;
+}
+.dropbox span {
+    margin-top: 0.9em;
+    display: block;
+}
+.dropbox.not-available {
+    background-color: #F88;
+}
+.dropbox.over {
+    background-color: #bfb;
+}
+
+.edit_button{
+	content: "\270E";
+}
+
+.delete_button{
+	content: "\2718";
+}
+
+/*
+.check{
+	text-align: center;
+	background-color: green;
+}
+*/

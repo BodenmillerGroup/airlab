@@ -1,0 +1,142 @@
+<div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">Event:</h4>
+      </div>
+      <div class="modal-body">
+	
+
+	    <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty" ng-model="event.title" placeholder="Title of the event...">
+	    <div class="input-group">
+		    <span class="input-group-addon">Type</span>
+		    <select ng-model="event.type" class="form-control ng-pristine ng-untouched ng-valid ng-not-empty">
+		        <option value="important">Important</option>
+		        <option value="warning">Warning</option>
+		        <option value="info">Info</option>
+		        <option value="inverse">Inverse</option>
+		        <option value="success">Success</option>
+		        <option value="special">Special</option>
+		    </select>
+	    </div>
+		<div class="input-group">
+			<span class="input-group-addon">
+	        	<input type="checkbox"  ng-model="event.cevAllDay" ng-click="">
+			</span>
+			<input type="text" value="All Day Event" readonly="" class="form-control" aria-label="...">
+		</div>
+		<br>
+	
+		<table class="table table-bordered">
+		
+		    <thead>
+		      <tr>
+		        <th>Starts at</th>
+		        <th>Ends at</th>
+		      </tr>
+		    </thead>
+		
+		    <tbody>
+		      <tr>
+		        <td>
+		          <div class="input-group" style="max-width: 250px">
+		            <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty ng-valid-date input-group-item" readonly="" uib-datepicker-popup="dd MMMM yyyy" ng-model="event.startsAt" is-open="event.startOpen" close-text="Close">
+		            <button type="button" class="btn btn-default input-group-item" ng-click="vm.toggle($event, 'startOpen', event)">
+		                <i class="glyphicon glyphicon-calendar"></i>
+		            </button>
+		            <div uib-datepicker-popup-wrap="" ng-model="date" 
+			            ng-model-options="ngModelOptions" ng-change="dateSelection(date)" template-url="uib/template/datepicker/popup.html" class="ng-not-empty ng-valid">
+					</div>
+
+		          </div>
+		          <table class="uib-timepicker ng-untouched ng-valid ng-isolate-scope ng-not-empty ng-valid-time ng-dirty" ng-model="event.startsAt" hour-step="1" minute-step="15" show-meridian="true" style="">
+					  <tbody>
+					    <tr class="text-center" ng-show="!event.cevAllDay">
+					      <td class="uib-increment hours"><a ng-click="incrementHours()" ng-class="{disabled: noIncrementHours()}" class="btn btn-link" ng-disabled="noIncrementHours()" tabindex="0"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+					      <td>&nbsp;</td>
+					      <td class="uib-increment minutes"><a ng-click="incrementMinutes()" ng-class="{disabled: noIncrementMinutes()}" class="btn btn-link" ng-disabled="noIncrementMinutes()" tabindex="0"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+					      <td ng-show="showSeconds" class="ng-hide">&nbsp;</td>
+					      <td ng-show="showSeconds" class="uib-increment seconds ng-hide"><a ng-click="incrementSeconds()" ng-class="{disabled: noIncrementSeconds()}" class="btn btn-link" ng-disabled="noIncrementSeconds()" tabindex="0"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+					      <td ng-show="showMeridian" class=""></td>
+					    </tr>
+					    <tr  ng-show="!event.cevAllDay">
+					      <td class="form-group uib-time hours" ng-class="{'has-error': invalidHours}">
+					        <input style="width:50px;" type="text" placeholder="HH" ng-model="hours" ng-change="updateHours()" class="form-control text-center ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength" ng-readonly="::readonlyInput" maxlength="2" tabindex="0" ng-disabled="noIncrementHours()" ng-blur="blur()">
+					      </td>
+					      <td class="uib-separator">:</td>
+					      <td class="form-group uib-time minutes" ng-class="{'has-error': invalidMinutes}">
+					        <input style="width:50px;" type="text" placeholder="MM" ng-model="minutes" ng-change="updateMinutes()" class="form-control text-center ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength" ng-readonly="::readonlyInput" maxlength="2" tabindex="0" ng-disabled="noIncrementMinutes()" ng-blur="blur()">
+					      </td>
+					      <td ng-show="showSeconds" class="uib-separator ng-hide">:</td>
+					      <td class="form-group uib-time seconds ng-hide" ng-class="{'has-error': invalidSeconds}" ng-show="showSeconds">
+					        <input style="width:50px;" type="text" placeholder="SS" ng-model="seconds" ng-change="updateSeconds()" class="form-control text-center ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength" ng-readonly="readonlyInput" maxlength="2" tabindex="0" ng-disabled="noIncrementSeconds()" ng-blur="blur()">
+					      </td>
+					      <td ng-show="showMeridian" class="uib-time am-pm"><button type="button" ng-class="{disabled: noToggleMeridian()}" class="btn btn-default text-center ng-binding" ng-click="toggleMeridian()" ng-disabled="noToggleMeridian()" tabindex="0">AM</button></td>
+					    </tr>
+					    <tr class="text-center" ng-show="!event.cevAllDay">
+					      <td class="uib-decrement hours"><a ng-click="decrementHours()" ng-class="{disabled: noDecrementHours()}" class="btn btn-link" ng-disabled="noDecrementHours()" tabindex="0"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+					      <td>&nbsp;</td>
+					      <td class="uib-decrement minutes"><a ng-click="decrementMinutes()" ng-class="{disabled: noDecrementMinutes()}" class="btn btn-link" ng-disabled="noDecrementMinutes()" tabindex="0"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+					      <td ng-show="showSeconds" class="ng-hide">&nbsp;</td>
+					      <td ng-show="showSeconds" class="uib-decrement seconds ng-hide"><a ng-click="decrementSeconds()" ng-class="{disabled: noDecrementSeconds()}" class="btn btn-link" ng-disabled="noDecrementSeconds()" tabindex="0"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+					      <td ng-show="showMeridian" class=""></td>
+					    </tr>
+					  </tbody>
+					</table>
+		        </td>
+		        <td>
+		          <p class="input-group" style="max-width: 250px">
+		            <input type="text" class="form-control ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty ng-valid-date" readonly="" uib-datepicker-popup="dd MMMM yyyy" ng-model="event.endsAt" is-open="event.endOpen" close-text="Close">
+		              <button type="button" class="btn btn-default" ng-click="vm.toggle($event, 'endOpen', event)">
+		                <i class="glyphicon glyphicon-calendar"></i>
+		              </button>
+		            <div uib-datepicker-popup-wrap="" ng-model="date" 
+			            ng-model-options="ngModelOptions" ng-change="dateSelection(date)" template-url="uib/template/datepicker/popup.html" class="ng-not-empty ng-valid">
+					</div>
+		          </p>
+		          <table class="uib-timepicker ng-pristine ng-untouched ng-valid ng-isolate-scope ng-not-empty ng-valid-time" ng-model="event.endsAt" hour-step="1" minute-step="15" show-meridian="true">
+					  <tbody>
+					    <tr class="text-center" ng-show="!event.cevAllDay">
+					      <td class="uib-increment hours"><a ng-click="incrementHours()" ng-class="{disabled: noIncrementHours()}" class="btn btn-link" ng-disabled="noIncrementHours()" tabindex="0"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+					      <td>&nbsp;</td>
+					      <td class="uib-increment minutes"><a ng-click="incrementMinutes()" ng-class="{disabled: noIncrementMinutes()}" class="btn btn-link" ng-disabled="noIncrementMinutes()" tabindex="0"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+					      <td ng-show="showSeconds" class="ng-hide">&nbsp;</td>
+					      <td ng-show="showSeconds" class="uib-increment seconds ng-hide"><a ng-click="incrementSeconds()" ng-class="{disabled: noIncrementSeconds()}" class="btn btn-link" ng-disabled="noIncrementSeconds()" tabindex="0"><span class="glyphicon glyphicon-chevron-up"></span></a></td>
+					      <td ng-show="showMeridian" class=""></td>
+					    </tr>
+					    <tr ng-show="!event.cevAllDay">
+					      <td class="form-group uib-time hours" ng-class="{'has-error': invalidHours}">
+					        <input style="width:50px;" type="text" placeholder="HH" ng-model="hours" ng-change="updateHours()" class="form-control text-center ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength" ng-readonly="::readonlyInput" maxlength="2" tabindex="0" ng-disabled="noIncrementHours()" ng-blur="blur()">
+					      </td>
+					      <td class="uib-separator">:</td>
+					      <td class="form-group uib-time minutes" ng-class="{'has-error': invalidMinutes}">
+					        <input style="width:50px;" type="text" placeholder="MM" ng-model="minutes" ng-change="updateMinutes()" class="form-control text-center ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength" ng-readonly="::readonlyInput" maxlength="2" tabindex="0" ng-disabled="noIncrementMinutes()" ng-blur="blur()">
+					      </td>
+					      <td ng-show="showSeconds" class="uib-separator ng-hide">:</td>
+					      <td class="form-group uib-time seconds ng-hide" ng-class="{'has-error': invalidSeconds}" ng-show="showSeconds">
+					        <input style="width:50px;" type="text" placeholder="SS" ng-model="seconds" ng-change="updateSeconds()" class="form-control text-center ng-pristine ng-untouched ng-valid ng-not-empty ng-valid-maxlength" ng-readonly="readonlyInput" maxlength="2" tabindex="0" ng-disabled="noIncrementSeconds()" ng-blur="blur()">
+					      </td>
+					      <td ng-show="showMeridian" class="uib-time am-pm"><button type="button" ng-class="{disabled: noToggleMeridian()}" class="btn btn-default text-center ng-binding" ng-click="toggleMeridian()" ng-disabled="noToggleMeridian()" tabindex="0">PM</button></td>
+					    </tr>
+					    <tr class="text-center" ng-show="!event.cevAllDay">
+					      <td class="uib-decrement hours"><a ng-click="decrementHours()" ng-class="{disabled: noDecrementHours()}" class="btn btn-link" ng-disabled="noDecrementHours()" tabindex="0"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+					      <td>&nbsp;</td>
+					      <td class="uib-decrement minutes"><a ng-click="decrementMinutes()" ng-class="{disabled: noDecrementMinutes()}" class="btn btn-link" ng-disabled="noDecrementMinutes()" tabindex="0"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+					      <td ng-show="showSeconds" class="ng-hide">&nbsp;</td>
+					      <td ng-show="showSeconds" class="uib-decrement seconds ng-hide"><a ng-click="decrementSeconds()" ng-class="{disabled: noDecrementSeconds()}" class="btn btn-link" ng-disabled="noDecrementSeconds()" tabindex="0"><span class="glyphicon glyphicon-chevron-down"></span></a></td>
+					      <td ng-show="showMeridian" class=""></td>
+					    </tr>
+					  </tbody>
+					</table>
+		        </td>
+		      </tr>
+		    </tbody>
+		
+		  </table>
+      </div>
+      <div class="modal-footer">
+	      <button type="button" class="btn btn-success" ng-click="nextAddEventModal()">Continue</button>
+      </div>
+</div>
+

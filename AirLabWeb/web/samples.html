@@ -1,0 +1,162 @@
+<div class="input-group">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-search"></span>
+  </span>
+  <input type="text" class="form-control" placeholder="Search for samples" aria-describedby="basic-addon1" ng-model="gensearch">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-remove" ng-click="gensearch = null"></span>
+  </span>
+</div>
+<br>
+<div>
+<button type="button" class="btn btn-success" ng-click="addSample()" data-toggle="modal" data-target="#addSample">Add Sample  <span class="glyphicon glyphicon-plus"></span></button>
+</div> 
+<br>
+<br>
+<br>
+<div ng-if="whatParent.length > 0">
+	<button style="float: left;" class="btn btn-default" ng-click="back()" ><span class="glyphicon glyphicon-chevron-left"></span></button><br><br><br>
+	<ol class="breadcrumb" style="text-align: left;">
+	  <li ng-class="active: $index == whatParent.length - 1" ng-repeat="item in whatParent">
+	  	<a href="#" ng-click="goToParent($index + 1)" onclick="return false;">{{item.samName?item.samName+' ':''}}{{item.samType?'('+item.samType+')':''}}</a>
+	  </li>
+	</ol>
+</div>
+<!-- As you land and no search -->
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-if="(gensearch.length == 0 || !gensearch) && whatParent.length == 0">
+  <div class="panel panel-default" ng-repeat="(key, value) in baseData.samplesReorderedList" ng-if="showCat(key)">
+    <div class="panel-heading" role="tab" id="head_{{key}}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elem_{{key}}" aria-expanded="false" aria-controls="elem_{{key}}" onclick="return false;">
+          {{baseData.samplesReorderedList[key][0].samType}}
+        </a>
+      </h4>
+    </div>
+    <div id="elem_{{key}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="head_{{key}}">
+      <div class="panel-body">
+	    <div class="input-group">
+		  <span class="input-group-addon">
+		  		<span class="glyphicon glyphicon-search"></span>
+		  </span>
+		  <input type="text" class="form-control" placeholder="Search for samples" aria-describedby="basic-addon1" ng-model="searcha">
+		  <span class="input-group-addon">
+		  		<span class="glyphicon glyphicon-remove" ng-click="search = null"></span>
+		  </span>
+		</div>
+	      
+	      
+	    <div class="list-group">
+		    <div align="left" class="list-group-item hover-orange" ng-repeat="sample in baseData.samplesList | filter:searcha" ng-click="seeChildren(sample, $event)" ng-if="showSample(sample, key)">
+			    <span style="float: left;" class="badge">#{{sample.samSampleId}}</span><span>&nbsp;&nbsp;&nbsp;{{sample.samName}}</span>
+	    	    &nbsp;&nbsp;{{sample.samConcentration}}&nbsp;&nbsp;{{sample.samAmount}}
+
+			    <span style="float: right;"class="glyphicon glyphicon-chevron-right" ng-if="childrenOfSample(sample).length>0"></span>&nbsp;&nbsp;
+			    
+			    <div class="btn-group" style="float: right;">
+				  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="cancelProp()">
+				     <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li><a href="#" onclick="return false;" ng-click="seeSample(sample, $event)" data-toggle="modal" data-target="#addSample">
+					    <span class="glyphicon glyphicon-edit"></span>   See details/Edit</a></li>
+				    <li><a href="#" onclick="return false;" ng-click="addAliquots(sample)">
+					    <span class="glyphicon glyphicon-tube"></span>   Add Aliquots</a></li>
+				    <li><a href="#" onclick="return false;" ng-click="duplicate(sample)">
+					    <span class="glyphicon glyphicon-tube"></span>   Use as template to create new</a></li>
+				    <li role="separator" class="divider"></li>
+				    <li><a href="#" onclick="return false;" ng-click="deleteSample(sample)">
+					    <span class="glyphicon glyphicon-pencil"></span>   Delete Sample</a></li>
+				  </ul>
+				</div>
+			    
+		    </div>
+	    </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Navigating -->
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" ng-if="(gensearch.length == 0 || !gensearch) && whatParent.length > 0">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="head_{{lastParent().samName}}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elem_{{lastParent().samName}}" 
+	        aria-expanded="false" aria-controls="elem_{{lastParent().samName}}" onclick="return false;">
+          {{lastParent().samName}}
+        </a>
+      </h4>
+    </div>
+    <div id="elem_{{lastParent().samName}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="head_{{lastParent().samName}}">
+      <div class="panel-body">
+	    <div class="input-group" ng-if="childrenOfSample(lastParent()).length>10">
+		  <span class="input-group-addon">
+		  		<span class="glyphicon glyphicon-search"></span>
+		  </span>
+		  <input type="text" class="form-control" placeholder="Search for samples" aria-describedby="basic-addon1" ng-model="searchb">
+		  <span class="input-group-addon">
+		  		<span class="glyphicon glyphicon-remove" ng-click="search = null"></span>
+		  </span>
+		</div>
+	      
+	      
+	    <div class="list-group">
+		    <div align="left" class="list-group-item hover-orange" ng-repeat="sample in childrenOfSample(lastParent()) | filter:searchb" ng-click="seeChildren(sample, $event)" ng-if="showSample(sample, key)">
+			    <span style="float: left;" class="badge">#{{sample.samSampleId}}</span><span>&nbsp;&nbsp;&nbsp;{{sample.samName}}</span>
+		   	    &nbsp;&nbsp;{{sample.samConcentration}}&nbsp;&nbsp;{{sample.samAmount}}
+
+			    <span style="float: right;"class="glyphicon glyphicon-chevron-right" ng-if="childrenOfSample(sample).length>0"></span>&nbsp;&nbsp;
+			    
+			    <div class="btn-group" style="float: right;">
+				  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="cancelProp()">
+				     <span class="caret"></span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li><a href="#" onclick="return false;" ng-click="seeSample(sample, $event)" data-toggle="modal" data-target="#addSample">
+					    <span class="glyphicon glyphicon-edit"></span>   See details/Edit</a></li>
+				    <li><a href="#" onclick="return false;" ng-click="addAliquots(sample)">
+					    <span class="glyphicon glyphicon-tube"></span>   Add Aliquots</a></li>
+				    <li><a href="#" onclick="return false;" ng-click="duplicate(sample)">
+					    <span class="glyphicon glyphicon-tube"></span>   Use as template to create new</a></li>
+				    <li role="separator" class="divider"></li>
+				    <li><a href="#" onclick="return false;" ng-click="deleteSample(sample)">
+					    <span class="glyphicon glyphicon-pencil"></span>   Delete Sample</a></li>
+				  </ul>
+				</div>
+			    
+		    </div>
+	    </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- General Search -->
+<div class="list-group">
+    <div align="left" class="list-group-item hover-orange" ng-repeat="sample in baseData.samplesList | filter:gensearch" ng-click="seeChildren(sample)" ng-if="gensearch.length>0">
+	    <span style="float: left;" class="badge">#{{sample.samSampleId}}</span><span>&nbsp;&nbsp;&nbsp;{{sample.samName}}</span>&nbsp;&nbsp;<small>{{sample.samType}}</small>
+	    &nbsp;&nbsp;{{sample.samConcentration != 0?sample.samConcentration:''}}&nbsp;&nbsp;{{sample.samAmount != 0?sample.samAmount:''}}
+	    <div class="btn-group" style="float: right;">
+		  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="cancelProp($event)">
+		     <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li><a href="#" onclick="return false;" ng-click="seeSample(sample, $event)" data-toggle="modal" data-target="#addSample">
+			    <span class="glyphicon glyphicon-edit"></span>   See details/Edit</a></li>
+		    <li><a href="#" onclick="return false;" ng-click="addAliquots(sample)">
+			    <span class="glyphicon glyphicon-tube"></span>   Add Aliquots</a></li>
+		    <li><a href="#" onclick="return false;" ng-click="duplicate(sample)">
+			    <span class="glyphicon glyphicon-tube"></span>   Use as template to create new</a></li>
+		    <li role="separator" class="divider"></li>
+		    <li><a href="#" onclick="return false;" ng-click="deleteSample(sample)">
+			    <span class="glyphicon glyphicon-pencil"></span>   Delete Sample</a></li>
+		  </ul>
+		</div>
+	    
+    </div>
+</div>
+
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('modal_addSample', 'add_sample.html');
+</script>
+<div id="modal_addSample"></div>

@@ -1,0 +1,85 @@
+<link href="./css/antibodyButtons.css" type="text/css" rel="stylesheet" />
+
+<div class="input-group">
+  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+  <input type="text" class="form-control" placeholder="Search for panels" aria-describedby="basic-addon1" ng-model="search">
+</div>
+<br>
+<div>
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPanel" ng-click="addPanel()">Add Panel  <span class="glyphicon glyphicon-plus"></span></button>
+</div>
+
+<br><br><br>
+
+<!-- <tr ng-class-odd="'odd_row'" ng-class-even="'odd_row'" ng-repeat="panel in baseData.panelsList | filter:search" ng-click="clicked(panel.panPanelId)"> -->
+
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" align="left">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+	      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elemmypanels" aria-expanded="false" aria-controls="elemmypanels" onclick="return false;">
+		  	My Panels
+	      </a>
+      </h4>
+    </div>
+	<div id="elemmypanels" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="headmypanels">
+		<nav>
+		  <ul class="pagination" ng-if="numberOfPages(baseData.myPanelsList)>1 && (!search || search.length == 0)">
+		    <li ng-class="{disabled: page == 0}"><span ng-click="changePage(0)">&laquo;</span></li>
+		    <li ng-class="{disabled: page == 0}"><span ng-click="changePage(page-1)">&lt;</span></li>  
+		    <li ng-class="{active: page == $index}" ng-repeat="_ in ((_ = []) && (_.length=numberOfPages(baseData.myPanelsList)) && _) track by $index" ng-click="changePage($index)" ng-if="$index>page-5 && $index<page+5">
+		    	<span>{{$index + 1}}
+		    	</span>
+		    </li>
+		    <li ng-class="{disabled: page == numberOfPages(baseData.myPanelsList)-1}"><span ng-click="changePage(page+1)">&gt;</span></li>    
+		    <li ng-class="{disabled: page == numberOfPages(baseData.myPanelsList)-1}"><span ng-click="changePage(numberOfPages(baseData.myPanelsList)-1)">&raquo;</span></li>    
+		  </ul>
+		</nav>		
+		<div class="list-group">
+			<a class="list-group-item" ng-repeat="panel in baseData.myPanelsList | filter:search | orderBy:'-panPanelId'" ng-click="clicked(panel)" ng-if="conditionsPaging($index, search)">
+			  {{panel.panName}} ({{allGetters.personFromLinker(panel.createdBy).perName}} {{allGetters.personFromLinker(panel.createdBy).perLastname}})
+			</a>
+		</div>
+    </div>
+  </div>
+  
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab">
+      <h4 class="panel-title">
+	      <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elemotherpanels" aria-expanded="false" aria-controls="elemotherpanels" onclick="return false;">
+		  	Other Panels
+	      </a>
+      </h4>
+    </div>
+	<div id="elemotherpanels" class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="headotherpanels">
+		<nav>
+		  <ul class="pagination" ng-if="numberOfPages(baseData.otherPanelsList)>1 && (!search || search.length == 0)">
+		    <li ng-class="{disabled: page == 0}"><span ng-click="changePage(0)">&laquo;</span></li>
+		    <li ng-class="{disabled: page == 0}"><span ng-click="changePage(page-1)">&lt;</span></li>  
+		    <li ng-class="{active: page == $index}" ng-repeat="_ in ((_ = []) && (_.length=numberOfPages(baseData.otherPanelsList)) && _) track by $index" ng-click="changePage($index)" ng-if="$index>page-5 && $index<page+5">
+		    	<span>{{$index + 1}}
+		    	</span>
+		    </li>
+		    <li ng-class="{disabled: page == numberOfPages(baseData.otherPanelsList)-1}"><span ng-click="changePage(page+1)">&gt;</span></li>    
+		    <li ng-class="{disabled: page == numberOfPages(baseData.otherPanelsList)-1}"><span ng-click="changePage(numberOfPages(baseData.otherPanelsList)-1)">&raquo;</span></li>    
+		  </ul>
+		</nav>
+		<div class="list-group">
+			<a class="list-group-item" ng-repeat="panel in baseData.otherPanelsList | filter:search" ng-click="clicked(panel)" ng-if="conditionsPaging($index, search)">
+			  {{panel.panName}} ({{allGetters.personFromLinker(panel.createdBy).perName}} {{allGetters.personFromLinker(panel.createdBy).perLastname}})
+			</a>
+		</div>
+    </div>
+  </div>
+</div>
+
+
+<div id="help_button"><button class="btn btn-warning help_button" data-toggle="modal" data-target="#helpPanels"><span class="glyphicon glyphicon-question-sign"></span></button></div>
+<!-- 	MODALS -->
+<div id="help_panels"></div>
+<div id="add_panel"></div>				
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('help_panels', 'help_panels.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_panel', 'add_panel.html');
+</script>

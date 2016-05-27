@@ -1,0 +1,268 @@
+<button class="btn btn-default" ng-click="back()" style="margin: 5px; float:left;"><span class="glyphicon glyphicon-chevron-left"></span></button>
+
+<h1>
+	<span ng-if="selectedExperiment.nameeditable == false">{{selectedExperiment.enyTitle}}    
+	</span>
+	<input type="text" ng-if="selectedExperiment.nameeditable == true" ng-model="selectedExperiment.enyTitle">
+	<span ng-click="nameEdit()">
+		<span class="glyphicon glyphicon-remove" ng-if="selectedExperiment.nameeditable"></span>
+		<span class="glyphicon glyphicon-pencil" ng-if="!selectedExperiment.nameeditable"></span>
+	</span>
+	<span ng-click="resave()">
+		<span class="glyphicon glyphicon-floppy-disk" ng-if="selectedExperiment.nameeditable"></span>
+	</span>
+</h1>
+
+<div ng-if="baseData.partsList.length == 0" ng-include="'web/experiment_placeholder.html'"></div>
+
+<div ng-repeat="part in baseData.partsList | orderBy:'-createdAt':reverse" style="text-align: left;">
+	<span ng-if="part.createdBy == baseData.selfLinker()">
+		<button class="btn btn-sm btn-exp btn-{{writable != part?'primary':'success'}}" ng-click="edit(part)" ng-if="(part.prtType == 'text' || part.prtType == 'cod') && !part.prtClosedAt">
+			{{writable != part?'Edit   ':'Done Editing   '}}<span class="glyphicon glyphicon-{{writable != part?'pencil':'floppy-disk'}}"></span>
+		</button>
+		<button class="btn btn-sm btn-default  btn-exp" ng-click="savePan(part)" ng-if="part.prtType == 'pan' && !part.prtClosedAt">
+			Save panel data   <span class="glyphicon glyphicon-floppy-disk"></span>
+		</button>
+		<button class="btn btn-sm btn-default  btn-exp" ng-click="cancelEdit()" ng-if="writable == part">Cancel  &times;</button>
+		<button class="btn btn-sm btn-warning  btn-exp" ng-click="close(part)" ng-if="!part.prtClosedAt && writable != part">Close   <span class="glyphicon glyphicon-lock"></button>
+		<button class="btn btn-sm btn-danger  btn-exp" ng-click="deletePart(part)" ng-if="!part.prtClosedAt && writable != part">Remove   <span class="glyphicon glyphicon-trash"></button>
+		<br>
+		<br>	
+	</span>
+	
+	<div class="list-group">
+		<div class="list-group-item disabled header-exp">
+			<div>
+				Created: {{part.createdAt}}  <span ng-if="part.prtClosedAt.length > 4">   |  <span class="glyphicon glyphicon-lock"></span> Closed: {{part.prtClosedAt}}</span>
+			</div>	  
+  		</div>
+  		<div class="list-group-item" ng-style="styleForPart(part)">
+
+	  		<!--It is TEXT-->
+	  		<div class="text_edit_wrapper" ng-if="part.prtType == 'text'" ng-hide="part != writable">
+		  		<textarea id="texter" style="width:100%;height:300px;font-size:22px;" ng-model="part.prtText"></textarea>
+	  		</div>
+	  		{{part == writable?startEditors():''}}
+  			
+  			<div style="width:100%;font-size:16px;" ng-if="writable != part && part.prtType == 'text'" ng-bind-html="utfToHtml_(part.prtText)">
+  			<!-- 				{{utfToHtml_(part.prtText)}} -->
+			</div>
+	  		<!--It is CODE-->
+	  		
+	  		<div ng-if="part.prtType == 'cod' && writable == part">
+		  		<div class="input-group">
+			  		<span class="input-group-addon">Language: </span>
+			  		<select class="input-group-item form-control" ng-options="lang as lang for lang in languages" 
+			  		ng-model="part.prtLanguage" ng-change="changedLang(part)"></select>
+		  		</div>
+		  		<div class="input-group">
+			  		<span class="input-group-addon">Theme: </span>
+			  		<select class="input-group-item form-control" ng-options="key as value for (key, value) in themes" ng-hide="writable != part" ng-if="part.prtType == 'cod'" 
+			  		ng-model="part.prtTheme" ng-change="changedTheme(part)"></select>
+		  		</div>
+	  		</div>
+
+	  		
+		  	<div ng-if="writable != part && part.prtType == 'cod'">
+				<label> Language: {{part.prtLanguage}}</label>
+				<label>Theme: {{part.prtTheme}}</label>
+			  	<br>
+		  	</div>
+		  			  	
+	  		<div style="height:300px;" id="{{'code_editor_'+part.prtPartId}}" ng-if="part.prtType == 'cod'">
+		  	</div>
+		  	{{part.prtType == 'cod'?addTextToCodeEditor(part):''}}{{part.prtType == 'cod'?disableCode(part, writable != part):''}}		  	
+<!-- 	  		<code ng-if="part.prtType == 'cod'" ng-hide="writable == part" ng-if="part.prtType == 'cod'">{{part.prtText}}</code> -->
+<!--  		<textarea class="code" style="width:100%;height:300px;font-size:22px;" ng-model="part.prtText" ng-if="writable == part && part.prtType == 'cod'" style="display: none;">
+  			</textarea>
+-->			
+			<!--IT is FILE-->
+			<a href="{{tempFileURL(filePartForPart(part).fptFileId)}}" class="btn btn-sm btn-primary  btn-exp" 
+				ng-if="part.prtType == 'fil' || part.prtType == 'pic'"><span class="glyphicon glyphicon-download-alt"></a>
+			<!--
+			<canvas id="canvas{{filePartForPart(part).fptFileId}}" width="578" height="200" ng-if="this.src">
+			</canvas>{{filePartForPart(part).fptFileId}}{{downloadFileData(filePartForPart(part).fptFileId)}}
+			<object data="{{tempFileURL(filePartForPart(part).fptFileId)}}"  style="width:100%;height:400px;"></object>
+			<iframe src="{{serveFileFromGSBucket(filePartForPart(part))}}"  style="width:100%;height:400px;"  ng-if="part.prtType == 'fil'"></iframe>
+			-->
+
+
+			<!--
+			<div class="progress-bar progress-bar-info progress-bar-striped active" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+				Loading file
+			</div>
+			<img src="Error.src" onerror="this.src='fallback-img.jpg'"/>						
+			-->
+
+			<center>
+				<div class="file_area" ng-if="filePartForPart(part) && part.prtType == 'fil' || part.prtType == 'pic'" style="width: 60%;">
+					<div id="imagearea{{part.prtPartId}}">
+						<a href="{{tempFileURL(filePartForPart(part).fptFileId)}}"  >Download File({{file(filePartForPart(part).fptFileId).catchedInfo}})</a><br>
+						<img src="{{tempFileURL(filePartForPart(part).fptFileId)}}"  ng-if="part.prtType == 'pic' || part.prtType == 'fil'" style="width: 60%;" id="image{{part.prtPartId}}" imageonload></img> 							
+					</div>
+					<br>
+					<div class="loader-walk" id="loader{{part.prtPartId}}">
+						<div></div><div></div><div></div><div></div><div></div>
+					</div>
+				</div>
+				
+			</center>
+			
+			<!--IT is Panel-->
+			<div ng-if="part.prtType == 'pan'">
+				<div class="input-group" width="200px">
+					<span class="input-group-addon glyphicon glyphicon-search"></span>
+					<input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="search">
+				</div>
+				<div class="input-group"  width="200px">
+					<span class="input-group-addon">Order By</span>
+					<select class="form-control" ng-model="sort">
+						<option value="labBBTubeNumber">Tube number</option>
+						<option value="tagMW">Metal weight</option>
+					</select>
+				</div>
+				<br>
+				<table width="100%">
+					<tbody>
+				      <tr align="center">
+					      <td width="10%">Tube number<hr></td>
+					      <td width="15%">Metal Tag<hr></td>
+					      <td width="25%">Target<hr></td>
+					      <td width="20%">Antibody Clone<hr></td>
+					      <td width="7%">Note<hr></td>					      
+					      <td width="7%">Concentration<hr></td>
+					      <td width="15%">uL to pipet<hr></td>
+				      </tr>
+				      <tr ng-class-odd="'odd_row'" ng-class-even="'odd_row'" ng-repeat="linker in panelLinkers(part) | filter:search | orderBy:sort"  align="center">
+				      	<td>
+				          {{allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labBBTubeNumber}}
+				      	</td>
+				        <td>
+				          {{allGetters.tag(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labTagId, linker).tagName+allGetters.tag(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labTagId, linker).tagMW}}
+				        </td>
+				        <td>
+				          {{allGetters.protein(allGetters.clone(allGetters.lot(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labLotId).lotCloneId, linker).cloProteinId, linker).proName}}
+				        </td>
+				        <td>
+				          {{allGetters.clone(allGetters.lot(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labLotId).lotCloneId, linker).cloName}}
+				        </td>
+				        <td>
+					        <div class="input-group">
+						        <input class="input-group-item input_rc" width="1%" type="text" ng-model="linker.note">
+							</div>
+				        </td>				        
+				        <td>
+					        <div class="input-group">
+						        <input class="input-group-item input_rc" width="1%" type="text" ng-model="linker.plaActualConc">
+								<span class="input-group-addon" id="basic-addon1">ug/mL</span>
+							</div>
+				        </td>
+				        <td>
+				          {{amountAntibody(linker.plaActualConc, allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labConcentration, totalVolumePanel)}}
+				        </td>
+				      </tr>
+				    </tbody>
+				  </table>
+				  <br>Diluent Volume: {{diluentVolume(part)}} uL
+				  <br>Total volume <input type="text" ng-model="part.catchedInfo" value="Total Volume">
+			</div> 
+			
+			
+			<!--IT is Protocol-->
+			<div ng-if="part.prtType == 'pro'">
+				<center>{{part.catchedInfo}}</center>
+				<div class="list-group">		
+		    		<div style="text-align: left;" class="list-group-item" ng-repeat="step in getSteps(part) | filter:searchStep">
+			    		<table width="100%">
+							<tbody>
+								<tr>
+									<td width="5%"style="padding-left:20px;">
+										<span class="badge" style="float: left;">{{step.stpPosition}}</span>
+									</td>
+									<td width="95%"style="padding-left:20px;">
+										{{step.stpText}}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div> 
+	
+  		</div>		
+	</div>
+</div>
+
+
+<div class="btn-group dropup toolbox" style="float: right;" ng-if="baseData.partsList.length > 0">
+  <button type="button" class="btn btn-success btn-lg btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="glyphicon glyphicon-plus"></span>   Section   <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu pull-right">
+    <li><a href="#" onclick="return false;" ng-click="newTextPart()"><span class="glyphicon glyphicon-font"></span>  Text</a></li>
+    <li><a href="#" onclick="return false;" ng-click="addFile()" data-toggle="modal"  data-target="#addFile"><span class="glyphicon glyphicon-file"></span>  File</a></li>    
+    <li role="separator" class="divider"></li>
+    <li><a href="#" onclick="return false;" ng-click="addProtocol()" data-toggle="modal" data-target="#addProtocol"><span class="glyphicon glyphicon-check"></span>  Protocol</a></li>
+    <li><a href="#" onclick="return false;" ng-click="newCodePart()"><span class="glyphicon glyphicon-console"></span>  Code</a></li>
+    <li><a href="#" onclick="return false;" ng-click="addPanel()"  data-toggle="modal" data-target="#addPanel"><span class="glyphicon glyphicon-list-alt"></span>  Antibody Panel</a></li>  
+    <li><a href="#" onclick="return false;" ng-click="addCollection()"><span class="glyphicon glyphicon-glass"></span>  Collection/Cocktail</a></li>
+    <li><a href="#" onclick="return false;" ng-click="addPlate()"><span class="glyphicon glyphicon-th"></span>  Add Plate</a></li>    
+  </ul>
+</div>
+
+
+
+<!-- ///////////////////////////MODALS/////////////////////////// -->
+<!-- Add File -->
+<div id="add_file"></div>
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_file', 'add_file.html');
+</script>
+<!-- Add File -->
+
+<!-- Add Panel -->
+<div>
+	<div class="modal fade" id="addPanel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Add Panel</h4>
+	      </div>
+	      <div class="modal-body">
+			<div class="input-group">
+			  <span class="input-group-addon">Choose a Panel:</span>
+			  <select class="form-control" ng-model="newPanel" ng-options="panel as panel.panName for panel in baseData.myPanelsList"></select>
+			</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="panelChosen(newPanel)">Add Panel</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+<!-- Add Add Panel -->
+<!-- Add Protocol -->
+<div>
+	<div class="modal fade" id="addProtocol" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel2">Add Protocol</h4>
+	      </div>
+	      <div class="modal-body">
+			<div class="input-group">
+			  <span class="input-group-addon">Choose a Protocol:</span>
+			  <select class="form-control" ng-model="newProtocol" ng-options="protocol as protocol.rcpTitle for protocol in baseData.protocolsMineList"></select>
+			</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="protocolChosen(newProtocol)">Add Protocol</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+<!-- Add Protocol -->

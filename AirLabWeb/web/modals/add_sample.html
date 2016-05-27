@@ -1,0 +1,76 @@
+<div class="modal fade" id="addSample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">{{!dataModal.samName? 'New':'Edit'}}  Sample {{dataModal.samName}}</h4>
+      </div>
+      <div class="modal-body">
+	      
+	 	<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Sample Type
+		  </span>
+		  <span>
+		  	<div class="input-group">
+			  	<span class="input-group-addon">
+		  			<span class="glyphicon glyphicon-search"></span>
+		  		</span>
+		  		<input type="text" class="input-group form-control" placeholder="Search sample type" aria-describedby="basic-addon1" ng-model="typeSearch">
+		  	</div>
+		  </span>
+		  <select class="input-group form-control" ng-model="dataModal.samType" 
+			  ng-options="key as key for (key,value) in baseData.samplesReorderedList | filter:typeSearch" ng-change="setType(dataModal.samType)">
+		  </select>
+		</div> 
+		
+		<br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		New type
+		  </span>
+		  
+		  <input type="text" class="input-group form-control" placeholder="Or leave blank above and write name of new type here" aria-describedby="basic-addon1" ng-model="dataModal.samType">
+		</div> 
+		<br>		
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Sample name
+		  </span>
+		  <input type="text" class="input-group form-control" placeholder="Sample name..." aria-describedby="basic-addon1" ng-model="dataModal.samName">
+		</div>
+		<br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Concentration
+		  </span>
+		  <input type="text" class="input-group form-control" placeholder="Concentration here..." aria-describedby="basic-addon1" ng-model="dataModal.samConcentration">
+		</div>
+		<br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Amount
+		  </span>
+		  <input type="text" class="input-group form-control" placeholder="Amount here..." aria-describedby="basic-addon1" ng-model="dataModal.samAmount">
+		</div>
+		<br>				
+		<br>
+		<br>
+		<button class="btn btn-default" ng-click="addPair()"><span class="glyphicon glyphicon-plus"></span></button>	
+		<br>				
+		<br>
+		<div class="input-group" ng-repeat="pair in dataModal.pairs track by $index" style="width: 100%">
+			<input style="width:28%;" type="text" class="input-group-addon form-control" placeholder="key..." aria-describedby="basic-addon1" ng-model="pair.key" 
+			ng-change="changeDictKey(pair, pair.key)">
+			<input style="width:67%;" type="text" class="input-group form-control" placeholder="value..." aria-describedby="basic-addon1" ng-model="pair.value"
+			ng-change="changeDictValue(pair, pair.value)">
+			<span ng-click="removePair($index)"><span class="glyphicon glyphicon-trash"></span></span>			
+		</div>
+		
+      </div>
+      <div class="modal-footer">		      
+        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="nextAddSampleModal()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

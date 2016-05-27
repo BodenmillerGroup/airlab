@@ -1,0 +1,148 @@
+<center><h3>Administer Group</h3></center>
+<br><br>
+<span ng-if="canI()"></span>
+<div class="input-group">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-user"></span>
+  		Invite to this group:
+  </span>
+  <input type="text" class="form-control" placeholder="john.smith" aria-describedby="basic-addon1" ng-model="invitea" style="text-align: right;">
+  <span class="input-group-addon">@</span>  
+  <input type="text" class="form-control" placeholder="example.com" aria-describedby="basic-addon1" ng-model="inviteb">  
+  <span class="input-group-addon">
+		<span class="glyphicon glyphicon-send" ng-click="sendInvite(invitea, inviteb)"></span>
+  </span>
+</div>
+<br>
+<div class="input-group">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-search"></span>
+  </span>
+  <input type="text" class="form-control" placeholder="Search for people in your lab" aria-describedby="basic-addon1" ng-model="search">
+  <span class="input-group-addon">
+		<span class="glyphicon glyphicon-remove" ng-click="search = null"></span>
+  </span>
+</div>
+<br>
+<button class="btn btn-primary" ng-click="sendEmail()" onclick="return false;">Send Email to Group   <span class="glyphicon glyphicon-send"></span></button>						
+<br><br><br>
+<div ng-repeat="_ in [0,1]">
+	<h4 align="left">{{_ == 0?'Current active members':'Non-active members'}}({{_ == 0?activeMembers():nonActiveMembers()}})</h4>
+	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+	  <div class="panel panel-default" ng-repeat="person in baseData.peopleList | filter:search" 
+		  ng-if="person.gpeActiveInGroup != _"><!--  && person.gpeGroupPersonId != self() && person.gpeRole != 0"> -->
+			  
+	    <div class="panel-heading" role="tab" id="head_{{person.perPersonId}}">
+	      <h4 class="panel-title">
+	        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elem_{{person.perPersonId}}" aria-expanded="false" aria-controls="elem_{{person.perPersonId}}" onclick="return false;">
+				{{person.perName}} {{person.perLastname}} ({{person.perEmail}})
+	        </a>
+			<input type="text" ng-if="protocol.editing == 1" ng-model="protocol.rcpTitle">
+	      </h4>
+	    </div>
+	    <div id="elem_{{person.perPersonId}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="head_{{person.perPersonId}}">
+	      <div class="panel-body">
+		     
+		  		<table>
+					<tr style>
+						<td>
+							Role in lab:
+						</td>
+						<td>
+							<div class="btn-group btn-group" data-toggle="buttons">
+								<label class="btn btn-default"
+								ng-repeat="n in ['PI', 'Manager', 'Postdoc', 'Ph.D. Student', 'Visiting', 'Other'] track by $index"
+								ng-class="{active:person.gpeRole==$index, disabled:person.gpeRole == 0}"
+								ng-click="person.gpeRole = $index; person.changes = 1; $parent.changes = 1;" ><input type="radio"></input>{{n}}</label>
+							</div>
+							{{}}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Can place orders:
+						</td>
+						<td>
+							<div class="btn-group btn-group" data-toggle="buttons">
+							    <label class="btn btn-{{colorButton(person.gpeOrders, $index)}}"
+							        ng-repeat="n in ['No', 'Yes'] track by $index"
+							        ng-class="{active:person.gpeOrders==!!$index}"
+									ng-click="person.gpeOrders = $index; person.changes = 1; $parent.changes = 1;"><input type="radio"></input>{{n}}</label>
+							</div>						
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Can erase records:
+						</td>
+						<td>
+							<div class="btn-group btn-group" data-toggle="buttons">
+							    <label class="btn btn-{{colorButton(person.gpeErase, $index)}}"
+							        ng-repeat="n in ['No', 'Yes'] track by $index"
+							        ng-class="{active:person.gpeErase==!!$index}"
+									ng-click="person.gpeErase = $index; person.changes = 1; $parent.changes = 1;"><input type="radio"></input>{{n}}</label>
+							</div>						
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Can see finances:
+						</td>
+						<td>
+							<div class="btn-group btn-group" data-toggle="buttons">
+							    <label class="btn btn-{{colorButton(person.gpeFinances, $index)}}"
+							        ng-repeat="n in ['No', 'Yes'] track by $index"
+							        ng-class="{active:person.gpeFinances==!!$index}"
+									ng-click="person.gpeFinances = $index; person.changes = 1; $parent.changes = 1;"><input type="radio"></input>{{n}}</label>
+							</div>						
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Can see all panels:
+						</td>
+						<td>
+							<div class="btn-group btn-group" data-toggle="buttons">
+							    <label class="btn btn-{{colorButton(person.gpeAllPanels, $index)}}"
+							        ng-repeat="n in ['No', 'Yes'] track by $index"
+							        ng-class="{active:person.gpeAllPanels==!!$index}"
+									ng-click="person.gpeAllPanels = $index; person.changes = 1; $parent.changes = 1;"><input type="radio"></input>{{n}}</label>
+							</div>						
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Is Active in the Group:
+						</td>
+						<td>
+							<div class="btn-group btn-group" data-toggle="buttons">
+							    <label class="btn btn-{{colorButton(person.gpeActiveInGroup, $index)}}"
+							        ng-repeat="n in ['No', 'Yes'] track by $index"
+							        ng-class="{active:person.gpeActiveInGroup==!!$index}"
+									ng-click="person.gpeActiveInGroup = $index; person.changes = 1; $parent.changes = 1;"><input type="radio"></input>{{n}}</label>
+							</div>						
+						</td>
+					</tr>	
+					<button class="btn btn-default" ng-click="person.changes = 0" ng-if="person.changes == 1">Cancel</button>					
+					<button class="btn btn-success" ng-click="save()" ng-if="person.changes == 1">Save</button>
+			</table>	         
+		      
+		      
+		      
+	      </div>
+	    </div>
+	  </div>
+	</div>	
+</div>
+
+
+<!--
+<div class="list-group">		
+	<div style="text-align: left;" class="list-group-item" ng-repeat="person in baseData.peopleList | filter:search"  ng-if="person.gpeGroupPersonId != self() && person.gpeRole != 0">
+		<div>
+			<center><h4>{{person.perName}} {{person.perLastname}} ({{person.perEmail}})</h4></center>
+		</div>
+																														
+	</div>
+</div>
+-->

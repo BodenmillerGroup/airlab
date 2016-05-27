@@ -1,0 +1,468 @@
+button{
+  float: right;
+  margin: 5px;
+  padding: 5px;
+}
+
+
+/* home page */
+.home_top_panel{
+	position: relative;
+	margin-left: 0%;
+	margin-right: 0%;	
+	width: 100%;
+	
+	background-color: rgba(255, 255, 255, 0.85);
+	border-radius: 10px;
+	border-color: gray;
+	border-width: 1px;
+	border:1px solid rgba(200, 200, 200, 100);
+	
+	color: black;
+}
+
+.front_head{
+	padding: 0px;
+	font-size: 27px;	
+}
+
+.front_box{
+	width: 33%;
+	padding: 30px;
+
+	font-size: 19px;
+	vertical-align: middle;
+	text-align: left;
+	position: relative;
+	vertical-align: top;
+	
+	color: black;
+}
+
+.front_search{
+	background-color: rgba(255, 255, 255, 0.85);
+}
+
+.front_box_learnmore{
+	position: absolute;
+	bottom: 5px;
+	right: 15px;	
+}
+
+body.home_body{
+	background-image: url("/pictures/lab.jpg");
+	background-attachment: fixed;
+	background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+a.front_box_learnmore{
+	color: #f9a806;
+}
+a{color: #f9a806;}
+/*
+a.front_box_learnmore:link { color:#f5a404; text-decoration:none; font-weight:normal; }
+a.front_box_learnmore:visited { color: #FFF; text-decoration:none; font-weight:normal; }
+a.front_box_learnmore:hover { color: #FFF; text-decoration:underline; font-weight:normal; }
+a.front_box_learnmore:active { color: #FFF; text-decoration:none; font-weight:normal; }
+*/
+
+/*Storage*/
+button.storage{
+	width: 100px;
+	height: 100px;
+}
+
+button.room{
+	
+}
+
+button.freezer{
+	
+}
+
+button.fridge{
+	
+}
+
+button.cupboard{
+	
+}
+
+button.nitrogen{
+	
+}
+
+button.rack{
+	
+}
+
+button.shelf{
+	
+}
+
+button.box{
+	
+}
+
+/* Help button */
+
+.help_button{
+	position: fixed;
+	z-index: 99;
+	bottom: 10px;
+	right: 10%;
+}
+
+/* Conjugate Bullet */
+
+.badge-conjugate{ 
+	background-color: #e4ab0d;
+}
+
+.texteditor{
+	font-size: 30px;	
+}
+
+.code {
+    font-family: monospace;
+    font-size: 11px;
+}
+
+.main_container {
+	padding-left: 10%;
+	padding-right: 10%;
+	padding-bottom: 55px;
+	text-align: center;
+}
+
+tr, td, th{
+	padding: 2px;
+}
+
+.input_rc{
+	padding-right: 10px;
+	padding-bottom: 3px;
+	padding-top: 2px;		
+	text-align: right;
+}
+
+div.hover-orange:hover{
+	background-color:#eee;
+}
+
+.sep{
+	margin: 2px;
+}
+
+.btn-exp{
+	padding-top: 5px; 
+	padding-bottom: 5px; 
+	margin-top: 0px; 
+	margin-bottom: 0px;
+}
+
+header-exp{
+	padding-top: 0px; 
+	padding-bottom: 0px; 
+}
+
+#footer {
+   position: fixed;
+   bottom:0px;
+   width: 100%;
+   text-align: center;
+   padding-top: 15px;
+   padding-bottom: 15px;
+   padding-left: 10%;
+   padding-right: 10%;
+   height:14px;   /* Height of the footer */
+   font-size: 12px;
+   background-color: white;
+}
+
+.red_text{
+	color: red;
+}
+
+.crossed_text{
+	color: #bfb6b6;
+	text-decoration: line-through;
+}
+
+.odd_row{
+	background-color: white;
+}
+
+.even_row{
+	/*background-color: rgba(127,127,127,0.38);*/
+	background-color: rgba(200,200,200,0.48);
+	color: white;
+}
+
+body{
+    color: #565252;
+}
+
+
+#messages{
+	float: right;
+	position: fixed;
+	width: 80%;
+	left: 20%;
+	top: 55px;
+	overflow: visible;
+	padding-left: 10%;
+	padding-right: 5px;
+	z-index: 999;
+}
+
+.toolbox{
+	position: fixed;
+	right: 40px;
+	bottom: 40px;
+}
+
+ul.toolbox{
+	float: right;
+	
+}
+.toolbox_button{
+	position: fixed;
+	margin: 0px;
+	margin-top: 50px;
+	padding: 0px;
+	width: 50px;
+	height: 50px;
+}
+
+.part{
+	text-align: left;
+	border-radius: 5px;
+ 	background: rgb(245, 245, 245);
+ 	color: gray;
+  	padding: 10px;
+}
+
+.header_part{
+ 	color: black;
+ 	padding-bottom: 20px;
+}
+
+
+#return_up{
+	position: fixed;
+	bottom: 30px;
+}
+
+.progress{
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.badge-danger {
+  background-color: #d43f3a;
+}
+.badge-warning {
+background-color: #d58512;
+}
+
+.badge-success {
+background-color: #398439;
+}
+
+.badge-info {
+background-color: #269abc;
+}
+
+.badge-inverse {
+background-color: #333333;
+}
+
+/* loader */
+#tout:first-child div {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border: 3px solid #ddd;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+#tout:first-child>div>div {
+  width: 90px;
+  height: 90px;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  margin: auto;
+  overflow: hidden;
+}
+
+#tout:first-child div div div {
+  width: 110px;
+  height: 110px;
+  margin: auto;
+  top: 110px;
+  background-color: #ddd;
+  border-radius: 0%;
+  border: none;
+  animation-name: anim, color;
+  animation-duration: 2s;
+  animation-timing-function:ease;
+  animation-iteration-count:infinite;
+  animation-direction: alternate;
+}
+
+@keyframes anim{
+
+  100% { top:0 }
+}
+
+/* @keyframes color{
+  0%  { background-color: green; }
+  25%  { background-color: green; }
+  50% { background-color: red; }
+  75% { background-color: yellow; }
+  100% { background-color: blue; }
+} 
+Use likw this
+<div  id="loader{{part.prtPartId}}">
+						<div id="tout">
+						  <div>
+						    <div>
+						      <div>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						Loading...
+					</div>
+*/
+
+/* loader */
+
+/* loader 2*/
+
+.loader-walk {
+  width: 100px;
+  height: 40px;
+  margin-left: 60px;
+/*
+  position: absolute;
+  top: 50%;
+  left: 50%;
+*/
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.loader-walk > div {
+  content: "";
+  width: 20px;
+  height: 20px;
+  background: #d69507;
+  border-radius: 100%;
+  position: absolute;
+  -webkit-animation: animate 2s linear infinite;
+          animation: animate 2s linear infinite;
+}
+.loader-walk > div:nth-of-type(1) {
+  -webkit-animation-delay: -.4s;
+          animation-delay: -.4s;
+}
+.loader-walk > div:nth-of-type(2) {
+  -webkit-animation-delay: -.8s;
+          animation-delay: -.8s;
+}
+.loader-walk > div:nth-of-type(3) {
+  -webkit-animation-delay: -1.2s;
+          animation-delay: -1.2s;
+}
+.loader-walk > div:nth-of-type(4) {
+  -webkit-animation-delay: -1.6s;
+          animation-delay: -1.6s;
+}
+
+@-webkit-keyframes animate {
+  0% {
+    left: 100px;
+    top: 0;
+  }
+  80% {
+    left: 0;
+    top: 0;
+  }
+  85% {
+    left: 0;
+    top: -20px;
+    width: 20px;
+    height: 20px;
+  }
+  90% {
+    width: 40px;
+    height: 15px;
+  }
+  95% {
+    left: 100px;
+    top: -20px;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    left: 100px;
+    top: 0;
+  }
+}
+
+@keyframes animate {
+  0% {
+    left: 100px;
+    top: 0;
+  }
+  80% {
+    left: 0;
+    top: 0;
+  }
+  85% {
+    left: 0;
+    top: -20px;
+    width: 20px;
+    height: 20px;
+  }
+  90% {
+    width: 40px;
+    height: 15px;
+  }
+  95% {
+    left: 100px;
+    top: -20px;
+    width: 20px;
+    height: 20px;
+  }
+  100% {
+    left: 100px;
+    top: 0;
+  }
+}
+
+/*
+Use like
+<div class="loader-walk" id="loader{{part.prtPartId}}">
+  <div></div><div></div><div></div><div></div><div></div>
+</div>
+*/
+/* loader 2 */
+
+/* d3 */
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}

@@ -1,0 +1,128 @@
+<link href="./css/antibodyButtons.css" type="text/css" rel="stylesheet" />
+
+<div>
+	<center>
+		<h3>
+			<span ng-if="panel.nameeditable == false">{{panel.panName}}     </span>
+			<input type="text" ng-if="panel.nameeditable == true" ng-model="panel.panName">
+			<span ng-click="nameEdit()" ng-if="isMyPanel()">
+				<span class="glyphicon glyphicon-remove" ng-if="panel.nameeditable"></span>
+				<span class="glyphicon glyphicon-pencil" ng-if="!panel.nameeditable"></span>
+			</span>
+			<span ng-click="resave()">
+				<span class="glyphicon glyphicon-floppy-disk" ng-if="panel.nameeditable"></span>
+			</span>
+		</h3>
+		<br>
+	    <div class="input-group" width="200px">
+			<span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+			<input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="search">
+		</div>
+		
+		<div class="input-group"  width="200px">
+			<span class="input-group-addon">Order By</span>
+			<select class="form-control" ng-model="sort">
+				<option value="labBBTubeNumber">Tube number</option>
+				<option value="tagMW">Metal weight</option>
+			</select>
+		</div>
+	</center>
+</div>
+
+<br>
+
+<div>
+	<button class="btn btn-default" ng-click="back()" style="margin: 5px; float:left;"><span class="glyphicon glyphicon-chevron-left"></span>   Back</button>
+	<div class="btn-group" style="float:right;">
+		<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Export   <span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+	    <ul class="dropdown-menu">
+		    <li><a href="#" onclick="return false;" ng-click="exportCyTOF(0)">Export CSV</a></li>
+		    <li role="separator" class="divider"></li>
+		    <li><a href="#" onclick="return false;" ng-click="exportCyTOF(1)">Template for CyTOF1</a></li>
+		    <li><a href="#" onclick="return false;" ng-click="exportCyTOF(2)">Template for CyTOF2</a></li>
+		    <li><a href="#" onclick="return false;" ng-click="exportCyTOF(3)">Template for Helios</a></li>
+	    </ul>
+	</div>
+	<button class="btn btn-primary" ng-click="duplicate(panel)" style="margin: 5px;">Duplicate   <span class="glyphicon glyphicon-repeat"></button>
+	<button class="btn btn-default" ng-if="isMyPanel()" ng-click="editPanel(panelDetails)" style="margin: 5px;">Edit panel   <span class="glyphicon glyphicon-pencil"></button>
+	<button class="btn btn-success" ng-if="isMyPanel()" ng-click="resave(panelDetails)" style="margin: 5px;">Save changes   <span class="glyphicon glyphicon-floppy-disk"></button>
+	<button class="btn btn-danger" ng-if="isMyPanel()" ng-click="deletePanel(panel)" style="margin: 5px;">Delete Panel   <span class="glyphicon glyphicon-trash"></span></button>
+	<button class="btn btn-warning" ng-if="isMyPanel()  && panel.panFluor != '1'" style="margin: 5px;" ng-click="panelDesigner()">Refine Panel   <span class="glyphicon glyphicon-signal"></span></button>
+	<button class="btn btn-default" data-toggle="modal" data-target="#addTentative" ng-click="addTentative()"><span class="glyphicon glyphicon-plus"></span> Add manual channel</button>
+</div>
+
+<br>
+<br>
+<br>
+
+<div>
+  <table width="100%">
+    <tbody>
+      <tr align="center">
+	      <!--<td>Number</td>-->
+	      <td width="10%">Tube number<hr></td>
+	      <td width="15%">{{panel.panFluor == 1?'Fluorophore':'Metal'}} Tag<hr></td>
+	      <td width="25%">Target<hr></td>
+	      <td width="20%">Antibody Clone<hr></td>
+	      <td width="7%">Final Concentration / Dilution<hr></td>
+	      <td width="15%">uL to pipet<hr></td>
+		  <br><br>
+      </tr>
+      <tr 
+	      ng-class-odd="'odd_row'" ng-class-even="'odd_row'" 
+		  ng-repeat="linker in panelDetails | filter:search | orderBy:sort"  align="center" 
+		  ng-class="{red_text: allGetters.conjugate(linker.plaLabeledAntibodyId, linker).tubIsLow == '1', 
+			  crossed_text: allGetters.conjugate(linker.plaLabeledAntibodyId, linker).tubFinishedBy > 0}">
+      	<td>
+          <span ng-if="linker.plaLabeledAntibodyId">{{allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labBBTubeNumber}}</span>
+          <span ng-if="linker.tagTagId"><button class="btn btn-danger" ng-click="removeLinker(linker)" style="float: none;">&times;</button></span>
+      	</td>
+        <td>
+          <span ng-if="linker.plaLabeledAntibodyId" style="color: blue;">{{allGetters.tag(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labTagId, linker).tagName+allGetters.tag(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labTagId, linker).tagMW}}</span>
+          
+          <span ng-if="linker.tagTagId" style="color: blue;">{{allGetters.tag(linker.tagTagId, linker).tagName+allGetters.tag(linker.tagTagId, linker).tagMW}}</span>
+          
+        </td>
+        <td>
+          <span ng-if="linker.plaLabeledAntibodyId">{{allGetters.protein(allGetters.clone(allGetters.lot(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labLotId).lotCloneId, linker).cloProteinId, linker).proName}}</span>
+          
+          <span ng-if="linker.tagTagId">{{linker.cloName}}</span>
+        </td>
+        <td>
+          <span ng-if="linker.plaLabeledAntibodyId">{{allGetters.clone(allGetters.lot(allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labLotId).lotCloneId, linker).cloName}}</span>
+        </td>
+        <td>			
+	   		<div class="btn-group btn-group" style="width: 184px;" ng-if="linker.plaLabeledAntibodyId">
+			    <label class="btn btn-default"
+				    style="width: 60px; float: none;"
+			        ng-repeat="n in ['ug/mL', '1/___'] track by $index"
+			        ng-class="{active:linker.dilutionType==$index || (!linker.dilutionType && $index == 0)}"
+					ng-click="linker.dilutionType = $index">{{n}}</label>
+				<input class="input-group-item" style="width: 60px; float: right; border-width: 0px;margin: 2px; text-align: right;" type="text" ng-model="linker.plaActualConc">	
+			</div>
+        </td>
+        <td>
+          <span ng-if="linker.plaLabeledAntibodyId && (linker.dilutionType == 0 || !linker.dilutionType)">
+          {{amountAntibody(linker, allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labConcentration, totalVolumePanel, false)  | number:2}}</span>
+          <span ng-if="linker.dilutionType == 1">
+          {{amountAntibody(linker, allGetters.conjugate(linker.plaLabeledAntibodyId, linker).labConcentration, totalVolumePanel, true)  | number:2}}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br>Diluent Volume: {{diluentVolume(totalVolumePanel)  | number:2}} uL
+  <br><input type="checkbox" ng-model="excludeEmpty"/> Exclude volume from empty tubes
+  <br>Total volume <input type="text" ng-model="totalVolumePanel" value="Total Volume">
+</div> 
+
+<div id="help_button"><button class="btn btn-warning help_button" data-toggle="modal" data-target="#helpPanels"><span class="glyphicon glyphicon-question-sign"></span></button></div>
+<!-- 	MODALS -->
+<div id="help_panels"></div>
+<div id="add_tentative"></div>
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('help_panels', 'help_panels.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_tentative', 'add_tentative.html');
+</script>

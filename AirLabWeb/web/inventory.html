@@ -1,0 +1,214 @@
+<div class="input-group">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-search"></span>
+  </span>
+  <input type="text" class="form-control" placeholder="Search reagents" aria-describedby="basic-addon1" ng-model="search">
+  <span class="input-group-addon">
+		<span class="glyphicon glyphicon-remove" ng-click="search = null"></span>
+  </span>
+</div>
+
+<div class="input-group">
+  <span class="input-group-addon">Filter By:</span>
+  <select class="form-control" ng-model="status">
+    	<option value="all">Show All</option>
+    	<option value="stock">In Stock</option>
+		<option value="requested">Requested</option>
+		<option value="approved">Approved</option>
+		<option value="ordered">Ordered</option>
+	</select>
+</div>
+<br>
+<div>
+<button type="button" class="btn btn-success" ng-click="addReagent()" data-toggle="modal" data-target="#addReagent">Add Reagent  <span class="glyphicon glyphicon-plus"></span></button>
+</div>
+
+<br><br><br>
+<nav>
+  <ul class="pagination" ng-if="numberOfPages()>1 && (!search || search.length == 0)">
+    <li ng-class="{disabled: page == 0}"><span ng-click="changePage(0)">&laquo;</span></li>
+    <li ng-class="{disabled: page == 0}"><span ng-click="changePage(page-1)">&lt;</span></li>  
+    <li ng-class="{active: page == $index}" ng-repeat="_ in ((_ = []) && (_.length=numberOfPages()) && _) track by $index" ng-click="changePage($index)" ng-if="$index>page-5 && $index<page+5">
+    	<span>{{$index + 1}}
+    	</span>
+    </li>
+    <li ng-class="{disabled: page == numberOfPages()-1}"><span ng-click="changePage(page+1)">&gt;</span></li>    
+    <li ng-class="{disabled: page == numberOfPages()-1}"><span ng-click="changePage(numberOfPages()-1)">&raquo;</span></li>    
+  </ul>
+</nav>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat="reagent in baseData.comertialReagentsList | filter:search | statusFilter:status:baseData.reagentInstancesList" ng-if="conditionsPaging($index, search)">
+    <div class="panel-heading" role="tab" id="head_{{reagent.comComertialReagentId}}" align="left">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elem_{{reagent.comComertialReagentId}}" aria-expanded="false" aria-controls="elem_{{reagent.comComertialReagentId}}" onclick="return false;">
+          {{reagent.comName + ' | ' + allGetters.provider(reagent.comProviderId).proName + ' | ' + reagent.comReference}}
+        </a>
+      </h4>
+    </div>
+
+    <div id="elem_{{reagent.comComertialReagentId}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="head_{{reagent.comComertialReagentId}}">
+      <div class="panel-body">
+	    <div ng-if="allGetters.reagentInstances(reagent.comComertialReagentId).length > 0" style="float: left;">
+		    <div ng-if="allGetters.reagentInstances(reagent.comComertialReagentId)[0].lotCloneId != '0'">
+			    <label class="label label-default sep">Anti-{{allGetters.protein(allGetters.clone(allGetters.reagentInstances(reagent.comComertialReagentId)[0].lotCloneId).cloProteinId).proName}}</label>
+			    <label class="label label-default sep">Clone: {{allGetters.clone(allGetters.reagentInstances(reagent.comComertialReagentId)[0].lotCloneId).cloName}}</label>
+		    </div>
+    	</div>
+	   	<br>
+		<button class="btn btn-warning" ng-click="reorder(reagent)">Reorder  <span class="glyphicon glyphicon-repeat"></span></button>
+		<button type="button" class="btn btn-default" ng-click="addReagent(reagent)" data-toggle="modal" data-target="#addReagent">
+		 	Edit Reagent  <span class="glyphicon glyphicon-edit"></span>
+		</button>
+<!--
+		<button type="button" class="btn btn-danger" ng-click="removeReagent(reagent)">
+		 	Remove Reagent  <span class="glyphicon glyphicon-edit"></span>
+		</button>
+-->		
+		<br>
+		
+		<div class="list-group" align="left">
+			<span ng-repeat="(key, value) in catchedInfo(reagent.catchedInfo)">
+			  <strong >{{key}}: </strong>
+			  <a href="{{value}}" ng-if="isURL(value)">{{value}}</a>
+			  <span ng-if="!isURL(value)">{{value}}</span>
+			  <br>
+			</span>
+		</div>
+
+		<h3>Units of this reagent</h3>
+		<br>
+        <table class="table" width="100%" align="center">
+	        <thead>
+		        <tr>
+			        <th>
+				        Unit #
+			        </th>
+			        <th>
+				        Status
+			        </th>
+			        <th>
+				        Reagent Lifetime
+			        </th>
+			        <th>
+				        Price
+			        </th>
+			        <th>
+				        Note
+			        </th>
+			        <th>
+				        Actions...
+			        </th>
+		        </tr>
+	        </thead>
+			<tbody>
+				<tr bgcolor="#fff"  ng-repeat="instance in allGetters.reagentInstances(reagent.comComertialReagentId) | filter:status">
+					<td width="6%">
+						<span ng-class="{red_text: instance.tubIsLow == '1', crossed_text: instance.tubFinishedBy > 0}">
+						<span class="badge" ng-click="showLotNumber(instance)">
+							{{showNumber(instance)?instance.reiReagentInstanceId:'...'}}
+						</span>
+						</span>
+					</td>
+					<td width="7%">
+						<label class="label label-{{colorForStatus(instance)}} sep">{{statusCalc(instance)}}</label>
+					</td>
+					<td width="30%">
+						<p ng-if="instance.reiRequestedBy > 0">
+							<label style="margin: 10px;" class="label label-info sep" ng-click="showPurpose(instance)">
+								Requested: {{allGetters.personFromLinker(instance.reiRequestedBy).perName?allGetters.personFromLinker(instance.reiRequestedBy).perName:""}}
+								{{instance.reiRequestedAt?formatDate(instance.reiRequestedAt):''}}
+							</label>
+						</p>
+						
+						
+						<p ng-if="instance.reiApprovedBy > 0">
+							<label style="margin: 10px;" class="label label-primary sep">
+								Approved: {{allGetters.personFromLinker(instance.reiApprovedBy).perName?allGetters.personFromLinker(instance.reiApprovedBy).perName:""}}
+								{{instance.reiApprovedAt?formatDate(instance.reiApprovedAt):''}}
+							</label>
+						</p>
+		
+						<p ng-if="instance.reiOrderedBy > 0">
+							<label style="margin: 10px;" class="label label-success sep">
+								Ordered: {{allGetters.personFromLinker(instance.reiOrderedBy).perName?allGetters.personFromLinker(instance.reiOrderedBy).perName:""}}
+								{{instance.reiOrderedAt?formatDate(instance.reiOrderedAt):''}}
+							</label>
+						</p>
+						
+						<p  ng-if="instance.reiReceivedBy > 0">
+							<label style="margin: 10px;" class="label label-warning sep">
+								Received: {{allGetters.personFromLinker(instance.reiReceivedBy).perName?allGetters.personFromLinker(instance.reiReceivedBy).perName:""}}
+								{{instance.reiReceivedAt?formatDate(instance.reiReceivedAt):''}}
+							</label>
+						</p>
+						
+						<p ng-if="instance.tubFinishedBy > 0">
+							<label style="margin: 10px;" class="label label-danger sep">
+								Finished: {{allGetters.personFromLinker(instance.tubFinishedBy).perName?allGetters.personFromLinker(instance.tubFinishedBy).perName:""}}
+								{{instance.tubFinishedAt?formatDate(instance.tubFinishedAt):''}}
+							</label>
+						</p>														
+					</td>
+	
+					<td width="10%">
+						<span ng-click="reprice(instance)"><span class="glyphicon glyphicon-edit"></span></span>						
+						<span ng-click="reprice(instance)">{{instance.catchedInfo?price(instance):'?'}}</span>
+					</td>
+					<td width="20%">
+						<span ng-click="addNote(instance)"><span class="glyphicon glyphicon-edit"></span></span>
+						{{instance.catchedInfo?note(instance):''}}						
+					</td>																		
+					<td width="20%">
+						<button class="btn btn-success btn-sm" ng-if="instance.reiStatus == 'requested'" ng-click="approve(instance)">Approve</button>
+						<button class="btn btn-success btn-sm" ng-if="instance.reiStatus == 'approved'" ng-click="order(instance)">Mark as ordered</button>
+						<button class="btn btn-success btn-sm" ng-if="instance.reiStatus == 'ordered'" ng-click="receive(instance)" >Mark as received</button>
+						<button class="btn btn-warning btn-sm" ng-if="instance.reiStatus != 'stock' && instance.reiStatus != 'finished' && instance.reiStatus != 'rejected'" ng-click="reject(instance)">Reject</button>
+								
+						<div class="btn-group" style="float: right;">
+							  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							  	<span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="changeStatus(instance)">
+								    <span class="glyphicon glyphicon-edit"></span>   Change Status</a></li>
+<!-- 								    <li role="separator" class="divider"></li> -->
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="low(instance)"  
+									ng-if="instance.tubIsLow != 1 && instance.reiStatus == 'stock'">
+								    <span class="glyphicon glyphicon-arrow-down"></span>   Mark as low</a></li>
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="undomarkLow(instance)" 
+									ng-if="instance.tubIsLow == 1">
+								    Undo mark as low</a></li>
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="finished(instance)"
+									ng-if="instance.tubFinishedBy == 0 && instance.reiStatus == 'stock'">
+								    <span class="glyphicon glyphicon-trash"></span>   Mark as finished</a></li>
+								<li><a href="#" onclick="return false;" 
+									ng-click="undomarkFinished(instance)" 
+									ng-if="instance.tubFinishedBy > 0">
+									Undo mark as finished</a></li>
+								<li><a href="#" onclick="return false;" 
+									ng-click="deleteInstance(instance)">
+									Delete this item</a></li>																    				
+									<!--<button class="blue_button" style="background-color:red color:white;;" ng-click="addValidationNote(conjugate)">Add Note</button> -->
+							  </ul>
+						</div>
+
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 	MODALS -->
+
+<div id="add_reagent"></div>				
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_reagent', 'add_reagent.html');
+</script>

@@ -1,0 +1,71 @@
+<div class="input-group">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-search"></span>
+  </span>
+  <input type="text" class="form-control" placeholder="Search for reagents, samples, antibodies, etc" aria-describedby="basic-addon1" ng-model="search">
+  <span class="input-group-addon">
+		<span class="glyphicon glyphicon-remove" ng-click="search = null"></span>
+  </span>
+</div>
+
+<br>
+<div ng-if="!selectedRoom">
+	<button type="button" class="btn btn-success" ng-click="addPlace(true)">Add Room  <span class="glyphicon glyphicon-plus"></span></button>
+	<br><br>
+	<h4 align="left">Rooms</h4>
+	<br>
+	<button style="float: left;" class="storage" ng-repeat="place in baseData.placesList | filter:search" ng-if="place.plaType == 'hab'" ng-click="selectRoom(place);">{{place.plaName}}
+	</button>
+</div>
+
+<div ng-if="selectedRoom">
+  	{{initParents(selectedRoom)}}	  		
+
+  	<button type="button" class="btn btn-primary" ng-click="addPlace(false)" ng-if="selectedRoom.selected.plaType != 'box' && selectedRoom.selected.plaType != 'rack'">Add Compartment  <span class="glyphicon glyphicon-plus"></span></button>	      
+	<br>	  	
+  	<br>
+  	<br>
+  	
+  	<ol class="breadcrumb" style="text-align: left;" ng-if="selectedRoom"><!-- .parents.length > 0"> -->
+	  	<li><a href="#" ng-click="selectRoom(null)" onclick="return false;">Rooms</a></li>
+  		<li ng-class="active: !selectedRoom.parents"><a href="#" ng-click="selectedRoom.parents = [];selectedRoom.selected = null;" onclick="return false;">{{selectedRoom.plaName}}</a></li>
+  		<li ng-class="active: $index == place.parents.length - 1" ng-repeat="item in selectedRoom.parents">
+  			<a href="#" ng-click="selectedRoom.selected = selectedRoom.parents[$index]; selectedRoom.parents.splice($index + 1, selectedRoom.parents.length - $index - 1)" onclick="return false;">
+	  			{{item.plaName?item.plaName+' ':'Untitled'}} {{item.plaType?'('+item.plaType+')':''}} {{item.plaY && item.plaRows > 0?'(Shelf# '+item.plaY+')':''}}</a>
+  		</li>
+	</ol>
+  	<button style="float: left;" class="btn btn-default" ng-if="selectedRoom.parents.length > 0" 
+  		ng-click="selectedRoom.parents.splice(selectedRoom.parents.lenght - 1, 1); selectedRoom.selected = selectedRoom.parents[selectedRoom.parents.length - 1];">
+  		<span class="glyphicon glyphicon-chevron-left"></span>
+  	</button>  	
+  	
+  	<div class="list-group" ng-if="selectedRoom.selected.plaType == 'hab' || selectedRoom.selected.plaType == 'shelf' || selectedRoom.selected.plaType == 'freezer' || selectedRoom.selected.plaType == 'fridge' || selectedRoom.selected.plaType == 'cupboard' || selectedRoom.selected.plaType == 'nitrogen' || !selectedRoom.selected">
+		<a class="list-group-item"  ng-repeat="subPlace in allGetters.placesChildrenOf(selectedRoom.selected?selectedRoom.selected:selectedRoom)" ng-click="selectedRoom.selected = subPlace; selectedRoom.parents.push(subPlace);">
+		  {{subPlace.plaName}} {{subPlace.plaType?'('+subPlace.plaType+')':''}} {{subPlace.plaY && subPlace.plaRows > 0?'(Shelf# '+subPlace.plaY+')':''}}
+		</a>
+	</div>	  		
+  		
+  	<table ng-if="selectedRoom.selected.plaType == 'rack' || selectedRoom.selected.plaType == 'box' || selectedRoom.selected.plaType == 'shelf'" width="90%" style="text-align: center;">
+	  	<tr>
+		  	<td></td>
+		  	<td width="{{widthColumns(selectedRoom.selected)}}%" ng-repeat="_ in ((_ = []) && (_.length=selectedRoom.selected.plaColumns) && _) track by $index">
+			  	{{letterForIndex($index)}}
+		  	</td>
+		</tr>
+	  	<tr ng-repeat="_ in ((_ = []) && (_.length=selectedRoom.selected.plaRows) && _) track by $index">
+		  	<td height="80px">{{$index + 1}}</td>
+	  		<td ng-repeat="z in ((z = []) && (z.length=selectedRoom.selected.plaColumns) && z) track by $index"
+		  		style="border:1pt solid black; height:{{widthColumns(selectedRoom.selected)}}%;">
+			  		
+	  			<button class="btn btn-default"
+	  			style="float: none; width: 90%; height: 100%">{{tubeInfo($index, $parent.$index, selectedRoom.selected.plaColumns, selectedRoom.selected)}}</button>
+			</td>
+	  	</tr>
+	  	
+  	</table>	
+</div>
+
+<div id="add_place"></div>
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_place', 'add_place.html');
+</script>

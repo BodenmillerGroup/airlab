@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bodenmiller laboratory antibodies</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-route.js"></script>
+  <script src="controllers.js"></script>
+  <script src="app.js"></script>
+  <script src="services.js"></script>
+</head>
+  
+<body ng-app="LabPadApp" ng-controller = 'abGatewayController'>
+
+<style media="screen" type="text/css">
+
+.shadow{
+	background-color: #e6e0e0;
+}
+
+</style>
+
+<div ng-view></div>
+
+<center>
+	<thead>
+      <tr><th colspan="6"><h3>Bodenmiller laboratory | Antibody inventory<p></h3></th></tr>
+    </thead>
+    <input type="text" ng-model="search"><br><p>
+    Order by <select ng-model="sort" >
+		<option value="proName">Protein Name</option>
+		<option value="lotNumber">Lot</option>
+		<option value="cloName">Clone</option>
+		<option value="tagMW">Label</option>
+		<option value="labBBTubeNumber">Tube number</option>
+	</select><p>
+  <table>
+    
+    <tbody>
+      <tr>
+      <!--<td>Number</td>-->
+      <td width="30%"><a ng-href="#" ng-click="orderByProt();">Protein Name</a><hr></td>
+      <td width="15%"><a ng-href="#" ng-click="orderByClone();">Clone<hr></td>
+      <td width="15%"><a ng-href="#" ng-click="orderByLot();">Lot<hr></td>
+      <td width="15%"><a ng-href="#" ng-click="orderByLabel();">Label<hr></td>
+      <td width="15%"><a ng-href="#" ng-click="orderByTubeNumber();">Tube number<hr></td>
+      
+      <tr ng-class="{shadow: $index%2 == 0}" ng-repeat="conjugate in conjugatesList | filter:search | orderBy:sort">
+        <!--<td>{{$index + 1}}</td>-->
+        <td>
+          Hola{{conjugate.proName}}
+        </td>
+        <td>
+          {{conjugate.cloName}}
+        </td>
+        <td>
+          {{conjugate.lotNumber}}
+        </td>
+        <td>
+          {{conjugate.tagName + conjugate.tagMW}}
+        </td>
+        <td>
+          {{conjugate.labBBTubeNumber}}
+        </td>
+        <td>
+        <button ng-click="addConjugate($index)" ng-show="conjugate.lotNumber.length>0">Add Conjugate</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+ </center>
+  {{theStatus}}
+</body>
+</html>

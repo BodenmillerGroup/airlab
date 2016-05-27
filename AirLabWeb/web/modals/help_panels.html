@@ -1,0 +1,232 @@
+<div>
+	<div class="modal fade" id="helpPanels" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Panels Help</h4>
+	      </div>
+	      <div class="modal-body" style="text-align: left;">
+		    <h4>In the panels section, you can manage all your metal-labeled antibody panels for Mass Cytometry. This tool is simple to use yet really powerful. Create panels and add conjugates from the database isotope channel by isotope channel. You can then copy panels, quickly calculate volumes for pippeting them, export .conf file for CyTOF1, CyTOF2, or Helios, and much more. You can also see other members' of the group panels if the administrator has activated this option for you. You can not modify other people's panels, but you can create your own copy on a single click</h3>
+			<br>
+		    <h4>If you want to create a new Panel.</h4>
+		    <ul class="list-group">
+			    <li class="list-group-item">
+					Add a clone by pressing <button type="button" style="float: none;" class="btn btn-success">Add Panel  <span class="glyphicon glyphicon-plus"></span></button>
+			    </li>
+			    <li class="list-group-item">
+					Give a name to the panel.
+			    </li>
+				<li class="list-group-item">
+					Press <button type="button" style="float: none;" class="btn btn-success">Save Changes</button>
+			    </li>			    
+		    </ul>
+		    <h4>Panel details:</h4>
+		    <ul class="list-group">
+			    <li class="list-group-item">
+					Press on a panel name in the list to see the details and you will see the antibodies comprising the panel. Metal tag, antibody number, clone, concentration, final concentration, and volume to pipette. The following options are available.
+			    </li>
+			    
+	<button class="btn btn-default" ng-if="isMyPanel()" ng-click="editPanel(panelDetails)" style="margin: 5px;">Edit panel   <span class="glyphicon glyphicon-pencil"></button>
+	<button class="btn btn-success" ng-if="isMyPanel()" ng-click="resave(panelDetails)" style="margin: 5px;">Save changes   <span class="glyphicon glyphicon-floppy-disk"></button>
+	<button class="btn btn-danger" ng-if="isMyPanel()" ng-click="deletePanel(panel)" style="margin: 5px;">Delete Panel   <span class="glyphicon glyphicon-trash"></span></button>			    
+			    
+			    <li class="list-group-item">
+					<button type="button" class="btn btn-info dropdown-toggle" style="float: none;">
+						Export   <span class="caret"></span>
+					</button>
+					<br><br>Generates .conf files that you can import in CyTOF1 and CyTOF2 instruments, or .tem files for Helios. This is a really handy feature that can save you a lot of time inputing the channels in the Mass Cytometer acquisition settings.
+			    </li>
+			    <li class="list-group-item">
+					<button class="btn btn-primary" style="float: none;">Duplicate   <span class="glyphicon glyphicon-repeat"></button>
+					<br><br>This option is always available. Creates a perfect copy of a panel that you own, and therefore, you can modify further.
+			    </li>
+			    <li class="list-group-item">
+					<button class="btn btn-default" style="margin: 5px; float: none;">Edit panel   <span class="glyphicon glyphicon-pencil"></button>
+					<br><br>Enters the edit page (see below). This option is available only if you own the panel.
+			    </li>
+			    <li class="list-group-item">
+					<button class="btn btn-success" style="margin: 5px; float: none;">Save changes   <span class="glyphicon glyphicon-floppy-disk"></button>
+					<br><br>Saves changes, including changes in the final concentration of the antibodies in the panel. This option is available only if you own the panel.
+			    </li>
+			    <li class="list-group-item">
+					<button class="btn btn-danger" style="margin: 5px; float: none;">Delete Panel   <span class="glyphicon glyphicon-trash"></span></button>
+					<br><br>Deletes a panel. This option is available only if you own the panel.
+			    </li>			    
+		    </ul>
+		    <h4>Edit panels:</h4>
+		    <ul class="list-group">
+			    <li class="list-group-item">
+					If you are editing a panel, you will see a list of all metal tags with square boxes like this
+					<button style="height:100px; 
+						float:none; 
+						display: inline-block;
+						margin: 5px 5px 5px 5px;
+						padding: 2.5px 2.5px;
+						font-size: 11px;
+						line-height: 1.8;
+						appearance: none;
+						box-shadow: none;
+						border-radius: 4;
+						border: none;
+						width: 100px;
+						word-wrap: break-word;" class="antibodyButton">
+
+				    
+				    CD3
+				    UCHT1
+				    Lot B167965
+				    Tube#463
+				
+				    <br>
+				    </button>					
+			    </li>
+			    <li class="list-group-item">
+					Select unselect the desired antibody conjugates and click
+					<button type="button" style="float: none;" class="btn btn-success">Save changes</button> or
+					<button type="button" style="float: none;" class="btn btn-success">Save changes and return</button>
+			    </li>
+			    <li class="list-group-item">
+					Unselected conjugates look gray. Selected green. If a conjugate is in low levels the text will look red, if finished, the conjugate won't be visible unless you activate the "show empty" version, in which case the button will be visible but dimmed to indicate is a conjugate that is over. If a low tube is selected the button will turn yellow, if finished, and selected: red.
+					<br>
+					<button style="height:100px; 
+						float:none; 
+						display: inline-block;
+						margin: 5px 5px 5px 5px;
+						padding: 2.5px 2.5px;
+						font-size: 11px;
+						line-height: 1.8;
+						appearance: none;
+						box-shadow: none;
+						border-radius: 4;
+						border: none;
+						width: 100px;
+						word-wrap: break-word;" class="antibodyButton">
+
+				    
+				    CD3
+				    UCHT1
+				    Lot B167965
+				    Tube#463
+				
+				    <br>
+				    </button>
+				    <button style="height:100px; 
+						float:none; 
+						display: inline-block;
+						margin: 5px 5px 5px 5px;
+						padding: 2.5px 2.5px;
+						font-size: 11px;
+						line-height: 1.8;
+						appearance: none;
+						box-shadow: none;
+						border-radius: 4;
+						border: none;
+						width: 100px;
+						word-wrap: break-word;" class="antibodyButtonLow">
+
+				    
+				    CD3
+				    UCHT1
+				    Lot B167965
+				    Tube#463
+				
+				    <br>
+				    </button>
+				    <button style="height:100px; 
+						float:none; 
+						display: inline-block;
+						margin: 5px 5px 5px 5px;
+						padding: 2.5px 2.5px;
+						font-size: 11px;
+						line-height: 1.8;
+						appearance: none;
+						box-shadow: none;
+						border-radius: 4;
+						border: none;
+						width: 100px;
+						word-wrap: break-word;" class="antibodyButtonOver">
+
+				    
+				    CD3
+				    UCHT1
+				    Lot B167965
+				    Tube#463
+				
+				    <br>
+				    </button>
+				    <button style="height:100px; 
+						float:none; 
+						display: inline-block;
+						margin: 5px 5px 5px 5px;
+						padding: 2.5px 2.5px;
+						font-size: 11px;
+						line-height: 1.8;
+						appearance: none;
+						box-shadow: none;
+						border-radius: 4;
+						border: none;
+						width: 100px;
+						word-wrap: break-word;" class="antibodyButtonSelected">
+
+				    
+				    CD3
+				    UCHT1
+				    Lot B167965
+				    Tube#463
+				
+				    <br>
+				    </button>
+				    <button style="height:100px; 
+						float:none; 
+						display: inline-block;
+						margin: 5px 5px 5px 5px;
+						padding: 2.5px 2.5px;
+						font-size: 11px;
+						line-height: 1.8;
+						appearance: none;
+						box-shadow: none;
+						border-radius: 4;
+						border: none;
+						width: 100px;
+						word-wrap: break-word;" class="antibodyButtonLowSelected">
+
+				    
+				    CD3
+				    UCHT1
+				    Lot B167965
+				    Tube#463
+				
+				    <br>
+				    </button>
+				    <button style="height:100px; 
+						float:none; 
+						display: inline-block;
+						margin: 5px 5px 5px 5px;
+						padding: 2.5px 2.5px;
+						font-size: 11px;
+						line-height: 1.8;
+						appearance: none;
+						box-shadow: none;
+						border-radius: 4;
+						border: none;
+						width: 100px;
+						word-wrap: break-word;" class="antibodyButtonOverSelected">
+
+				    
+				    CD3
+				    UCHT1
+				    Lot B167965
+				    Tube#463
+				
+				    <br>
+				    </button>
+			    </li>		    			    
+		    </ul>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

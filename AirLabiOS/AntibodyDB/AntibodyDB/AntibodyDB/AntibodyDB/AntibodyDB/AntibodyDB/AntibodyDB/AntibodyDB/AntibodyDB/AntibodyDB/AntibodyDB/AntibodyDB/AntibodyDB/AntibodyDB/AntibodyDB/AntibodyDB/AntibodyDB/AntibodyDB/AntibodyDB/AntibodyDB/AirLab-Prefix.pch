@@ -1,0 +1,62 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+    #import <CoreData/CoreData.h>
+    #import "General.h"
+    #import "ADBAppDelegate.h"
+    #import "Reachability.h"
+    #import "CoreDataStrings.h"
+    #import "IPImporter.h"
+    #import "IPExporter.h"
+    #import "IPFetchObjects.h"
+    #import "IPCloner.h"
+    #import "UIColor+Tools.h"
+    #import "Globals.h"
+    //CoreData
+    #import "RecipeObject.h"
+    #import "ZLotEnsayo.h"
+    #import "Lot.h"
+    #import "Clone.h"
+    #import "Object.h"
+    #import "Tube.h"
+    #import "Sample.h"
+    #import "Provider.h"
+    #import "Recipe.h"
+    #import "Carrier.h"
+    #import "File.h"
+    #import "ComertialReagent.h"
+    #import "ZGroupPerson.h"
+    #import "PartMain.h"
+    #import "Step.h"
+    #import "Part.h"
+    #import "ScientificArticle.h"
+    #import "ReagentInstance.h"
+    #import "ZCloneSpeciesProtein.h"
+    #import "Place.h"
+    #import "Protein.h"
+    #import "SpeciesProtein.h"
+    #import "Panel.h"
+    #import "Ensayo.h"
+    #import "ZFilePart.h"
+    #import "Plan.h"
+    #import "ZPanelLabeledAntibody.h"
+    #import "Person.h"
+    #import "Tag.h"
+    #import "Species.h"
+    #import "Group.h"
+    #import "LabeledAntibody.h"
+    #import "Epitope.h"
+    #import "ADBAccountManager.h"
+#endif

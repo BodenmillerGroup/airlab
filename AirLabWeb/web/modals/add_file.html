@@ -1,0 +1,53 @@
+<div>
+	<div class="modal fade" id="addFile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Add File</h4>
+	      </div>
+	      <div class="modal-body">
+			<div  style="font-size:14px;">
+				<input type="text" class="form-control" ng-model="fileSearch" placeholder="Search within your files..."><br>
+				Select a file:<select class="form-control" ng-model="file" ng-options="file as file.catchedInfo for file in baseData.filesList | filter:fileSearch | orderBy:'filFileId':true"></select>
+				<span ng-if="fileSearch.length > 0" ng-model="filt = baseData.filesList | filter:fileSearch"> {{$index}} files found </span>
+			</div>
+			<br>
+			<div class="loader-walk" id="loader{{file.filFileId}}" ng-if="file">
+				<div></div><div></div><div></div><div></div><div></div>
+			</div>
+
+			<iframe ng-if="file" src="{{tempFileURL(file.filFileId)}}" style="width:450px;height:250px;" id="imagearea{{file.filFileId}}"></iframe>
+			
+			<br><br>
+			<div  style="font-size:12px;">
+				Add a file to the system (check first if already available in list above) 
+				<input type="file" ng-model-instant id="fileToUpload" multiple onchange="angular.element(this).scope().setFiles(this)" />
+			</div>
+
+			<div ng-repeat="file in files.slice(0)">
+				<div ng-if="uploadComplete">
+        			<span>{{file.webkitRelativePath || file.name}}</span>
+					(<span ng-switch="file.size > 1024*1024">
+						<span ng-switch-when="true">{{file.size / 1024 / 1024 | number:2}} MB</span>
+						<span ng-switch-default>{{file.size / 1024 | number:2}}</span>
+					</span>) kB Ready!!
+				</div>
+			</div>
+			<input ng-if="files.length > 0 && progressVisible == false" type="button" ng-click="uploadFile()" value="Upload" />
+			<input ng-if="files.length > 0 && progressVisible == false" type="button" ng-click="cancelFile(this)" value="Cancel" />
+			<div ng-show="progressVisible">
+				<div class="percent">{{progress}}%</div>
+				<div class="progress-bar">
+					<div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+				</div>
+			</div>
+			
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="nextAddFileModal(file)">Add File</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

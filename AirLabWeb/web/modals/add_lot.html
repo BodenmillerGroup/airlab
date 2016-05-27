@@ -1,0 +1,85 @@
+<div class="modal fade" id="addLot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">Lot Information:</h4>
+      </div>
+      <div class="modal-body">
+	    
+	    <div class="ngdialog-message">
+				<h3>{{!dataModal.reiReagentInstanceId? 'New':'Edit'}}  Antibody Lot for {{allGetters.protein(allGetters.clone(dataModal.lotCloneId).cloProteinId).proName}} clone - {{allGetters.clone(dataModal.lotCloneId).cloName}}</h3>	
+		</div>
+		<br>
+		<br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Clone
+		  </span>
+		  <span>
+		  	<div class="input-group">
+			  	<span class="input-group-addon">
+		  			<span class="glyphicon glyphicon-search"></span>
+		  		</span>
+		  		<input type="text" class="input-group form-control" placeholder="Search clone" aria-describedby="basic-addon1" ng-model="searchClone">
+		  	</div>
+		  </span>
+		  
+		  <select class="input-group form-control" ng-model="dataModal.lotCloneId" ng-options="clone.cloCloneId as clone.cloName for clone in baseData.clonesList | filter:searchClone"></select>
+		</div>
+		<hr>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Provider
+		  </span>
+		  <span>
+		  	<div class="input-group">
+			  	<span class="input-group-addon">
+		  			<span class="glyphicon glyphicon-search"></span>
+		  		</span>
+		  		<input type="text" class="input-group form-control" placeholder="Search provider" aria-describedby="basic-addon1" ng-model="provSearch" ng-disabled="dataModal.reiComertialReagentId > 0">
+		  	</div>
+		  </span>
+		  
+		  <select class="input-group form-control" ng-model="dataModal.comertialReagent.comProviderId" ng-disabled="dataModal.reiComertialReagentId > 0"
+			  ng-options="provider.proProviderId as provider.proName for provider in baseData.providersList | filter:provSearch">
+		  </select>
+		</div>
+		<br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Catalog #
+		  </span>
+   	  	  <input type="text" class="input-group form-control" placeholder="Catalog #" aria-describedby="basic-addon1" ng-model="dataModal.comertialReagent.comReference">
+		</div>		
+		<br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Lot #
+		  </span>
+   	  	  <input type="text" class="input-group form-control" placeholder="Catalog #" aria-describedby="basic-addon1" ng-model="dataModal.lotNumber">
+		</div>
+		<br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		URL
+		  </span>
+   	  	  <input type="text" class="input-group form-control" placeholder="Datasheet URL" aria-describedby="basic-addon1" ng-model="dataModal.lotDataSheetLink">
+		</div>
+		<br>
+		<br>
+		Carrier:
+	    <div class="input-group">
+	      <span class="input-group-addon">
+	        <input type="checkbox" aria-label="..." ng-model="dataModal.passCarrier">
+	      </span>
+	      <input type="text" class="form-control" ng-model="dataModal.lotHasCarrier">
+	    </div>
+
+      </div>
+      <div class="modal-footer">		      
+        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="nextAddLotModal()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

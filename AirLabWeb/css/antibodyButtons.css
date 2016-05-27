@@ -1,0 +1,64 @@
+.antibodyButton{
+	background: rgba(223,223,223,1);
+	color: gray;
+    border-radius: 4px;
+}
+
+.antibodyButtonLow{
+	background: rgba(223,204,201,0.3);
+	color: red;    
+    border-radius: 4px;
+}
+
+.antibodyButtonOver{
+	background: rgba(223,204,201,0.3);
+	color: white;
+    border-radius: 4px;
+}
+
+.antibodyButtonSelected{
+	background: rgba(11,158,69,1);
+	color: white;    
+	border-radius: 4px;
+    border-width: 3px;
+    border-color: rgb(223, 117, 20);
+}
+
+.antibodyButtonLowSelected{
+	background: rgba(242,224,16,1);
+	color: white;    
+    border-radius: 4px;
+    border-width: 3px;
+    border-color: rgb(223, 117, 20);
+}
+
+.antibodyButtonOverSelected{
+	background: rgba(229,28,28,1);
+	color: white;    
+    border-radius: 4px;
+    border-width: 3px;
+    border-color: rgb(223, 117, 20);
+}
+
+.bullet_gray{
+	border-radius: 4px;
+	background: rgba(255,255,255,1);
+	color: black;
+	width: 20px;
+	bottom: 2px;
+}
+
+.button_ab{
+  display: inline-block;
+  margin: 5px 5px 5px 5px;
+  padding: 2.5px 2.5px;
+  font-size: 11px;
+  line-height: 1.8;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 4;
+  border: none;
+  width: 100px;/* override inline*/
+  float: right;
+  word-wrap: break-word;
+}

@@ -1,0 +1,921 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4135
+#
+# http://www.sequelpro.com/
+# http://code.google.com/p/sequel-pro/
+#
+# Host: 127.0.0.1 (MySQL 5.5.38)
+# Database: AirLab
+# Generation Time: 2016-05-27 22:40:53 +0000
+# ************************************************************
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table errors
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `errors`;
+
+CREATE TABLE `errors` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `api` varchar(255) DEFAULT NULL,
+  `post` text,
+  `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblCalendar
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblCalendar`;
+
+CREATE TABLE `tblCalendar` (
+  `calCalendarId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `calName` varchar(512) DEFAULT NULL,
+  `calURL` varchar(512) DEFAULT NULL,
+  `calPublic` int(11) DEFAULT NULL,
+  `calPrice` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `deleted` int(11) DEFAULT NULL,
+  PRIMARY KEY (`calCalendarId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table tblCalendarEvent
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblCalendarEvent`;
+
+CREATE TABLE `tblCalendarEvent` (
+  `cevCalendarEventId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cevCalendarId` int(11) DEFAULT NULL,
+  `cevStart` int(20) DEFAULT NULL,
+  `cevEnd` int(20) DEFAULT NULL,
+  `cevAllDay` int(11) DEFAULT NULL,
+  `cevTitle` text,
+  `groupId` int(11) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `deleted` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cevCalendarEventId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table tblCarrier
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblCarrier`;
+
+CREATE TABLE `tblCarrier` (
+  `carCarrierId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `carName` varchar(255) DEFAULT NULL,
+  `carOfflineId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`carCarrierId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblClone
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblClone`;
+
+CREATE TABLE `tblClone` (
+  `cloCloneId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cloBindingRegion` varchar(255) DEFAULT NULL,
+  `cloEpitopeId` int(11) DEFAULT NULL,
+  `cloIsotype` varchar(80) DEFAULT NULL,
+  `cloIsPhospho` tinyint(1) DEFAULT '0',
+  `cloIsPolyclonal` tinyint(1) DEFAULT '0',
+  `cloName` varchar(255) DEFAULT NULL,
+  `cloProteinId` int(11) DEFAULT NULL,
+  `cloSpeciesHost` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `cloReactivity` varchar(255) DEFAULT NULL,
+  `cloApplication` varbinary(255) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  `cloPublic` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`cloCloneId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblComertialReagent
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblComertialReagent`;
+
+CREATE TABLE `tblComertialReagent` (
+  `comComertialReagentId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `comName` varchar(512) DEFAULT NULL,
+  `comProviderId` int(11) DEFAULT NULL,
+  `comReference` varchar(512) DEFAULT NULL,
+  `comIsFavorite` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`comComertialReagentId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblCommentWall
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblCommentWall`;
+
+CREATE TABLE `tblCommentWall` (
+  `cwlCommentWallId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cwlComment` text,
+  `cwlParentId` int(11) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `deleted` int(11) DEFAULT NULL,
+  `createdAt` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`cwlCommentWallId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblEnsayo
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblEnsayo`;
+
+CREATE TABLE `tblEnsayo` (
+  `enyEnsayoId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `enyConclusions` text,
+  `enyHypothesis` text,
+  `enyPlanId` int(11) DEFAULT NULL,
+  `enyPurpose` text,
+  `enyTitle` varchar(512) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `enyTubeValidatedId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`enyEnsayoId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblEpitope
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblEpitope`;
+
+CREATE TABLE `tblEpitope` (
+  `epiEpitopeId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `epiProteinId` int(11) DEFAULT NULL,
+  `epiSequence` varchar(512) DEFAULT NULL,
+  `epiSpeciesProteinId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`epiEpitopeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblFavorites
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblFavorites`;
+
+CREATE TABLE `tblFavorites` (
+  `favFavoritesId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `favClones` text,
+  `favPages` text,
+  `favIsGroup` int(11) DEFAULT '0',
+  `groupId` int(11) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`favFavoritesId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# Dump of table tblFile
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblFile`;
+
+CREATE TABLE `tblFile` (
+  `filFileId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `filExtension` varchar(10) DEFAULT NULL,
+  `filHash` varchar(80) DEFAULT NULL,
+  `filURL` varchar(512) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `filPartId` int(11) DEFAULT NULL,
+  `filSize` int(11) DEFAULT NULL,
+  PRIMARY KEY (`filFileId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblGroup
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblGroup`;
+
+CREATE TABLE `tblGroup` (
+  `grpGroupId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `grpCoordinates` varchar(255) DEFAULT NULL,
+  `grpInstitution` varchar(255) DEFAULT NULL,
+  `grpName` varchar(255) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `grpUrl` varchar(512) DEFAULT NULL,
+  `grpAcceptRequests` int(11) DEFAULT NULL,
+  PRIMARY KEY (`grpGroupId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblLabeledAntibody
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblLabeledAntibody`;
+
+CREATE TABLE `tblLabeledAntibody` (
+  `labLabeledAntibodyId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `labCellsUsedForValidation` text,
+  `labConcentration` varchar(255) DEFAULT NULL,
+  `labContributorId` varchar(80) DEFAULT NULL,
+  `labCytobankLink` varchar(512) DEFAULT NULL,
+  `labCytofStainingConc` varchar(512) DEFAULT NULL,
+  `labDateOfLabeling` varchar(255) DEFAULT NULL,
+  `labLabbookRef` varchar(255) DEFAULT NULL,
+  `labLotId` int(11) DEFAULT NULL,
+  `labTagId` int(11) DEFAULT NULL,
+  `labWorkingCondition` text,
+  `labBBTubeNumber` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `tubPlaceId` int(11) DEFAULT '0',
+  `deleted` tinyint(1) DEFAULT '0',
+  `tubFinishedBy` int(11) DEFAULT '0',
+  `tubFinishedAt` varchar(80) DEFAULT NULL,
+  `tubIsLow` int(11) DEFAULT '0',
+  `labRelabeled` tinyint(11) DEFAULT '0',
+  PRIMARY KEY (`labLabeledAntibodyId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblLot
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblLot`;
+
+CREATE TABLE `tblLot` (
+  `lotLotId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `lotCarrierId` int(11) DEFAULT NULL,
+  `lotBuffer` varchar(255) DEFAULT NULL,
+  `lotCellsValidation` text,
+  `lotCloneId` int(11) DEFAULT NULL,
+  `lotConcentration` varchar(255) DEFAULT NULL,
+  `lotConditions` text,
+  `lotCytofStaiaingConc` varchar(80) DEFAULT NULL,
+  `lotDataSheetLink` varchar(512) DEFAULT NULL,
+  `lotExpirationDate` varchar(80) DEFAULT NULL,
+  `lotHasCarrier` tinyint(1) DEFAULT '0',
+  `lotNumber` varchar(255) DEFAULT NULL,
+  `lotOrderDate` varchar(80) DEFAULT NULL,
+  `lotProviderId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `lotReagentInstanceId` int(11) DEFAULT NULL,
+  `tubFinishedAt` varchar(80) DEFAULT NULL,
+  `tubFinishedBy` int(11) DEFAULT '0',
+  `tubIsLow` int(11) DEFAULT '0',
+  `deleted` tinyint(11) DEFAULT NULL,
+  PRIMARY KEY (`lotLotId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblObject
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblObject`;
+
+CREATE TABLE `tblObject` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `zetOfflineId` int(11) DEFAULT NULL,
+  `offlineId` int(11) DEFAULT NULL,
+  `catchedInfo` int(11) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblPanel
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblPanel`;
+
+CREATE TABLE `tblPanel` (
+  `panPanelId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `panName` varbinary(255) DEFAULT NULL,
+  `panDetails` text,
+  `catchedInfo` blob,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `deleted` tinyint(11) DEFAULT NULL,
+  `panFluor` tinyint(11) DEFAULT NULL,
+  PRIMARY KEY (`panPanelId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblPart
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblPart`;
+
+CREATE TABLE `tblPart` (
+  `prtPartId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `prtClosedAt` varchar(255) DEFAULT NULL,
+  `prtEnsayoId` int(11) DEFAULT NULL,
+  `prtFileXtension` varchar(11) DEFAULT NULL,
+  `prtText` text,
+  `prtTitle` varchar(255) DEFAULT NULL,
+  `prtType` varchar(11) DEFAULT NULL,
+  `prtLanguage` varchar(80) DEFAULT NULL,
+  `prtTheme` varchar(80) DEFAULT NULL,
+  `prtPosition` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `createdAt` varchar(255) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `closedAt` varchar(11) DEFAULT NULL,
+  `deleted` tinyint(11) DEFAULT NULL,
+  PRIMARY KEY (`prtPartId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblPartMain
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblPartMain`;
+
+CREATE TABLE `tblPartMain` (
+  `prmPartMainId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `prmObjectId` int(11) DEFAULT NULL,
+  `prmObjectType` varchar(80) DEFAULT NULL,
+  `prmPartId` int(11) DEFAULT NULL,
+  `prmOfflineId` int(11) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`prmPartMainId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblPerson
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblPerson`;
+
+CREATE TABLE `tblPerson` (
+  `perPersonId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `perLastname` varchar(255) DEFAULT NULL,
+  `perName` varchar(255) DEFAULT NULL,
+  `perPassword` varchar(255) DEFAULT NULL,
+  `zetActivationKey` varchar(255) DEFAULT NULL,
+  `perEmail` varchar(255) DEFAULT NULL,
+  `zetActive` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`perPersonId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblPlace
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblPlace`;
+
+CREATE TABLE `tblPlace` (
+  `plaPlaceId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `plaName` varchar(255) DEFAULT NULL,
+  `plaParentId` int(11) DEFAULT NULL,
+  `plaRows` int(11) DEFAULT NULL,
+  `plaColumns` int(11) DEFAULT NULL,
+  `plaSelves` int(11) DEFAULT NULL,
+  `plaTubeId` int(11) DEFAULT NULL,
+  `plaType` varchar(80) DEFAULT NULL,
+  `plaX` int(11) DEFAULT NULL,
+  `plaY` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`plaPlaceId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblPlan
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblPlan`;
+
+CREATE TABLE `tblPlan` (
+  `plnPlanId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `plnFinalDate` varchar(80) DEFAULT NULL,
+  `plnTitle` varchar(255) DEFAULT NULL,
+  `plnShare` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `groupId` int(11) DEFAULT NULL,
+  `deleted` tinyint(11) DEFAULT NULL,
+  PRIMARY KEY (`plnPlanId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblPlate
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblPlate`;
+
+CREATE TABLE `tblPlate` (
+  `plaPlateId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `plaRows` int(11) DEFAULT NULL,
+  `plaColumns` int(11) DEFAULT NULL,
+  `plaPlateName` varchar(255) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  PRIMARY KEY (`plaPlateId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblPlateWell
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblPlateWell`;
+
+CREATE TABLE `tblPlateWell` (
+  `pwlPlatewellId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `pwlPlateId` int(11) DEFAULT NULL,
+  `pwlPosition` int(11) DEFAULT NULL,
+  `pwlText` text,
+  `catchedInfo` text,
+  `groupId` int(11) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  PRIMARY KEY (`pwlPlatewellId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblProtein
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblProtein`;
+
+CREATE TABLE `tblProtein` (
+  `proProteinId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `proDescription` varchar(512) DEFAULT NULL,
+  `proKd` int(11) DEFAULT NULL,
+  `proName` varchar(255) DEFAULT NULL,
+  `proNcbiGeneID` varchar(255) DEFAULT NULL,
+  `proSwissDBID` varchar(255) DEFAULT NULL,
+  `openBisPermId` varchar(80) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `openBisCode` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`proProteinId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblProvider
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblProvider`;
+
+CREATE TABLE `tblProvider` (
+  `proProviderId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `proAcronym` varchar(25) DEFAULT NULL,
+  `proName` varchar(255) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`proProviderId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblReagentInstance
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblReagentInstance`;
+
+CREATE TABLE `tblReagentInstance` (
+  `reiReagentInstanceId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `lotReagentInstanceId` int(11) DEFAULT NULL,
+  `lotLotId` int(11) NOT NULL,
+  `reiComertialReagentId` int(11) DEFAULT NULL,
+  `reiStatus` varchar(80) DEFAULT NULL,
+  `reiRequestedBy` int(11) DEFAULT NULL,
+  `reiOrderedBy` int(11) DEFAULT NULL,
+  `reiApprovedBy` int(11) DEFAULT NULL,
+  `reiReceivedBy` int(11) DEFAULT NULL,
+  `reiRequestedAt` varchar(80) DEFAULT NULL,
+  `reiOrderedAt` varchar(80) DEFAULT NULL,
+  `reiApprovedAt` varchar(80) DEFAULT NULL,
+  `reiReceivedAt` varchar(80) DEFAULT NULL,
+  `reiPurpose` text,
+  `reiExpirationDate` varchar(80) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `createdAt` varchar(80) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `tubPlaceId` int(11) DEFAULT NULL,
+  `inactivatedAt` varchar(80) DEFAULT NULL,
+  `inactivatedBy` int(11) DEFAULT NULL,
+  `tubFinishedAt` varchar(80) DEFAULT NULL,
+  `tubFinishedBy` int(11) DEFAULT '0',
+  `tubIsLow` int(11) DEFAULT '0',
+  `lotCellsValidation` text,
+  `lotCloneId` int(11) DEFAULT '0',
+  `lotConcentration` varchar(255) DEFAULT NULL,
+  `lotDataSheetLink` varchar(512) DEFAULT NULL,
+  `lotExpirationDate` varchar(80) DEFAULT NULL,
+  `lotHasCarrier` varchar(255) NOT NULL DEFAULT '',
+  `lotNumber` varchar(255) NOT NULL DEFAULT '',
+  `lotProviderId` int(11) NOT NULL,
+  `lotConditions` text,
+  `lotBuffer` varchar(255) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`reiReagentInstanceId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblRecipe
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblRecipe`;
+
+CREATE TABLE `tblRecipe` (
+  `rcpRecipeId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `rcpPurpose` text,
+  `rcpTitle` varchar(512) DEFAULT NULL,
+  `rcpIsPublic` int(11) DEFAULT '0',
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `catchedInfo` blob,
+  `deleted` int(11) DEFAULT NULL,
+  `dump` text,
+  `dumpsteps` text,
+  `uriio` text,
+  PRIMARY KEY (`rcpRecipeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblRecipeObject
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblRecipeObject`;
+
+CREATE TABLE `tblRecipeObject` (
+  `rcmRecipeObjectId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `rcmObjectId` int(11) DEFAULT NULL,
+  `rcmRecipeId` int(11) DEFAULT NULL,
+  `rcmObjectType` varchar(80) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`rcmRecipeObjectId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblSample
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblSample`;
+
+CREATE TABLE `tblSample` (
+  `samSampleId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `samName` varchar(255) DEFAULT NULL,
+  `samReagentInstanceId` int(11) DEFAULT NULL,
+  `samData` text,
+  `samType` varchar(255) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `tubPlaceId` int(11) DEFAULT NULL,
+  `samParentId` int(11) DEFAULT '0',
+  `samAmount` varchar(255) DEFAULT NULL,
+  `samConcentration` varchar(255) DEFAULT NULL,
+  `tubFinishedAt` varchar(80) DEFAULT NULL,
+  `tubFinishedBy` int(11) DEFAULT NULL,
+  `tubIsLow` int(11) DEFAULT NULL,
+  `objectPictureId` varchar(80) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`samSampleId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblScientificArticle
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblScientificArticle`;
+
+CREATE TABLE `tblScientificArticle` (
+  `sciScientificArticleId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `sciAbstract` blob,
+  `sciAuthors` blob,
+  `sciEPubDate` varchar(255) DEFAULT NULL,
+  `scifullJournalName` varbinary(512) DEFAULT NULL,
+  `sciIssue` varchar(255) DEFAULT NULL,
+  `sciLastAuthor` varchar(255) DEFAULT NULL,
+  `sciNlmUniqueID` varchar(80) DEFAULT NULL,
+  `sciPages` varchar(80) DEFAULT NULL,
+  `sciPMID` varchar(80) DEFAULT NULL,
+  `sciPubDate` varchar(80) DEFAULT NULL,
+  `sciPubmedID` varchar(80) DEFAULT NULL,
+  `sciPubTypes` varchar(255) DEFAULT NULL,
+  `sciSource` varbinary(255) DEFAULT NULL,
+  `sciTitle` blob,
+  `sciVol` varchar(11) DEFAULT NULL,
+  `sciLabShared` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`sciScientificArticleId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblSpecies
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblSpecies`;
+
+CREATE TABLE `tblSpecies` (
+  `spcSpeciesId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `spcAcronym` varchar(80) DEFAULT NULL,
+  `spcName` varchar(255) DEFAULT NULL,
+  `spcLinnaeus` varchar(255) DEFAULT NULL,
+  `spcProperAcronym` varchar(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`spcSpeciesId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblSpeciesProtein
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblSpeciesProtein`;
+
+CREATE TABLE `tblSpeciesProtein` (
+  `sppSpeciesProteinId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `sppProteinId` int(11) DEFAULT NULL,
+  `sppSpeciesId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`sppSpeciesProteinId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblStep
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblStep`;
+
+CREATE TABLE `tblStep` (
+  `stpStepId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `stpText` text,
+  `stpPosition` int(11) DEFAULT NULL,
+  `stpRecipId` int(11) DEFAULT NULL,
+  `stpTime` int(11) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  PRIMARY KEY (`stpStepId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblTag
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblTag`;
+
+CREATE TABLE `tblTag` (
+  `tagTagId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tagEmission` varchar(11) DEFAULT NULL,
+  `tagExcitation` varchar(11) DEFAULT NULL,
+  `tagIsFluorphore` tinyint(1) DEFAULT NULL,
+  `tagIsMetal` tinyint(1) DEFAULT NULL,
+  `tagMW` varchar(11) DEFAULT NULL,
+  `tagName` varchar(80) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`tagTagId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblTask
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblTask`;
+
+CREATE TABLE `tblTask` (
+  `tskTaskId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tskAssigneeId` int(11) DEFAULT '0',
+  `tskFinishedAt` varchar(80) COLLATE utf8_bin DEFAULT '',
+  `tskFinishedBy` int(11) DEFAULT '0',
+  `tskIsGroup` tinyint(1) DEFAULT '0',
+  `tskAnyCanFinish` tinyint(1) DEFAULT '0',
+  `tskPriority` int(11) DEFAULT '0',
+  `tskContent` text COLLATE utf8_bin,
+  `tskParentId` int(11) DEFAULT '0',
+  `tskClosedBy` int(11) DEFAULT NULL,
+  `tskClosedAt` varchar(80) COLLATE utf8_bin DEFAULT NULL,
+  `createdBy` int(11) DEFAULT '0',
+  `groupId` int(11) DEFAULT '0',
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `deleted` tinyint(11) DEFAULT NULL,
+  PRIMARY KEY (`tskTaskId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+
+# Dump of table tblTube
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblTube`;
+
+CREATE TABLE `tblTube` (
+  `tubTubeId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `tubAmount` varchar(11) DEFAULT NULL,
+  `tubType` varchar(80) DEFAULT NULL,
+  `tubVolume` varchar(80) DEFAULT NULL,
+  `tubVolumeInit` varchar(80) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`tubTubeId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblZCloneSpeciesProtein
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblZCloneSpeciesProtein`;
+
+CREATE TABLE `tblZCloneSpeciesProtein` (
+  `cspCloneSpeciesProteinId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `cspCloneId` int(11) DEFAULT NULL,
+  `cspSpeciesProteinId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cspCloneSpeciesProteinId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblZFilePart
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblZFilePart`;
+
+CREATE TABLE `tblZFilePart` (
+  `fptFilePartId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `fptFileId` int(11) DEFAULT NULL,
+  `fptPartId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`fptFilePartId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblZGroupPerson
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblZGroupPerson`;
+
+CREATE TABLE `tblZGroupPerson` (
+  `gpeGroupPersonId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `gpeGroupId` int(11) DEFAULT NULL,
+  `gpePersonId` int(11) DEFAULT NULL,
+  `gpeRole` int(11) DEFAULT NULL,
+  `gpeActiveInGroup` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `zetActKey` varchar(255) DEFAULT NULL,
+  `gpeOrders` int(1) DEFAULT NULL,
+  `gpeErase` int(1) DEFAULT NULL,
+  `gpeFinances` int(1) DEFAULT NULL,
+  `gpeAllPanels` int(1) DEFAULT '1',
+  PRIMARY KEY (`gpeGroupPersonId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblZGroupPersonPlan
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblZGroupPersonPlan`;
+
+CREATE TABLE `tblZGroupPersonPlan` (
+  `gppGroupPersonPlanId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `gppPlanId` int(11) DEFAULT NULL,
+  `gppGroupPersonId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`gppGroupPersonPlanId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblZLotEnsayo
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblZLotEnsayo`;
+
+CREATE TABLE `tblZLotEnsayo` (
+  `lenLotEnsayoId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `lenEnsayoId` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `lenLotId` int(11) DEFAULT NULL,
+  `createdBy` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  PRIMARY KEY (`lenLotEnsayoId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+# Dump of table tblZPanelLabeledAntibody
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `tblZPanelLabeledAntibody`;
+
+CREATE TABLE `tblZPanelLabeledAntibody` (
+  `plaPanelLabeledAntibodyId` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `deleted` tinyint(11) DEFAULT '0',
+  `plaLabeledAntibodyId` int(11) DEFAULT NULL,
+  `plaPanelId` int(11) DEFAULT NULL,
+  `catchedInfo` text,
+  `createdBy` int(11) DEFAULT NULL,
+  `groupId` int(11) DEFAULT NULL,
+  `plaActualConc` varchar(80) DEFAULT NULL,
+  PRIMARY KEY (`plaPanelLabeledAntibodyId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

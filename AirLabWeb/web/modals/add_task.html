@@ -1,0 +1,59 @@
+<!-- Add Task -->
+
+<div>
+	<div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Add Task</h4>
+	      </div>
+	      <div class="modal-body">
+			<div class="input-group">
+				<center>
+					<div style="font-size:14px;">
+						<textarea style="width: 550px; resize: none" ng-model="newTask.tskContent" placeholder="Enter task here..."></textarea>
+					</div>
+					<br>
+				
+					Who can see this task?<br>
+					<div class="btn-group btn-group" data-toggle="buttons">
+					    <label class="btn btn-{{!!newTask.tskIsGroup == !!$index?'primary':'default'}}"
+					        ng-repeat="n in ['Only Assignee (and me)','Everyone in the lab'] track by $index"
+					        ng-class="{active:newTask.tskPriority==!!$index}"
+							ng-click="newTask.tskIsGroup = $index"><input type="radio"></input>{{n}}</label>
+					</div>					
+
+					<br><br>
+					
+					
+					Who is this task assigned to?<br>
+					<div class="btn-group btn-group" data-toggle="buttons">
+					    <label class="btn btn-{{!!newTask.tskAssigneeId == !!$index?'primary':'default'}}"
+					        ng-repeat="n in ['Anyone', 'Specify...'] track by $index"
+					        ng-class="{active:newTask.tskPriority==!!$index}"
+							ng-click="newTask.tskAssigneeId = $index"><input type="radio"></input>{{n}}</label>
+						<select class="form-control" ng-model="newTask.tskAssigneeId" ng-options="person.gpeGroupPersonId as person.perName for person in baseData.peopleList"></select>
+					</div>
+					
+					<br><br>
+					
+					Priority:<br>
+					<div class="btn-group btn-group" data-toggle="buttons">
+					    <label class="btn btn-{{newTask.tskPriority == $index?colorByPriority($index):'default'}}"
+					        ng-repeat="n in [].constructor(4) track by $index"
+					        ng-class="{active:newTask.tskPriority==$index}"
+							ng-click="newTask.tskPriority = $index"><input type="radio"></input>{{priorityByIndex($index)}}</label>
+					</div>			
+				</center>
+			</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="sendTask()">OK</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+<!-- Add Task -->

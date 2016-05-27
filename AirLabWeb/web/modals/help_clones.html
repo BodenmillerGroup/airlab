@@ -1,0 +1,149 @@
+<div>
+	<div class="modal fade" id="helpClones" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Clones Help</h4>
+	      </div>
+	      <div class="modal-body" style="text-align: left;">
+		    <h4>In the clones section, you can manage all your antibody clones, and see clones from other groups you belong to. The information is structured in the following way Clone -> Lot -> Conjugate. Clones are the antibodies in your database, lots are the specific tubes for each antibody that you have purchased, purified, or obtained by any other means, conjugates are the aliquots of that clones that are labeled with metal isotopes or fluorophores. In this page, you can manage all this entities. The system will assign numbers to all lots and conjugates and you can use this numbers to keep your antibody stocks tidy and centralized for all the lab!! Lots are also considered reagents, as they can be purchased. Therefore, when a lot is added, it will appear as well in the "Inventory" section.</h3>
+			<br>
+		    <h4>If you want to create a new Clone.</h4>
+		    <ul class="list-group">
+			    <li class="list-group-item">
+					Add a clone by pressing <button type="button" style="float: none;" class="btn btn-success">Add Clone  <span class="glyphicon glyphicon-plus"></span></button>
+			    </li>
+			    <li class="list-group-item">
+					Fill the information. You can either select a protein from the already existing ones or type the name of a new protein. IMPORTANT, if you type a new protein name, this overrides the selection of one from the top list.
+			    </li>
+				<li class="list-group-item">
+					Press <button type="button" style="float: none;" class="btn btn-success">Continue</button>
+			    </li>			    
+		    </ul>
+		    <h4>Add lots:</h4>
+		    <ul class="list-group">
+			    <li class="list-group-item">
+					Press <button type="button" style="float: none;" class="btn btn-primary">Clone Actions  <span class="caret"></span></button>
+			    </li>
+			    <li class="list-group-item">
+					Select Add Lot from the dropdown menu
+			    </li>
+			    <li class="list-group-item">
+					Fill the required information. The lot number is usually prefilled as "pending" since normally this number is not available until a lot is received.
+			    </li>
+				<li class="list-group-item">
+					Press <button type="button" style="float: none;" class="btn btn-success">Continue</button>
+			    </li>
+			    <li class="list-group-item">
+					A lot will be generated and associated with the clone. IMPORTANT! A reagent request will be also placed in the "Inventory" section.
+			    </li>			    			    
+		    </ul>
+		    <h4>Add conjugates:</h4>
+		    <ul class="list-group">
+			    <li class="list-group-item">
+					Press <button type="button" style="float: none;" class="btn btn-default">Lot Actions  <span class="caret"></span></button>
+			    </li>
+			    <li class="list-group-item">
+					Select Add Conjugate from the dropdown menu
+			    </li>
+			    <li class="list-group-item">
+					Fill the required information.
+			    </li>
+				<li class="list-group-item">
+					Press <button type="button" style="float: none;" class="btn btn-success">Continue</button>
+			    </li>
+			    <li class="list-group-item">
+					A conjugate will be generated and associated with the lot. A number will be suggested. Use this number to have your conjugates uniquely identified in your antibody stock. We recommend to use this system to have an efficient stock that all members of a lab can use.
+			    </li>			    			    
+		    </ul>
+		    <h4>Clone options:</h4>
+			  <ul class="list-group">
+			  	<li class="list-group-item">
+					  The button 
+					  <button type="button" class="btn btn-group-item btn-primary btn-sm" style="float: none;">
+					  	Clone actions <span class="caret"></span>
+					  </button> offers the following options
+				</li>				  
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-ok"></span>   Add Validation
+					<br><br>Opens a dialog box where you can add information on the clone performance. Fill the form with all the data related to the experiment, including positive and negative control, and a file (PDF, image, etc) containing the results. This information will be attached to the clone and will be available to all the users in the group, and upon making a clone public, to the whole community.
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-plus"></span>   Add Lot
+					<br><br>Adds a lot as explained above
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-pencil"></span>   Edit Clone
+					<br><br>Opens a pane to change the clone information
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-trash"></span>   Delete Clone
+					<br><br>Deletes a clone. IMPORTANT!! Deleting a clone is irreversible, and all validation data associated will be lost, except the files uploaded, which will be still available in the system.
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-globe"></span>   Make Public
+					<br><br>Makes the clone available to the AirLab community. The clone can now be searched in the AirLab portal.
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-user"></span>   Make Private
+					<br><br>Turns a clone private again, and only the group members can access it.
+				</li>
+			  </ul>	
+			  <h4>Lot options:</h4>
+			  <ul class="list-group">
+			  	<li class="list-group-item">
+					  The button 
+					  <button type="button" class="btn btn-group-item btn-default btn-sm" style="float: none;">
+					  	Lot actions <span class="caret"></span>
+					  </button> offers the following options
+				</li>				  
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-pencil"></span>   Edit Lot
+					<br><br>Opens a dialog box where you can edit the lot information
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-plus"></span>   Add Conjugate
+					<br><br>Adds a conjugate as explained above
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-repeat"></span>   Reorder
+					<br><br>Opens a pane to change the clone information
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-arrow-down"></span>   Mark as low / Undo Mark as low
+					<br><br>Labels this tube as "Low" or reverses it to normal. This will warn everybody about this fact. This tube will show in red color everywhere in the system, including antibody panels.
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-trash"></span>  Mark as finished / Undo Mark as finished
+					<br><br>Labels this tube as "Finished" or reverses it to non-finished. This will warn everybody about this fact. This tube will appeared in light-gray and crossed font everywhere in the database, including the antibody panels where it has been added.
+				</li>
+			  </ul>				  		  
+			  <h4>Conjugate options:</h4>
+			  <ul class="list-group">
+			  	<li class="list-group-item">
+					  The button 
+					  <button type="button" class="btn btn-group-item btn-warning btn-sm" style="float: none;">
+					  	Conjugate actions <span class="caret"></span>
+					  </button> offers the following options
+				</li>				  
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-pencil"></span>   Edit conjugate
+					<br><br>Opens a dialog box where you can edit the conjugate information
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-arrow-down"></span>   Mark as low / Undo Mark as low
+					<br><br>Labels this tube as "Low" or reverses it to normal. This will warn everybody about this fact. This tube will show in red color everywhere in the system, including antibody panels.
+				</li>
+				<li class="list-group-item">
+					<span class="glyphicon glyphicon-trash"></span>  Mark as finished / Undo Mark as finished
+					<br><br>Labels this tube as "Finished" or reverses it to non-finished. This will warn everybody about this fact. This tube will appeared in light-gray and crossed font everywhere in the database, including the antibody panels where it has been added.
+				</li>
+			  </ul>	
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

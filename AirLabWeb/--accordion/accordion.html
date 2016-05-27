@@ -1,0 +1,23 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Angular UI Test</title>
+    <meta charset="utf-8" />
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js"></script>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" />
+    <script src="https://raw.github.com/angular-ui/bootstrap/master/src/accordion/accordion.js"></script>
+    <script src="app.js"></script>
+    <style type="text/css">
+        .wrap {width:960px;margin:0 auto;}
+    </style>
+</head>
+<body>
+    <div class="wrap" ng-controller="MyCtrl">
+        <accordion>
+            <accordion-group title="Title">This has a one word title.</accordion-group>
+            <accordion-group title="Title2">This also has a one word title.</accordion-group>
+            <accordion-group title="Title With Spaces">This has a title with spaces!</accordion-group>
+        </accordion>
+    </div>
+</body>

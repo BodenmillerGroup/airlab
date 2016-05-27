@@ -1,0 +1,32 @@
+<form>
+	<div class="input-group">
+	  <span class="input-group-addon">
+	  		<span class="glyphicon glyphicon-search"></span>
+	  </span>
+	  <input type="text" class="form-control" placeholder="Search for reagents online" aria-describedby="basic-addon1" ng-model="search">
+	  <span class="input-group-addon">
+	  		<span class="glyphicon glyphicon-remove" ng-click="search = null"></span>
+	  </span>  
+	</div>
+	<br>
+	<div>
+		<button type="submit" class="btn btn-success" ng-click="clicked(search)"><span class="glyphicon glyphicon-search"></span>    Search</button>
+	</div>
+</form>
+<br>
+<br>
+<br>
+<br>
+<div class="input-group" style="width: 30%;float: right" ng-if="inArticle()">
+  <span class="input-group-addon">Request: </span>
+  <input type="text" class="form-control" placeholder="1-10" ng-model="$parent.numberOfItems" align="right">
+  <span class="input-group-addon"> Item{{numberOfItems>1?'s':''}}</span>
+  <span class="input-group-addon" ng-click="orderItem(numberOfItems)">
+		<span class="glyphicon glyphicon-shopping-cart"></span> Go!
+  </span>
+</div>
+
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('modal_addClone', 'add_clone.html');
+</script>
+<div id="modal_addClone"></div>

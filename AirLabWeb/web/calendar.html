@@ -1,0 +1,49 @@
+<div style="width: 20%; float: left;">
+	<div class="panel panel-default">
+	  <button class="btn btn-default"><span class="glyphicon glyphicon-plus" ng-click="addCalendar(true)" data-toggle="modal" data-target="#addCalendar"></span></button>	
+		<div class="panel-heading" role="tab">
+		  <h4 class="panel-title">
+		    Lab Calendars
+		  </h4>
+		</div>
+		<div class="list-group">
+			<a class="list-group-item" ng-repeat="cal in baseData.groupCalendarsList" ng-click="selected = cal">
+				<span class="glyphicon glyphicon-trash" style="float: left" ng-if="cal.createdBy == self()"></span>								
+				{{cal.calName}}
+				<span ng-click="dataModal = cal" class="glyphicon glyphicon-edit" style="float: right" data-toggle="modal" data-target="#addCalendar"
+				 ng-if="cal.createdBy == self()"></span> 							
+			</a>
+		</div>
+	</div>
+	<div class="panel panel-default">
+	  <button class="btn btn-default"><span class="glyphicon glyphicon-plus"  ng-click="addCalendar(false)" data-toggle="modal" data-target="#addCalendar"></span></button>	  	
+		<div class="panel-heading" role="tab">
+		  <h4 class="panel-title">
+		    My Calendars
+		  </h4>
+		</div>
+		<div class="list-group">
+			<a class="list-group-item" ng-repeat="cal in baseData.myCalendarsList" ng-click="selected = cal">
+				<span class="glyphicon glyphicon-trash" style="float: left"></span>								
+				{{cal.calName}}
+				<span ng-click="dataModal = cal" class="glyphicon glyphicon-edit" style="float: right" data-toggle="modal" data-target="#addCalendar"></span> 
+			</a>
+		</div>	
+	</div>
+</div>
+
+<div style="width: 72%; float: right; margin-lef: 0px; padding: 0px;">
+	<div ng-controller="ActiveCalendar as vm">
+		<div ng-include="'web/calendario.html'"></div>
+	</div>
+	
+<!-- 	http://bootstrap-calendar.azurewebsites.net -->
+<!-- http://angular-ui.github.io/ui-calendar/ -->
+<!-- http://mattlewis92.github.io/angular-bootstrap-calendar/#?example=kitchen-sink -->
+</div>
+
+<div id="add_calendar"></div>
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_calendar', 'add_calendar.html');
+</script>
+

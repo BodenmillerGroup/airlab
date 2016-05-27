@@ -1,0 +1,201 @@
+<div class="input-group">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-search"></span>
+  </span>
+  <input type="text" class="form-control" placeholder="Search for antibodies" aria-describedby="basic-addon1" ng-model="search">
+  <span class="input-group-addon">
+		<span class="glyphicon glyphicon-remove" ng-click="search = null"></span>
+  </span>
+</div>
+
+<br>
+<div>
+<button type="button" class="btn btn-success" ng-click="addClone()" data-toggle="modal" data-target="#addClone">Add Clone  <span class="glyphicon glyphicon-plus"></span></button>
+</div>
+<!-- <center><span ng-repeat="_ in ((_ = []) && (_.length=5) && _) track by $index">{{$index + 1}} </span></center> -->
+
+<br><br><br>
+<nav>
+  <ul class="pagination" ng-if="numberOfPages()>1 && (!search || search.length == 0)">
+    <li ng-class="{disabled: page == 0}"><span ng-click="changePage(0)">&laquo;</span></li>
+    <li ng-class="{disabled: page == 0}"><span ng-click="changePage(page-1)">&lt;</span></li>  
+    <li ng-class="{active: page == $index}" ng-repeat="_ in ((_ = []) && (_.length=numberOfPages()) && _) track by $index" ng-click="changePage($index)" ng-if="$index>page-5 && $index<page+5">
+    	<span>{{$index + 1}}
+    	</span>
+    </li>
+    <li ng-class="{disabled: page == numberOfPages()-1}"><span ng-click="changePage(page+1)">&gt;</span></li>    
+    <li ng-class="{disabled: page == numberOfPages()-1}"><span ng-click="changePage(numberOfPages()-1)">&raquo;</span></li>    
+  </ul>
+</nav>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat="clone in baseData.clonesList | filter:search" ng-if="conditionsPaging($index, search)">
+    <div class="panel-heading" role="tab" id="head_{{clone.cloCloneId}}" align="left">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elem_{{clone.cloCloneId}}" aria-expanded="false" aria-controls="elem_{{clone.cloCloneId}}" onclick="return false;">
+          anti-{{clone.cloIsPhospho == 1?'p-':''}}{{clone.proName}} Clone number: {{clone.cloName}} <!-- Binding region: {{clone.cloBindingRegion}} -->
+        </a>
+      </h4>
+    </div>
+    <div id="elem_{{clone.cloCloneId}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="head_{{clone.cloCloneId}}">
+      <div class="panel-body" align="left">    	
+    	<strong>{{baseData.groupName(clone.groupId)}}</strong><br>
+    	Check References For This Antibody: <a ng-href={{citeAb(clone)}} target="_blank" ng-if="citeAb(clone)">CiteAb</a> | <a ng-href={{antibodyPedia(clone)}} target="_blank" ng-if="antibodyPedia(clone)">AntibodyPedia</a> | <a ng-href={{antibodyRegistry(clone)}} target="_blank" ng-if="antibodyRegistry(clone)">AntibodyRegistry</a>
+    	<div class="btn-group" style="float: right;">
+		  <button type="button" class="btn btn-group-item btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-if="clone.groupId == baseData.selfGroup()">
+		    Clone actions <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li><a href="#" onclick="return false;" ng-click="addValidationNote(clone)" data-toggle="modal" data-target="#addValidation">
+			    <span class="glyphicon glyphicon-ok"></span>   Add Validation</a></li>
+		    <li><a href="#" onclick="return false;" ng-click="addLot(clone)" data-toggle="modal" data-target="#addLot">
+			    <span class="glyphicon glyphicon-plus"></span>   Add Lot</a></li>
+		    <li role="separator" class="divider"></li>
+		    <li><a href="#" onclick="return false;" ng-click="editClone(clone)" data-toggle="modal" data-target="#addClone">
+			    <span class="glyphicon glyphicon-pencil"></span>   Edit Clone</a></li>
+		    <li><a href="#" onclick="return false;" ng-click="deleteClone(clone)">
+			    <span class="glyphicon glyphicon-trash"></span>   Delete Clone</a></li>
+		    <li role="separator" class="divider"></li>
+		    <li><a href="#" onclick="return false;" ng-if="clone.cloPublic != 1" ng-click="makePublic(clone)">
+			    <span class="glyphicon glyphicon-globe"></span>   Make Public</a></li>
+		    <li><a href="#" onclick="return false;" ng-if="clone.cloPublic == 1" ng-click="makePrivate(clone)">
+			    <span class="glyphicon glyphicon-user"></span>   Make Private</a></li>
+		  </ul>
+		</div>
+	    <button class="btn btn-group-item btn-{{isFavoriteClone(clone)}}" ng-click="toogleFavoriteClone(clone)">
+		    <span class="glyphicon glyphicon-heart"></span>
+   	    </button>	
+    	<br><br>
+
+		<label ng-if="numberOfValidations(clone)>0" class="label label-primary" ng-click="showValidations(clone)" data-toggle="modal" data-target="#seeValidations">{{numberOfValidations(clone)}} Validation{{numberOfValidations(clone)>1?'s':''}}</label>
+    	<label class="label label-primary" ng-if="allGetters.cloneIsMouse(clone) == true">Mouse</label>
+		<label class="label label-info" ng-if="allGetters.cloneIsHuman(clone) == true">Human</label>
+		<span ng-if="worksFlow(clone) && worksImaging(clone)"></span>
+	    <label class="label label-default" ng-repeat="(key, value) in clone.apps" style="margin-right: 3px;">{{applications[key]}}</label>
+	    <span class="glyphicon glyphicon-globe" ng-if="clone.cloPublic == 1"></span>	
+    	    	
+        <table width="100%" ng-repeat="lot in allGetters.lotsByClone(clone.cloCloneId)" ng-if="lot.reiStatus != 'rejected'">
+			<tbody>
+				<tr>
+					<td width="80%" style="padding-left:20px;"  ng-class="{red_text: lot.tubIsLow == '1', crossed_text: lot.tubFinishedBy > 0}">
+						<span class="badge badge">{{lot.reiStatus == 'stock'?lot.reiReagentInstanceId:'...'}}</span> Lot {{lot.lotNumber}} 
+						<span>- Vendor: {{providerForLot(lot)}} -</span> 
+						<span ng-repeat="val in validationsForLotInClone(lot, clone)">
+							<label class="label label-{{colorForValidation(val)}}" ng-click="showValidations(clone)" data-toggle="modal" data-target="#seeValidations"><span class="glyphicon glyphicon-{{glyphForValidation(val)}}"> {{applicationForVal(val)}}</label>
+    					</span>
+    					<span class="label label-danger" ng-if="lot.lotHasCarrier != '0' && lot.lotHasCarrier != ''">Carrier: {{lot.lotHasCarrier}}</span>
+    					<span ng-if="lot.tubFinishedBy != '0'">Finished by {{allGetters.personFromLinker(lot.tubFinishedBy).perName}}</span>
+    					<span ng-if="lot.tubFinishedAt.lenght>1"> ({{labelDate(lot.tubFinishedAt)}})</span>
+					</td>
+					<td width="20%">
+						<div class="btn-group" style="float: right;">
+						  <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-if="clone.groupId == baseData.selfGroup()">
+						    Lot actions <span class="caret"></span>
+						  </button>
+						  <ul class="dropdown-menu">
+						    <li><a href="#" onclick="return false;" ng-click="editLot(lot)" data-toggle="modal" data-target="#addLot"><span class="glyphicon glyphicon-pencil"></span>   Edit Lot</a></li>
+						    <li><a href="#" onclick="return false;" ng-click="addConjugate(lot)" data-toggle="modal" data-target="#addConjugate"><span class="glyphicon glyphicon-plus"></span>   Add Conjugate</a></li>
+						    <li><a href="#" onclick="return false;" ng-click="reorderLot(lot)"><span class="glyphicon glyphicon-repeat"></span>   Reorder</a></li>
+						    <li role="separator" class="divider"></li>
+						    <li><a href="#" onclick="return false;" data-toggle="modal" data-target="#confirmChange"  ng-click="markLow(lot)"  ng-if="lot.tubFinishedBy == 0 && lot.tubIsLow == 0">
+							    <span class="glyphicon glyphicon-arrow-down"></span>   Mark as low</a></li>
+						    <li><a href="#" onclick="return false;" data-toggle="modal" data-target="#confirmChange"  ng-click="undomarkLow(lot)" ng-if="lot.tubFinishedBy == 0 && lot.tubIsLow != 0">
+							    Undo mark as low</a></li>
+						    <li><a href="#" onclick="return false;" data-toggle="modal" data-target="#confirmChange"  ng-click="markFinished(lot)"ng-if="lot.tubFinishedBy == 0">
+							    <span class="glyphicon glyphicon-trash"></span>   Mark as finished</a></li>
+							<li><a href="#" onclick="return false;" data-toggle="modal" data-target="#confirmChange" ng-click="undomarkFinished(lot)" ng-if="lot.tubFinishedBy != 0">
+								Undo mark as finished</a></li>						    						    	
+						  </ul>
+						</div>
+					</td>
+				</tr>
+				<tr ng-repeat="conjugate in allGetters.conjugates(lot.reiReagentInstanceId)">
+					<td width="80%" style="padding-left:40px;" ng-class="{red_text: conjugate.tubIsLow == '1', crossed_text: conjugate.tubFinishedBy > 0}">
+						<span class="badge badge-conjugate">{{conjugate.labBBTubeNumber}}</span> 
+						<span><strong>{{allGetters.tag(conjugate.labTagId).tagName}}{{allGetters.tag(conjugate.labTagId).tagMW}}</strong> Labeled by {{allGetters.person(conjugate.labContributorId).perName}} ({{labelDate(conjugate.labDateOfLabeling)}}) {{conjugate.labConcentration}}  </span>
+						<span ng-repeat="valCon in validationsForConjugateInClone(conjugate, clone)">
+							<label class="label label-{{colorForValidation(valCon)}}" ng-click="showValidations(clone)" data-toggle="modal" data-target="#seeValidations"><span class="glyphicon glyphicon-{{glyphForValidation(valCon)}}"> {{applicationForVal(valCon)}}</label>
+    					</span>
+    					<span ng-if="conjugate.tubFinishedBy != '0'">Finished by {{allGetters.personFromLinker(conjugate.tubFinishedBy).perName}}</span>
+    					<span ng-if="comjugate.tubFinishedAt.lenght>1"> ({{labelDate(lot.tubFinishedAt)}})</span>    							
+					</td>
+					<td width="20%">
+						<div class="btn-group" style="float: right;">
+							  <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+							  ng-if="clone.groupId == baseData.selfGroup()">
+							    Conjugate actions <span class="caret"></span>
+							  </button>
+							  <ul class="dropdown-menu">
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="editConjugate(conjugate)"  data-toggle="modal" data-target="#addConjugate"><span class="glyphicon glyphicon-pencil"></span>   Edit Conjugate</a></li>
+							    <li role="separator" class="divider"></li>
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="markLow(conjugate)"  
+									data-toggle="modal" 
+									data-target="#confirmChange"  
+									ng-if="conjugate.tubFinishedBy == 0 && conjugate.tubIsLow == 0">
+								    <span class="glyphicon glyphicon-arrow-down"></span>   Mark as low</a></li>
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="undomarkLow(conjugate)" 
+									ng-if="conjugate.tubFinishedBy == 0 && conjugate.tubIsLow != 0"  
+									data-toggle="modal" 
+									data-target="#confirmChange" >
+								    Undo mark as low</a></li>
+							    <li><a href="#" onclick="return false;" 
+								    ng-click="markFinished(conjugate)"
+									ng-if="conjugate.tubFinishedBy == 0" 
+									data-toggle="modal" 
+									data-target="#confirmChange" >
+								    <span class="glyphicon glyphicon-trash"></span>   Mark as finished</a></li>
+								<li><a href="#" onclick="return false;" 
+									ng-click="undomarkFinished(conjugate)" 
+									ng-if="conjugate.tubFinishedBy != 0"  
+									data-toggle="modal" 
+									data-target="#confirmChange" >
+									Undo mark as finished</a></li>						    				
+									<!--<button class="blue_button" style="background-color:red color:white;;" ng-click="addValidationNote(conjugate)">Add Note</button> -->
+							  </ul>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="help_button"><button class="btn btn-warning help_button" data-toggle="modal" data-target="#helpClones"><span class="glyphicon glyphicon-question-sign"></span></button></div>
+<!-- 	MODALS -->
+<div id="add_clone"></div>
+<div id="add_lot"></div>
+<div id="add_conjugate"></div>
+<div id="add_validation"></div>
+<div id="see_validations"></div>
+<div id="help_clones"></div>				
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_clone', 'add_clone.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_lot', 'add_lot.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_conjugate', 'add_conjugate.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_validation', 'add_validation.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('see_validations', 'see_validations.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('help_clones', 'help_clones.html');	
+</script>
+
+
+<!-- Confirm change -->
+<div class="modal fade" id="confirmChange" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmedChanges()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirm Change -->

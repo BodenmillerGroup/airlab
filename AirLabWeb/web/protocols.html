@@ -1,0 +1,211 @@
+<div class="input-group">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-search"></span>
+  </span>
+  <input type="text" class="form-control" placeholder="Search for protocols" aria-describedby="basic-addon1" ng-model="search">
+  <span class="input-group-addon">
+		<span class="glyphicon glyphicon-remove" ng-click="search = null"></span>
+  </span>
+</div>
+
+<div class="input-group">
+  <span class="input-group-addon">
+  		<span class="glyphicon glyphicon-search"></span>
+  </span>
+  <input type="text" class="form-control" placeholder="Search within protocols" aria-describedby="basic-addon1" ng-model="searchSteps">
+  <span class="input-group-addon">
+		<span class="glyphicon glyphicon-remove" ng-click="searchSteps = null"></span>
+  </span>
+</div>
+
+<br>
+<div>
+<button type="button" class="btn btn-success" ng-click="addProtocol()">Add Protocol  <span class="glyphicon glyphicon-plus"></span></button>
+</div>
+
+<br><br><br>
+
+<h4 align="left">My protocols</h4>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat="protocol in baseData.protocolsMineList | filter:search">
+    <div class="panel-heading" role="tab" id="head_{{protocol.rcpRecipeId}}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elem_{{protocol.rcpRecipeId}}" aria-expanded="false" aria-controls="elem_{{protocol.rcpRecipeId}}" onclick="return false;" ng-if="protocol.editing != 1">
+          {{protocol.rcpTitle}}
+        </a>
+		<input type="text" ng-if="protocol.editing == 1" ng-model="protocol.rcpTitle">
+      </h4>
+    </div>
+    <div id="elem_{{protocol.rcpRecipeId}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="head_{{protocol.rcpRecipeId}}">
+      <div class="panel-body">
+	    <button type="button" class="btn btn-default" ng-if="protocol.editing != 1" ng-click="edit(protocol)">
+		   <span class="glyphicon glyphicon-pencil"></span>   
+		   Edit Protocol
+		</button>
+	    <button type="button" class="btn btn-danger" ng-if="protocol.editing != 1" ng-click="deleteRecipe(protocol)">
+		   <span class="glyphicon glyphicon-trash"></span>   
+		   Remove
+		</button>
+		<button type="button" class="btn btn-primary" ng-if="protocol.editing != 1"  ng-click="duplicateRecipe(protocol, true)">   
+		   Duplicate   <span class="glyphicon glyphicon-repeat"></span>
+		</button>
+		<button type="button" class="btn btn-success" ng-if="protocol.editing == 1" ng-click="save(protocol)">
+		   <span class="glyphicon glyphicon-floppy-disk"></span>   
+		   Save
+		</button>
+		<button type="button" class="btn btn-default" ng-if="protocol.editing == 1" ng-click="cancel(protocol)">   
+		   Cancel   &times;
+		</button>	
+		<button type="button" class="btn btn-primary" ng-if="protocol.editing == 1" ng-click="addStep(protocol)">   
+		   Step   <span class="glyphicon glyphicon-plus"></span>
+		</button>
+		<button type="button" class="btn btn-default" ng-if="protocol.editing != 1 && protocol.rcpIsPublic != 1" ng-click="publicity(1, protocol)">   
+		   Make Public   <span class="glyphicon glyphicon-globe"></span>
+		</button>
+		<button type="button" class="btn btn-default" ng-if="protocol.editing != 1 && protocol.rcpIsPublic == 1" ng-click="publicity(0, protocol)">
+		   Make Private   <span class="glyphicon glyphicon-user"></span>
+		</button>
+
+		<br><br><br>
+		
+		<div class="list-group"  ng-if="protocol.editing != 1">		
+	    	<div style="text-align: left;" class="list-group-item" ng-repeat="step in getSteps(protocol) | filter:searchStep">
+		    	<table width="100%">
+					<tbody>
+						<tr>
+							<td width="5%"style="padding-left:20px;">
+								<span class="badge" style="float: left;">{{step.stpPosition}}</span>
+							</td>
+							<td width="95%"style="padding-left:20px;">
+								{{step.stpText}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+<!-- 		Old Editing. Keep until below tested -->
+<!--
+		<div class="input-group" ng-if="protocol.editing == 1"  ng-repeat="step in protocol.copySteps">
+			<span class="input-group-addon"><span class="bade" style="float: left;">{{step.stpPosition}}</span></span>
+			<input type="text" ng-model="step.stpText" class="form-control" aria-label="Amount (to the nearest dollar)">
+			<span class="input-group-addon">
+				<span class="glyphicon glyphicon-menu-hamburger"></span>
+			</span>
+			<span class="input-group-addon">
+				<span class="glyphicon glyphicon-remove" ng-click="removeStep(protocol, $index)"></span>
+			</span>
+		</div>
+-->		
+		<ul dnd-list="dragModel.copySteps" ng-if="protocol.editing == 1" class="list-group">
+		    <li ng-repeat="item in dragModel.copySteps"
+		        dnd-draggable="item"
+		        dnd-moved="dragModel.copySteps.splice($index, 1);reorderSteps(dragModel.copySteps);"
+		        dnd-effect-allowed="move"
+				dnd-selected="dragModel.selected = item"
+				class="input-group"
+		        >
+			        <span class="input-group-addon"><span class="bade" style="float: left;">{{item.stpPosition}}</span></span>
+					<input type="text" ng-model="item.stpText" class="form-control">
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-menu-hamburger"></span>
+					</span>
+					<span class="input-group-addon">
+						<span class="glyphicon glyphicon-remove" ng-click="removeStep(protocol, $index)"></span>
+					</span>			        
+		    </li>
+		</ul>
+		
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<h4 align="left">From other lab members</h4>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat="protocol in baseData.protocolsLabList | filter:search">
+    <div class="panel-heading" role="tab" id="head_{{protocol.rcpRecipeId}}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elem_{{protocol.rcpRecipeId}}" aria-expanded="false" aria-controls="elem_{{protocol.rcpRecipeId}}" onclick="return false;">
+          {{protocol.rcpTitle}} ({{allGetters.personFromLinker(protocol.createdBy).perName}})
+        </a>
+      </h4>
+    </div>
+    <div id="elem_{{protocol.rcpRecipeId}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="head_{{protocol.rcpRecipeId}}">
+      <div class="panel-body">	
+		<button type="button" class="btn btn-primary dropdown-toggle" ng-click="duplicateRecipe(protocol, false)">   
+		   Duplicate   <span class="glyphicon glyphicon-repeat"></span>
+		</button>
+		<br><br><br>
+		
+		<div class="list-group">		
+	    	<div style="text-align: left;" class="list-group-item" ng-repeat="step in getSteps(protocol) | filter:searchStep">
+		    	<table width="100%">
+					<tbody>
+						<tr>
+							<td width="5%"style="padding-left:20px;">
+								<span class="badge" style="float: left;">{{step.stpPosition}}</span>
+							</td>
+							<td width="95%"style="padding-left:20px;">
+								{{step.stpText}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<h4 align="left">Public</h4>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat="protocol in baseData.protocolsPublicList | filter:search" ng-if="protocol.rcpIsPublic == 1">
+    <div class="panel-heading" role="tab" id="head_{{protocol.rcpRecipeId}}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#elemp_{{protocol.rcpRecipeId}}" aria-expanded="false" aria-controls="elemp_{{protocol.rcpRecipeId}}" onclick="return false;">
+          {{protocol.rcpTitle}}
+        </a>
+      </h4>
+    </div>
+    <div id="elemp_{{protocol.rcpRecipeId}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="head_{{protocol.rcpRecipeId}}">
+      <div class="panel-body">	
+		<button type="button" class="btn btn-primary dropdown-toggle" ng-click="duplicateRecipe(protocol, false)">   
+		   Duplicate   <span class="glyphicon glyphicon-repeat"></span>
+		</button>		
+		<br><br><br>
+		
+		<div class="list-group">		
+	    	<div style="text-align: left;" class="list-group-item" ng-repeat="step in getSteps(protocol) | filter:searchStep">
+		    	<table width="100%">
+					<tbody>
+						<tr>
+							<td width="5%"style="padding-left:20px;">
+								<span class="badge" style="float: left;">{{step.stpPosition}}</span>
+							</td>
+							<td width="95%"style="padding-left:20px;">
+								{{step.stpText}}
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="help_button"><button class="btn btn-warning help_button" data-toggle="modal" data-target="#helpProtocols"><span class="glyphicon glyphicon-question-sign"></span></button></div>
+<!-- 	MODALS -->
+<div id="help_protocols"></div>				
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('help_protocols', 'help_protocols.html');
+</script>
+

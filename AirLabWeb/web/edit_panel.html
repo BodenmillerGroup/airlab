@@ -1,0 +1,83 @@
+<link href="./css/antibodyButtons.css" type="text/css" rel="stylesheet" />
+<div>
+
+<h3>{{panel.panName}}</h3>
+</div>
+<br><br>
+<div class="input-group">
+  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+  <input type="text" class="input-group form-control" placeholder="Search for antibodies" aria-describedby="basic-addon1" ng-model="search">
+</div>
+<br>
+<button class="btn btn-default" ng-click="back(false)" style="margin: 5px; float:left;"><span class="glyphicon glyphicon-chevron-left"></span><span class="glyphicon glyphicon-chevron-left"></span>   To Panels</button>
+<button class="btn btn-default" ng-click="back(true)" style="margin: 5px; float:left;"><span class="glyphicon glyphicon-chevron-left"></span>   Back</button>
+<button class="btn btn-success" ng-click="saveChangesAndReturn()" style="margin: 5px;">Save changes and Return</button>
+<button class="btn btn-success" ng-click="resave()" style="margin: 5px;">Save changes</button>
+<button class="btn btn-warning" style="margin: 5px;" ng-click="panelDesigner()" ng-if="panel.panFluor != '1'">Refine Panel   <span class="glyphicon glyphicon-signal"></span></button>
+
+<br><br><br>
+
+<br>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default" ng-repeat="tag in baseData.tagsList" ng-if="(tag.tagIsMetal == '1' && panel.panFluor != '1') || (tag.tagIsFluorphore == '1' && panel.panFluor == '1')">
+    <div class="panel-heading" role="tab" id="head_{{tag.tagTagId}}">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" href="#elem_{{tag.tagTagId}}" aria-expanded="false" aria-controls="elem_{{tag.tagTagId}}" onclick="return false;">
+          {{tag.tagName}}{{tag.tagMW}}<span style="float: right;">
+        </a>
+      </h4>
+      <input type="checkbox" ng-model="showEmptyTubes"> Show empty tubes</span>
+    </div>
+    <div id="elem_{{tag.tagTagId}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="head_{{tag.tagTagId}}">
+      <div class="panel-body">
+        <button style="height:100px; 
+						float:left; 
+						display: inline-block;
+						margin: 5px 5px 5px 5px;
+						padding: 2.5px 2.5px;
+						font-size: 11px;
+						line-height: 1.8;
+						appearance: none;
+						box-shadow: none;
+						border-radius: 4;
+						border: none;
+						width: 100px;
+						word-wrap: break-word;" 
+				onclick="return false;"
+				ng-if="showEmptyTubes == true || statusAntibody(conjugate) != 2"
+				ng-repeat="conjugate in allGetters.conjugatesByTag(tag.tagTagId, conjugate) | filter:search" 
+				name="labLabeledAntibodyId" ng-class="{
+antibodyButton: statusAntibody(conjugate) == 0, 
+antibodyButtonLow: statusAntibody(conjugate) == 1, 
+antibodyButtonOver: statusAntibody(conjugate) == 2, 
+antibodyButtonSelected: statusAntibody(conjugate) == 3, 
+antibodyButtonLowSelected: statusAntibody(conjugate) == 4, 
+antibodyButtonOverSelected: statusAntibody(conjugate) == 5}" ng-click="buttonTapped(conjugate, tag, $event)">
+
+    {{allGetters.clone(allGetters.lot(conjugate.labLotId, conjugate).lotCloneId, conjugate).cloIsPhospho == 1?'p':''}}
+    {{allGetters.protein(allGetters.clone(allGetters.lot(conjugate.labLotId, conjugate).lotCloneId, conjugate).cloProteinId, conjugate).proName}}
+    {{allGetters.clone(allGetters.lot(conjugate.labLotId, conjugate).lotCloneId, conjugate).cloName}}
+    Lot {{allGetters.lot(conjugate.labLotId, conjugate).lotNumber}}
+    Tube#{{conjugate.labBBTubeNumber}}
+    <span class="glyphicon glyphicon-heart" style="color: red;" ng-if="isFavoriteClone(allGetters.clone(allGetters.lot(conjugate.labLotId, conjugate).lotCloneId, conjugate))"></span>
+<!-- 	{{conjugate.cloName}} -->
+    <br>
+    <label class="label label-primary" ng-if="allGetters.isMouse(conjugate) == true">M</label>
+    <label class="label label-default" ng-if="allGetters.isHuman(conjugate) == true">H</label>
+    </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button class="btn btn-success" ng-click="saveChangesAndReturn()" style="margin: 5px;">Save changes and Return</button>
+<button class="btn btn-success" ng-click="saveChanges()" style="margin: 5px;">Save changes</button>
+<button class="btn btn-warning" style="margin: 5px;" data-toggle="modal" data-target="#panelDesigner">Refine Panel   <span class="glyphicon glyphicon-trash"></span></button>
+<br>
+
+<div id="help_button"><button class="btn btn-warning help_button" data-toggle="modal" data-target="#helpPanels"><span class="glyphicon glyphicon-question-sign"></span></button></div>
+<!-- 	MODALS -->
+<div id="help_panels"></div>
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('help_panels', 'help_panels.html');
+</script>

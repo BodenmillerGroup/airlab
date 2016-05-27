@@ -1,0 +1,25 @@
+<div class="modal fade" id="addTentative" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Tentative Channel</h4>
+      </div>
+      <div class="modal-body">
+	    <div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">Protein/Clone Names</span>
+			<input type="text" class="form-control" aria-describedby="basic-addon1" ng-model="newLinker.cloName">
+		</div>
+	    <div class="input-group">
+			<span class="input-group-addon" id="basic-addon1">Tag</span>
+				<select class="input-group form-control" ng-model="newLinker.tagTagId" ng-options="tag.tagTagId as tag.tagName + tag.tagMW for tag in baseData.tagsList">
+		  	</select>
+		</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="nextAddTentativeModal()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

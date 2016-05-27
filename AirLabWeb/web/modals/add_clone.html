@@ -1,0 +1,99 @@
+<div class="modal fade" id="addClone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">Please Complete Antibody Information:</h4>
+      </div>
+      <div class="modal-body" align="left">
+	      
+	    <div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Target
+		  </span>
+		  <span>
+		  	<div class="input-group">
+			  	<span class="input-group-addon">
+		  			<span class="glyphicon glyphicon-search"></span>
+		  		</span>
+		  		<input type="text" class="input-group form-control" placeholder="Search target/protein" aria-describedby="basic-addon1" ng-model="proteinSearch">
+		  	</div>
+		  </span>
+		  <select class="input-group form-control" ng-model="dataModal.cloProteinId" 
+			  ng-options="protein.proProteinId as protein.proName for protein in baseData.proteinsList | filter:proteinSearch">
+		  </select>
+		</div>
+		<small style="align-content: right;">{{(baseData.proteinsList|filter:proteinSearch).length}} proteins already in your DB</small>
+		<br>
+		<br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		New protein
+		  </span>
+		  {{checkProt((baseData.proteinsList|filter:proteinSearch))}}
+		  <input type="text" class="input-group form-control" placeholder="Or leave blank above and write name of new protein here" aria-describedby="basic-addon1" ng-model="dataModal.proteinNew">
+		</div>
+		<br>		
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Clone name
+		  </span>
+		  <input type="text" class="input-group form-control" placeholder="Clone name..." aria-describedby="basic-addon1" ng-model="dataModal.cloName">
+		</div>
+		<br>		
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Epitope/Binding Region
+		  </span>
+		  <input type="text" class="input-group form-control" placeholder="Epitope/Binding Region..." aria-describedby="basic-addon1" ng-model="dataModal.cloBindingRegion">
+		</div>
+		<br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Isotype
+		  </span>
+		  <input type="text" class="input-group form-control" placeholder="Isotype..." aria-describedby="basic-addon1" ng-model="dataModal.cloIsotype">
+		</div>		
+		
+		<hr>
+		<input type="checkbox" ng-model="dataModal.cloIsPolyclonal">  Is Polyclonal
+		&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" ng-model="dataModal.cloIsPhospho">  Is Phosphoantibody
+		<br><br>
+		<div class="input-group"  style="width:100%;">
+		  <span class="input-group-addon" style="width:130px;">
+		  		Host Species:
+		  </span>
+		  
+		  <select class="input-group form-control" ng-model="dataModal.cloSpeciesHost" ng-options="species.spcSpeciesId as species.spcName for species in baseData.speciesList"></select>
+		</div>
+		<br>
+		
+		<div class="panel-group" role="tablist" aria-multiselectable="true">
+		  <div class="panel panel-default">
+		    <div class="panel-heading" role="tab">
+		      <h4 class="panel-title">
+		        Reactivity
+		      </h4>
+		    </div>
+			<div class="panel-body">
+			    <span ng-repeat="species in baseData.speciesList" ng-model = "dataModal.cloReactivity">
+					<input  style="font-size=8px;"
+							type="checkbox"
+							name="baseData.speciesList[index]"
+							value="{{species.spcName}}"
+							ng-checked="isReactive(species.spcSpeciesId)"
+							ng-click="toggleSelection(species.spcSpeciesId)"> 
+							<small>  {{species.spcName}}</small>
+							&nbsp;&nbsp;&nbsp;
+				</span>
+			</div>
+		  </div>
+		</div>
+      </div>
+      <div class="modal-footer">		      
+        <button type="button" class="btn btn-success" ng-click="nextAddCloneModal()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>

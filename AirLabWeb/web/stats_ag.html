@@ -1,0 +1,69 @@
+<div>
+	<h3>Antibodies labeled:</h3>
+	<br>
+	<div class="list-group">
+		{{recount()}}
+		<div class="list-group-item" ng-repeat="person in baseData.peopleList | orderBy:'-totalLabeled2016'">{{person.perName}}
+			<span class="badge">{{person.totalLabeled2016}} (2016)</span>
+			<span class="badge">{{person.totalLabeled2015}} (2015)</span>
+			<span class="badge">{{person.totalLabeled}} (Total)</span>
+		</div>
+	</div>
+	<br>
+	<h3>Antibodies Requested:</h3>
+	<br>
+	<div class="list-group">
+		<div class="list-group-item" ng-repeat="person in baseData.peopleList | orderBy:'-totalRequested2016'">{{person.perName}}
+			<span class="badge">{{person.totalRequested2016}} (2016)</span>
+			<span class="badge">{{person.totalRequested2015}} (2015)</span>
+			<span class="badge">{{person.totalRequested}} (Total)</span>
+		</div>
+	</div>
+	<br>
+	<h3>Conjugates Finished:</h3>
+	<br>
+	<div class="list-group">
+		<div class="list-group-item" ng-repeat="person in baseData.peopleList | orderBy:'-totalFinished2016'">{{person.perName}}
+			<span class="badge">{{person.totalFinished2016}} (2016)</span>
+			<span class="badge">{{person.totalFinished2015}} (2015)</span>
+			<span class="badge">{{person.totalFinished}} (Total)</span>
+		</div>
+	</div>	
+	<br>
+	{{recountPanels()}}
+	<h3>Panels:</h3>
+	<br>
+	<div class="list-group">
+		<div class="list-group-item" ng-repeat="person in baseData.peopleList | orderBy:'-totalPanels'">{{person.perName}}
+			<span class="badge">{{person.totalPanels}}</span>
+		</div>
+	</div>	
+	<br>	
+	{{recountLabs()}}
+	<div style="width:100%; height: 470;" id="theSVG1">
+		<div class="bubbles" data="panConjs" datalength = "panConjs.length" variablexaxis="'tube_number'" variableyaxis ="'panelId'" variableradius="'h'" variablecolor="'h'" id="theSVG1">
+		</div>
+	</div>
+	<br>		
+	<div style="width:100%; height: 470;" id="theSVG2">
+		<div class="bubbles" data="filtConjs" datalength = "filtConjs.length" variablexaxis="'labBBTubeNumber'" variableyaxis ="'lastPanel'" variableradius="'h'" variablecolor="'finished'" id="theSVG2">
+		</div>
+	</div>
+	<br>	
+	<div style="width:100%; height: 470;" id="theSVG3">
+		<div class="bubbles" data="filtConjs" datalength = "filtConjs.length" variablexaxis="'labDate'" variableyaxis ="'labBBTubeNumber'" variableradius="'h'" variablecolor="'labContributorId'" id="theSVG3">
+		</div>
+	</div>
+	<br>
+	{{recountLots()}}	
+	<div style="width:100%; height: 470;" id="theSVG4" ng-if="baseData.lotsList">
+		<div class="bubbles" data="baseData.lotsList" datalength = "baseData.lotsList.length" variablexaxis="'requested_at'" variableyaxis ="'reiReagentInstanceId'" variableradius="'h'" variablecolor="'reiRequestedBy'" id="theSVG4">
+		</div>
+	</div>
+	<br>
+	<div style="width:100%; height: 470;" id="theSVG5">
+		<div class="bubbles" data="filtConjs" datalength = "filtConjs.length" variablexaxis="'finished_at'" variableyaxis ="'finished'" variableradius="'h'" variablecolor="'h'" id="theSVG5">
+		</div>
+	</div>
+	<br>					
+</div>

@@ -1,0 +1,179 @@
+<div class="modal fade" id="addValidation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel1">Validation Note:</h4>
+      </div>
+      <div class="modal-body">
+	    
+			
+			<div style="font-size:14px;">
+				<input type="hidden" ng-model="dataModal.validation.isVal"><!--  This is a validation note<br> -->
+				Application (*):<br>
+<!-- 				<select ng-model="dataModal.validation.app" ng-options="idx as item for (idx, item) in applications"></select><br><br> -->
+				
+				<div class="btn-group btn-group" data-toggle="buttons">
+					    <label class="btn btn-{{dataModal.validation.app == $index?'primary':'default'}}"
+					        ng-repeat="item in applications track by $index"
+					        ng-class="{active:dataModal.validation.app==$index}"
+							ng-click="dataModal.validation.app = $index"><input type="radio"></input>{{item}}</label>
+				</div>
+
+				<table class="table" style="padding: 20px;border-width: 0px;">
+					<tr>
+						<td ng-if="allGetters.lots(dataModal.clone.cloCloneId).length>0">
+							Lot used for validation:
+						</td>
+						<td ng-if="dataModal.validation.lot">
+							Conjugate used for validation:
+						</td>
+					</tr>
+					<tr>
+						<td ng-if="allGetters.lots(dataModal.clone.cloCloneId).length>0">
+							<select ng-model="dataModal.validation.lot" class="form-control"
+								ng-options="lot.reiReagentInstanceId as lot.lotNumber+' #'+lot.reiReagentInstanceId for lot in allGetters.lotsByClone(dataModal.clone.cloCloneId)"></select>
+						</td>
+						<td ng-if="dataModal.validation.lot">
+<!-- 							Tube number:  -->
+							<select class="form-control" ng-model="dataModal.validation.conjugate" 
+								ng-options="conjugate.labLabeledAntibodyId as 'Conjugate #'+conjugate.labBBTubeNumber for conjugate in allGetters.conjugates(dataModal.validation.lot)">
+							</select>
+						</td>
+					</tr>
+				</table>
+
+				<table class="table" style="padding: 20px;border-width: 0px;">
+					<tr>
+						<td>
+							Positive control (*):
+						</td>
+						<td>
+							Negative control (*):
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input class="form-control" type="text" ng-model="dataModal.validation.sample">
+						</td>
+						<td>
+							<input class="form-control" type="text" ng-model="dataModal.validation.negSample">
+						</td>
+					</tr>
+				</table>
+
+				
+				<table class="table" style="padding: 20px;"  ng-if="dataModal.validation.app == 0 || dataModal.validation.app == 2">
+					<tr>
+						<td>
+							Saponin:
+						</td>
+						<td>
+							<select class="form-control" ng-model="dataModal.validation.saponin" ng-options="idx as item for (idx, item) in knowledge"></select>
+						</td>
+						<td>
+							<input class="form-control" type="text" ng-model="dataModal.validation.saponinConc" placeholder="Concentration (ug/mL)"><br><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Methanol treatment:
+						</td>
+						<td>
+							<select class="form-control" ng-model="dataModal.validation.metoh" ng-options="idx as item for (idx, item) in knowledge"></select>
+						</td>
+						<td>
+							<input class="form-control" type="text" ng-model="dataModal.validation.metohConc" placeholder="Concentration (ug/mL)"><br><br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Surface staining:
+						</td>
+						<td>
+							<select class="form-control" ng-model="dataModal.validation.surface" ng-options="idx as item for (idx, item) in knowledge"></select>
+						</td>
+						<td>
+							<input class="form-control" type="text" ng-model="dataModal.validation.surfaceConc" placeholder="Concentration (ug/mL)"><br><br>
+						</td>
+					</tr>
+				</table>
+				
+				<table class="table" style="padding: 20px;"  ng-if="dataModal.validation.app == 1 || dataModal.validation.app == 3 || dataModal.validation.app == 4">
+					<tr>
+						<td>
+							Antigen retrieval:
+						</td>
+						<td>
+							<select class="form-control" ng-model="dataModal.validation.antigenRetrievalType" ng-options="item for item in ['HIER Buffer','Sodium Citrate','2-Step Retrieval']"></select>
+						</td>
+						<td>
+							<input class="form-control" type="text" ng-model="dataModal.antigenRetrievalTime" placeholder="Time (min)">
+						</td>
+						<td>
+							<input class="form-control" type="text" ng-model="dataModal.antigenRetrievalTemp" placeholder="Temperature (C)">
+						</td>						
+					</tr>
+				</table>								
+				
+				Notes:
+				<textarea class="form-control" ng-model="dataModal.validation.note"></textarea><br><br>
+				
+				Works (*):<br>
+				<br>
+				<div class="btn-group btn-group" data-toggle="buttons">
+					<label class="btn btn-{{dataModal.validation.val == $index?colorForValidation(dataModal.validation):'default'}}"
+					        ng-repeat="item in works track by $index"
+					        ng-class="{active:dataModal.validation.val==$index}"
+							ng-click="dataModal.validation.val = $index">{{item}}</label>
+				</div>				
+			</div>
+			<hr>
+			
+<!-- 			This sector may be refactored. See a modal called add_file.html -->
+			<div  style="font-size:14px;">
+				Select a file (*):
+ 				<input type="text" class="form-control" ng-model="fileSearch" placeholder="Search within your files..."><br>
+				<select class="form-control" ng-model="dataModal.validation.file" 
+					ng-options="fileobj.filFileId as fileobj.catchedInfo for fileobj in baseData.filesList | filter:fileSearch | orderBy:filFileId:false"></select>
+				<span ng-if="fileSearch.length > 0" ng-model="filt = baseData.filesList | filter:fileSearch"> {{$index}} files found </span>
+			</div>
+			<br>
+			
+			<div class="loader-walk" id="loader{{note.file}}" ng-if="note.file">
+				<div></div><div></div><div></div><div></div><div></div>
+			</div>
+			
+			<iframe ng-if="dataModal.validation.file" src="{{tempFileURL(dataModal.validation.file)}}" style="width:450px;height:250px;"  id="imagearea{{note.file}}"></iframe>
+			
+			<div style="font-size:12px;">
+				Add a file to the system (check first if already available in list above) 
+				<input type="file" ng-model-instant id="fileToUpload" multiple onchange="angular.element(this).scope().setFiles(this)" />
+			</div>
+
+			<div ng-repeat="file in files.slice(0)">
+				<div ng-if="uploadComplete">
+        			<span>{{file.webkitRelativePath || file.name}}</span>
+					(<span ng-switch="file.size > 1024*1024">
+						<span ng-switch-when="true">{{file.size / 1024 / 1024 | number:2}} MB</span>
+						<span ng-switch-default>{{file.size / 1024 | number:2}}</span>
+					</span>) kB Ready!!
+				</div>
+			</div>
+			<input class="btn btn-primary" ng-if="files.length > 0 && progressVisible == false" type="button" ng-click="uploadFile()" value="Upload" />
+			<input class="btn btn-primary" ng-if="files.length > 0 && progressVisible == false" type="button" ng-click="cancelFile(this)" value="Cancel" />
+			<div ng-show="progressVisible">
+				<div class="percent">{{progress}}%</div>
+				<div class="progress-bar">
+					<div class="uploaded" ng-style="{'width': progress+'%'}"></div>
+				</div>
+			</div>	    
+      </div>
+      
+      <div class="modal-footer">		      
+        <button type="button" class="btn btn-success" ng-click="nextAddValidationModal()">Continue</button>
+      </div>
+      
+    </div>
+  </div>
+</div>

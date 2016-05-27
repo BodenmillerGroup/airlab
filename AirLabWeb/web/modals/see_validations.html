@@ -1,0 +1,114 @@
+<div class="modal fade" id="seeValidations" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div style="font-size:14px;" ng-repeat="note in dataModal.validations">
+	    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>  
+		<button style="float: left;" class="btn btn-default" ng-click="editValidation(note, $index)">Edit</button><!--  data-dismiss="modal" data-toggle="modal" data-target="#addValidation">Edit</button> -->
+		<button style="float: left;" class="btn btn-danger" ng-click="erase($index)">Remove</button>
+		<br><br>
+		<table class="table" style="width:100%;">
+			<tbody>
+				<tr>
+					<td style="width:50%;">
+						Application:
+					</td>
+					<td>
+						{{whatApp(note.app)}}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Positive control:
+					</td>
+					<td>
+						{{note.sample}}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Negative control:
+					</td>
+					<td>
+						{{note.negSample}}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Saponin control:
+					</td>
+					<td>
+						{{whatKnowledge(note.saponin)}} {{note.saponinConc}}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Methanol control:
+					</td>
+					<td>
+						{{whatKnowledge(note.metoh)}} {{note.metohConc}}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Surface control:
+					</td>
+					<td>
+						{{whatKnowledge(note.surface)}} {{note.surfaceConc}}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Antigen retrieval:
+					</td>
+					<td>
+						{{note.antigenRetrievalType}} {{note.antigenRetrievalTemp?note.antigenRetrievalTemp+' C':''}}  {{note.antigenRetrievalTime?note.antigenRetrievalTime+' min':''}}
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Works:
+					</td>
+					<td>
+						<label class="label label-{{worksColor(note.val)}}">
+							{{whatWorks(note.val)}}
+						</label>
+					</td>
+				</tr>
+				<tr class="clean_table">
+					<td class="clean_table">
+						Notes:
+					</td>
+					<td class="clean_table">
+						<div ng-bind-html="utfToHtml_(note.note)"></div>
+					</td>
+				</tr>
+				<tr class="clean_table">
+					<td class="clean_table">
+						Created By:
+					</td>
+					<td class="clean_table">
+						{{allGetters.person(note.personId).perName}} | {{note.date}}
+					</td>
+				</tr>
+			<tbody>
+		</table>
+		
+		<div class="file_area">
+			<div id="imagearea{{part.prtPartId}}" ng-if="show(note.file)">
+				
+				<iframe id="image{{note.file}}" ng-if="show(note.file)" ng-src="{{tempFileURL(note.file)}}" style="width:100%;height:400px;" webkitAllowFullScreen imageonload></iframe>				
+				<a ng-if="show(note.file)" href="{{tempFileURL(note.file)}}">{{tempFileURL(note.file)}}</a>							
+			</div>
+			<div class="loader-walk" id="loader{{note.file}}" ng-if="note.file">
+				<div></div><div></div><div></div><div></div><div></div>
+			</div>
+		</div>
+		<hr>
+		<br>
+	  </div>
+    </div>
+  </div>
+</div>
+
+
+

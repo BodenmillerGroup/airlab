@@ -1,0 +1,98 @@
+<div class="input-group">
+  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+  <input type="text" class="form-control" placeholder="Search for antibodies" aria-describedby="basic-addon1" ng-model="search">
+</div>
+<br>
+
+<table width="100%">
+	<tbody>
+		<tr ng-repeat="lot in baseData.lotsList | filter:search">
+			<td style="padding-left:40px;">
+				<span class="badge">{{lot.reiStatus == 'stock'?lot.reiReagentInstanceId:'...'}}</span> 
+				<span  ng-class="{red_text: lot.tubIsLow == '1', crossed_text: lot.tubFinishedBy > 0}">
+				
+				{{lot.proName?'':lazyLot(lot)}}
+				
+				<label class="label label-danger" ng-if="lot.cloName == null"  ng-click="edit(lot)" data-toggle="modal" data-target="#changeClone">NO CLONE</label>
+				<label class="label label-default" ng-if="lot.cloName != null"  ng-click="edit(lot)" data-toggle="modal" data-target="#changeClone">({{lot.cloName}})</label>						
+				<label class="label label-default" ng-if="lot.proName != null"  ng-click="edit(allGetters.clone(lot.lotCloneId))" data-toggle="modal" data-target="#changeProtein">
+				anti-{{lot.phospho}}{{lot.proName}}</label>					
+				<label class="label label-primary" ng-if="allGetters.comertialReagent(lot.reiComertialReagentId).comComertialReagentId == null"  ng-click="edit(lot)" data-toggle="modal" data-target="#changeCom">NO REAGENT</label>
+				<label class="label label-primary" ng-if="allGetters.comertialReagent(lot.reiComertialReagentId).comComertialReagentId != null"  ng-click="edit(allGetters.comertialReagent(lot.reiComertialReagentId))" data-toggle="modal" data-target="#changeCom">({{allGetters.comertialReagent(lot.reiComertialReagentId).comName}})</label>	
+				
+				<strong>{{lot.lotNumber}}</strong> Requested by {{allGetters.personFromLinker(lot.reiRequestedBy).perName}} ({{lot.reiRequestedAt}})</span>
+				
+			</td>
+			<td>
+				<div class="btn-group" style="float: left;" hidden="true">
+					  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a href="#" onclick="return false;" 
+								    ng-click="editClone(allGetters.clone(lot.lotCloneId))"  
+									data-toggle="modal" 
+									data-target="#addClone">Edit Clone</a></li>						  
+					    <li><a href="#" onclick="return false;" 
+								    ng-click="editLot(lot)"  
+									data-toggle="modal" 
+									data-target="#addLot">Edit Lot</a></li>
+					    <li role="separator" class="divider"></li>
+					    <li><a href="#" onclick="return false;" 
+								    ng-click="markLow(lot)"  
+									data-toggle="modal" 
+									data-target="#confirmChange"
+								    ng-if="lot.tubFinishedBy == 0 && lot.tubIsLow == 0">Mark as low</a></li>
+					    <li><a href="#" onclick="return false;" 
+								    ng-click="undomarkLow(lot)"  
+									data-toggle="modal" 
+									data-target="#confirmChange" 
+									ng-if="lot.tubFinishedBy == 0 && lot.tubIsLow != 0">Undo mark as low</a></li>
+					    <li><a href="#" onclick="return false;" 
+								    ng-click="markFinished(lot)"  
+									data-toggle="modal" 
+									data-target="#confirmChange"
+									ng-if="lot.tubFinishedBy == 0">Mark as finished</a></li>
+						<li><a href="#" onclick="return false;" 
+								    ng-click="undomarkFinished(lot)"  
+									data-toggle="modal" 
+									data-target="#confirmChange" 
+									ng-if="lot.tubFinishedBy != 0">Undo mark as finished</a></li>						    			
+					    <li role="separator" class="divider"></li>
+					    <li><a href="#" onclick="return false;" 
+								    ng-click="addConjugate(lot)"  
+									data-toggle="modal" 
+									data-target="#addConjugate">Add Conjugate</a></li>
+						<!--<button class="blue_button" style="background-color:red color:white;;" ng-click="addValidationNote(conjugate)">Add Note</button> -->
+					  </ul>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<div id="add_clone"></div>
+<div id="add_lot"></div>
+<div id="add_conjugate"></div>
+<script>
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_lot', 'add_lot.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_clone', 'add_clone.html');
+	loadModalIntoDivWithIdAndTemplateInModalsFolder('add_conjugate', 'add_conjugate.html');	
+</script>
+
+<!-- Confirm change -->
+<div class="modal fade" id="confirmChange" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Are you sure?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmedChanges()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Confirm Change -->

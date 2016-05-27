@@ -1,0 +1,83 @@
+<!-- Change Clone -->
+
+<div>
+	<div class="modal fade" id="changeClone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Change Clone</h4>
+	      </div>
+	      <div class="modal-body">
+
+					<div class="btn-group btn-group" data-toggle="buttons">
+						<select class="form-control" ng-model="editedObject.lotCloneId" ng-options="clone.cloCloneId as clone.cloName for clone in baseData.clonesList"></select>
+					</div>
+					{{editedObject.lotNumber}}
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmChange(editedObject)">OK</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+<!-- Change Clone -->
+
+<!-- Change ComReag -->
+
+<div>
+	<div class="modal fade" id="changeCom" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Change Comertial Reagent</h4>
+	      </div>
+	      <div class="modal-body">
+
+					<div class="btn-group btn-group" data-toggle="buttons">
+						<select class="form-control" ng-model="editedObject.reiComertialReagentId" ng-options="com.comComertialReagentId as com.comName for com in baseData.comertialReagentsList"></select>
+					</div>
+					{{editedObject}}
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmChange(editedObject)">OK</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+<!-- Change ComReag -->
+
+<!-- Change Protein -->
+
+<div>
+	<div class="modal fade" id="changeProtein" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Change Protein</h4>
+	      </div>
+	      <div class="modal-body">
+
+					<div class="btn-group btn-group" data-toggle="buttons">
+						<select class="form-control" ng-model="editedObject.cloProteinId" ng-options="pro.proProteinId as pro.proName for pro in baseData.proteinsList"></select>
+					</div>
+					{{editedObject}}
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="confirmChange(editedObject)">OK</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+<!-- Change Protein -->

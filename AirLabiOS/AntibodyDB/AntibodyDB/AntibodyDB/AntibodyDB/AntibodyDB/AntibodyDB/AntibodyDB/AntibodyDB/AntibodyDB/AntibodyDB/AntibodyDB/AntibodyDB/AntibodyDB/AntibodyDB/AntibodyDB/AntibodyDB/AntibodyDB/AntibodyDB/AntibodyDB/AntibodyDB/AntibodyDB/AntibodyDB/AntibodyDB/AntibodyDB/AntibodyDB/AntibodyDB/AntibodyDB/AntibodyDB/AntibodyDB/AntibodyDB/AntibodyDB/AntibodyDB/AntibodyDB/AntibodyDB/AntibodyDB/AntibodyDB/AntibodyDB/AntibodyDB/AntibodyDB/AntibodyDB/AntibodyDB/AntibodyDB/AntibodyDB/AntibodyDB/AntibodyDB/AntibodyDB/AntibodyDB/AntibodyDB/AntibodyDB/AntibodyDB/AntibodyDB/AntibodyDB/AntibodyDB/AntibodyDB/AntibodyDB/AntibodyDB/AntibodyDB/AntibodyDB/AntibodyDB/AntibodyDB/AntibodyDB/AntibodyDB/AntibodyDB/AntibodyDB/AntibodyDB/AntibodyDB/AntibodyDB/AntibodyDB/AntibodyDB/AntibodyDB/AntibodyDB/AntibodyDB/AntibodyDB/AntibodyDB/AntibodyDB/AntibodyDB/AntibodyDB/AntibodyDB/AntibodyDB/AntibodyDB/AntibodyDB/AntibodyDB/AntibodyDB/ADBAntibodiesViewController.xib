@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ADBAntibodiesViewController">
+            <connections>
+                <outlet property="searchDisplayController" destination="tLR-Eg-pwO" id="SwX-0f-5Vc"/>
+                <outlet property="tableView" destination="X59-I1-lcf" id="pXd-EW-hGr"/>
+                <outlet property="view" destination="iN0-l3-epB" id="O3J-PQ-hhB"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="X59-I1-lcf">
+                    <rect key="frame" x="0.0" y="44" width="768" height="980"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="IhT-FT-GNQ"/>
+                        <outlet property="delegate" destination="-1" id="5ND-d5-HTg"/>
+                    </connections>
+                </tableView>
+                <searchBar contentMode="redraw" id="YZd-qc-jVb">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="2Mj-eV-Vip"/>
+                    </connections>
+                </searchBar>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <searchDisplayController id="tLR-Eg-pwO">
+            <connections>
+                <outlet property="delegate" destination="-1" id="INd-kR-q4L"/>
+                <outlet property="searchBar" destination="YZd-qc-jVb" id="cdv-fl-RYw"/>
+                <outlet property="searchContentsController" destination="-1" id="FEJ-VX-oLS"/>
+                <outlet property="searchResultsDataSource" destination="-1" id="EMI-Uz-7NQ"/>
+                <outlet property="searchResultsDelegate" destination="-1" id="So1-r5-RYs"/>
+            </connections>
+        </searchDisplayController>
+    </objects>
+</document>

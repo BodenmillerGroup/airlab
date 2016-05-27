@@ -1,0 +1,48 @@
+<div>
+	<div class="modal fade" id="addReagent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel1">Add A New Reagent</h4>
+	      </div>
+	      <div class="modal-body">
+			<div class="input-group">
+			  	<span class="input-group-addon">Reagent Name</span>
+				<input type="text" class="form-control" ng-model="dataModal.comName" placeholder="Reagent name..." aria-describedby="basic-addon1">			
+			</div>
+			<br>
+			<div class="input-group">
+				<span class="input-group-addon">Vendor</span>
+				<input class="input-group form-control" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searcha">
+				<select class="input-group form-control" ng-model="dataModal.comProviderId" 
+					ng-options="provider.proProviderId as provider.proName for provider in baseData.providersList | filter:searcha">		
+				</select>			
+			</div>
+			<br>
+			<div class="input-group">
+			  	<span class="input-group-addon">Catalog Number</span>
+				<input type="text" class="form-control" ng-model="dataModal.comReference" placeholder="Catalog Number..." aria-describedby="basic-addon1">			
+			</div>
+			<br>							
+			<br>
+			<br>
+			<button class="btn btn-default" ng-click="addPair()"><span class="glyphicon glyphicon-plus"></span></button>	
+			<br>				
+			<br>
+			<div class="input-group" ng-repeat="pair in dataModal.pairs track by $index" style="width: 100%">
+				<input style="width:27%;" type="text" class="input-group-addon form-control" placeholder="key..." aria-describedby="basic-addon1" ng-model="pair.key" 
+				ng-change="changeDictKey(pair, pair.key)">
+				<input style="width:66%;" type="text" class="input-group form-control" placeholder="value..." aria-describedby="basic-addon1" ng-model="pair.value"
+				ng-change="changeDictValue(pair, pair.value)">
+				<span ng-click="removePair($index)"><span class="glyphicon glyphicon-trash"></span></span>				
+			</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-success" ng-click="nextAddReagentModal()">Save</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

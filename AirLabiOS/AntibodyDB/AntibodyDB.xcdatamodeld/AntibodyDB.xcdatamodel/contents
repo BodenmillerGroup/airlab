@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15B42" minimumToolsVersion="Automatic">
+    <entity name="Carrier" representedClassName="Carrier" parentEntity="Object" syncable="YES">
+        <attribute name="carCarrierId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="carName" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <relationship name="lots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lot" inverseName="carrier" inverseEntity="Lot" syncable="YES"/>
+    </entity>
+    <entity name="Clone" representedClassName="Clone" parentEntity="Object" syncable="YES">
+        <attribute name="cloApplication" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cloBindingRegion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cloCloneId" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="cloEpitopeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cloIsotype" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="cloIsPhospho" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cloIsPolyclonal" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cloName" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="cloProteinId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cloReactivity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cloSpeciesHost" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="lots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lot" inverseName="clone" inverseEntity="Lot" syncable="YES"/>
+        <relationship name="protein" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Protein" inverseName="clones" inverseEntity="Protein" syncable="YES"/>
+        <relationship name="speciesHost" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Species" inverseName="clonesIsHost" inverseEntity="Species" syncable="YES"/>
+    </entity>
+    <entity name="ComertialReagent" representedClassName="ComertialReagent" parentEntity="Object" syncable="YES">
+        <attribute name="comComertialReagentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comName" optional="YES" attributeType="String" maxValueString="512" syncable="YES"/>
+        <attribute name="comProviderId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="comReference" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="provider" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Provider" inverseName="reagents" inverseEntity="Provider" syncable="YES"/>
+        <relationship name="reagentInstances" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReagentInstance" inverseName="comertialReagent" inverseEntity="ReagentInstance" syncable="YES"/>
+    </entity>
+    <entity name="CommentWall" representedClassName="CommentWall" parentEntity="Object" syncable="YES">
+        <attribute name="cwlComment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cwlCommentWallId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cwlParentId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CommentWall" inverseName="parent" inverseEntity="CommentWall" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CommentWall" inverseName="children" inverseEntity="CommentWall" syncable="YES"/>
+    </entity>
+    <entity name="Ensayo" representedClassName="Ensayo" parentEntity="Object" syncable="YES">
+        <attribute name="enyConclusions" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="enyEnsayoId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="enyHypothesis" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="enyPlanId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="enyPurpose" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="enyTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="enyTubeValidatedId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="lotEnsayos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZLotEnsayo" inverseName="ensayo" inverseEntity="ZLotEnsayo" syncable="YES"/>
+        <relationship name="parts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Part" inverseName="ensayo" inverseEntity="Part" syncable="YES"/>
+        <relationship name="plan" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Plan" inverseName="ensayos" inverseEntity="Plan" syncable="YES"/>
+        <relationship name="tubeValidated" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lot" inverseName="validationExperiments" inverseEntity="Lot" syncable="YES"/>
+    </entity>
+    <entity name="File" representedClassName="File" parentEntity="Object" syncable="YES">
+        <attribute name="filExtension" optional="YES" attributeType="String" maxValueString="10" syncable="YES"/>
+        <attribute name="filFileId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filHash" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="filPartId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filSize" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="filURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="zetUploadData" optional="YES" attributeType="Binary" syncable="YES"/>
+        <relationship name="fileparts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZFilePart" inverseName="file" inverseEntity="ZFilePart" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="Group" parentEntity="Object" syncable="YES">
+        <attribute name="grpAcceptRequests" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="grpCoordinates" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="grpGroupId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="grpInstitution" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="grpName" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="grpUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="groupPersons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="group" inverseEntity="ZGroupPerson" syncable="YES"/>
+        <relationship name="persons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="groups" inverseEntity="Person" syncable="YES"/>
+    </entity>
+    <entity name="LabeledAntibody" representedClassName="LabeledAntibody" parentEntity="Tube" syncable="YES">
+        <attribute name="labBBTubeNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labCellsUsedForValidation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labConcentration" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="labContributorId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labCytobankLink" optional="YES" attributeType="String" maxValueString="512" syncable="YES"/>
+        <attribute name="labCytofStainingConc" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labDateOfLabeling" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="labLabbookRef" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labLabeledAntibodyId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labLotId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labRelabeled" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labTagId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="labWorkingCondition" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="lot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lot" inverseName="labeledAntibodies" inverseEntity="Lot" syncable="YES"/>
+        <relationship name="tag" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="labeledAntibodies" inverseEntity="Tag" syncable="YES"/>
+    </entity>
+    <entity name="Lot" representedClassName="Lot" parentEntity="ReagentInstance" syncable="YES">
+        <attribute name="lotBuffer" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="lotCellsValidation" optional="YES" attributeType="String" maxValueString="512" syncable="YES"/>
+        <attribute name="lotCloneId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lotConcentration" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="lotConditions" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lotDataSheetLink" optional="YES" attributeType="String" maxValueString="512" syncable="YES"/>
+        <attribute name="lotExpirationDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lotHasCarrier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lotLotId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lotNumber" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="lotProviderId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lotReagentInstanceId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetConfirmed" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="carrier" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Carrier" inverseName="lots" inverseEntity="Carrier" syncable="YES"/>
+        <relationship name="clone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Clone" inverseName="lots" inverseEntity="Clone" syncable="YES"/>
+        <relationship name="labeledAntibodies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LabeledAntibody" inverseName="lot" inverseEntity="LabeledAntibody" syncable="YES"/>
+        <relationship name="lotEnsayos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZLotEnsayo" inverseName="lot" inverseEntity="ZLotEnsayo" syncable="YES"/>
+        <relationship name="provider" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Provider" inverseName="lots" inverseEntity="Provider" syncable="YES"/>
+        <relationship name="validationExperiments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ensayo" inverseName="tubeValidated" inverseEntity="Ensayo" syncable="YES"/>
+    </entity>
+    <entity name="Object" representedClassName="Object" syncable="YES">
+        <attribute name="catchedInfo" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="classTag" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="createdBy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deleted" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="groupId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="inactivatedAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="inactivatedBy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="objectPictureId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="offlineId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="openBisCode" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="openBisJSON" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="openBisPermId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetAPI" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetCounterDeletePost" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="zetCounterPost" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="zetDeleteAPI" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetDeletePost" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetPost" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="groupPerson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="objects" inverseEntity="ZGroupPerson" syncable="YES"/>
+        <relationship name="groupPersonInactivating" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="inactivatedObjects" inverseEntity="ZGroupPerson" syncable="YES"/>
+        <relationship name="partss" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Part" inverseName="objects" inverseEntity="Part" syncable="YES"/>
+        <relationship name="recipeObjectsO" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RecipeObject" inverseName="object" inverseEntity="RecipeObject" syncable="YES"/>
+    </entity>
+    <entity name="Panel" representedClassName="Panel" parentEntity="Object" syncable="YES">
+        <attribute name="panDetails" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="panName" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="panPanelId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetIsOwn" optional="YES" attributeType="Boolean" syncable="YES"/>
+    </entity>
+    <entity name="Part" representedClassName="Part" parentEntity="Object" syncable="YES">
+        <attribute name="prtClosedAt" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="prtEnsayoId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prtFileXtension" optional="YES" attributeType="String" maxValueString="11" syncable="YES"/>
+        <attribute name="prtPartId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prtPosition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prtText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prtTitle" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="prtType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetUnscrolled" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="ensayo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ensayo" inverseName="parts" inverseEntity="Ensayo" syncable="YES"/>
+        <relationship name="fileparts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZFilePart" inverseName="part" inverseEntity="ZFilePart" syncable="YES"/>
+        <relationship name="objects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Object" inverseName="partss" inverseEntity="Object" syncable="YES"/>
+    </entity>
+    <entity name="PartMain" representedClassName="PartMain" parentEntity="Object" syncable="YES">
+        <attribute name="prmObjectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prmObjectType" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="prmPartId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prmPartMainId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Person" representedClassName="Person" parentEntity="Object" syncable="YES">
+        <attribute name="perEmail" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="perLastname" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="perName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="perPassword" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="perPersonId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetIsCurrent" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="groupPersons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="person" inverseEntity="ZGroupPerson" syncable="YES"/>
+        <relationship name="groups" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Group" inverseName="persons" inverseEntity="Group" syncable="YES"/>
+    </entity>
+    <entity name="Place" representedClassName="Place" parentEntity="Object" syncable="YES">
+        <attribute name="plaColumns" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plaName" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="plaParentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plaPlaceId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plaRows" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plaSelves" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plaType" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="plaX" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plaY" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Place" inverseName="parent" inverseEntity="Place" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="children" inverseEntity="Place" syncable="YES"/>
+        <relationship name="tubes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tube" inverseName="place" inverseEntity="Tube" syncable="YES"/>
+    </entity>
+    <entity name="Plan" representedClassName="Plan" parentEntity="Object" syncable="YES">
+        <attribute name="plnFinalDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plnPlanId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plnTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ensayos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ensayo" inverseName="plan" inverseEntity="Ensayo" syncable="YES"/>
+        <relationship name="groupPersons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="plans" inverseEntity="ZGroupPerson" syncable="YES"/>
+    </entity>
+    <entity name="Plate" representedClassName="Plate" parentEntity="Object" syncable="YES">
+        <attribute name="plaColumns" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plaPlateId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plaPlateName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="plaRows" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="wells" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PlateWell" inverseName="plate" inverseEntity="PlateWell" syncable="YES"/>
+    </entity>
+    <entity name="PlateWell" representedClassName="PlateWell" parentEntity="Object" syncable="YES">
+        <attribute name="pwlPlateId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pwlPlatewellId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pwlPosition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pwlText" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="plate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Plate" inverseName="wells" inverseEntity="Plate" syncable="YES"/>
+    </entity>
+    <entity name="Protein" representedClassName="Protein" parentEntity="Object" syncable="YES">
+        <attribute name="proDescription" optional="YES" attributeType="String" maxValueString="512" syncable="YES"/>
+        <attribute name="proKd" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="proName" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="proNcbiGeneID" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="proProteinId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="proSwissDBID" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <relationship name="clones" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Clone" inverseName="protein" inverseEntity="Clone" syncable="YES"/>
+    </entity>
+    <entity name="Provider" representedClassName="Provider" parentEntity="Object" syncable="YES">
+        <attribute name="proAcronym" optional="YES" attributeType="String" maxValueString="100" syncable="YES"/>
+        <attribute name="proName" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="proProviderId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="lots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Lot" inverseName="provider" inverseEntity="Lot" syncable="YES"/>
+        <relationship name="reagents" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ComertialReagent" inverseName="provider" inverseEntity="ComertialReagent" syncable="YES"/>
+    </entity>
+    <entity name="ReagentInstance" representedClassName="ReagentInstance" parentEntity="Tube" syncable="YES">
+        <attribute name="reiApprovedAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiApprovedBy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiComertialReagentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiExpirationDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiOrderedAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiOrderedBy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiPurpose" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiReagentInstanceId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiReceivedAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiReceivedBy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiRequestedAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiRequestedBy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reiStatus" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <relationship name="approver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="approvedOrders" inverseEntity="ZGroupPerson" syncable="YES"/>
+        <relationship name="comertialReagent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ComertialReagent" inverseName="reagentInstances" inverseEntity="ComertialReagent" syncable="YES"/>
+        <relationship name="orderer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="orderedOrders" inverseEntity="ZGroupPerson" syncable="YES"/>
+        <relationship name="receiver" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="receivedOrders" inverseEntity="ZGroupPerson" syncable="YES"/>
+        <relationship name="requester" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="requestedOrders" inverseEntity="ZGroupPerson" syncable="YES"/>
+        <relationship name="samples" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sample" inverseName="reatentInstance" inverseEntity="Sample" syncable="YES"/>
+    </entity>
+    <entity name="Recipe" representedClassName="Recipe" parentEntity="Object" syncable="YES">
+        <attribute name="rcpPurpose" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rcpRecipeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rcpTitle" optional="YES" attributeType="String" maxValueString="512" syncable="YES"/>
+        <attribute name="zetAnchor" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="zetSecondsLeft" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="recipeObjects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RecipeObject" inverseName="recipe" inverseEntity="RecipeObject" syncable="YES"/>
+        <relationship name="steps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Step" inverseName="recipe" inverseEntity="Step" syncable="YES"/>
+    </entity>
+    <entity name="RecipeObject" representedClassName="RecipeObject" parentEntity="Object" syncable="YES">
+        <attribute name="rcmObjectId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rcmObjectType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rcmRecipeId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rcmRecipeObjectId" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <relationship name="object" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Object" inverseName="recipeObjectsO" inverseEntity="Object" syncable="YES"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="recipeObjects" inverseEntity="Recipe" syncable="YES"/>
+    </entity>
+    <entity name="Sample" representedClassName="Sample" parentEntity="Tube" syncable="YES">
+        <attribute name="samAmount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="samConcentration" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="samData" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="samName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="samParentId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="samReagentInstanceId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="samSampleId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="samType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Sample" inverseName="parent" inverseEntity="Sample" syncable="YES"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Sample" inverseName="children" inverseEntity="Sample" syncable="YES"/>
+        <relationship name="reatentInstance" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ReagentInstance" inverseName="samples" inverseEntity="ReagentInstance" syncable="YES"/>
+    </entity>
+    <entity name="ScientificArticle" representedClassName="ScientificArticle" parentEntity="Object" syncable="YES">
+        <attribute name="sciAbstract" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sciAuthors" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sciEPubDate" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="scifullJournalName" optional="YES" attributeType="String" maxValueString="512" syncable="YES"/>
+        <attribute name="sciIssue" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="sciLabShared" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sciLastAuthor" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="sciNlmUniqueID" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="sciPages" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="sciPMID" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="sciPubDate" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="sciPubmedID" attributeType="String" syncable="YES"/>
+        <attribute name="sciPubTypes" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="sciScientificArticleId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sciSource" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="sciTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sciVol" optional="YES" attributeType="String" maxValueString="11" syncable="YES"/>
+    </entity>
+    <entity name="Species" representedClassName="Species" parentEntity="Object" syncable="YES">
+        <attribute name="spcAcronym" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="spcLinnaeus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="spcName" optional="YES" attributeType="String" maxValueString="255" syncable="YES"/>
+        <attribute name="spcProperAcronym" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="spcSpeciesId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="clonesIsHost" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Clone" inverseName="speciesHost" inverseEntity="Clone" syncable="YES"/>
+    </entity>
+    <entity name="Step" representedClassName="Step" parentEntity="Object" syncable="YES">
+        <attribute name="stpPosition" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stpRecipId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stpStepId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stpText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stpTime" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="steps" inverseEntity="Recipe" syncable="YES"/>
+    </entity>
+    <entity name="Tag" representedClassName="Tag" parentEntity="Object" syncable="YES">
+        <attribute name="tagEmission" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tagExcitation" optional="YES" attributeType="String" maxValueString="11" syncable="YES"/>
+        <attribute name="tagIsFluorphore" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tagIsMetal" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tagMW" optional="YES" attributeType="String" maxValueString="11" syncable="YES"/>
+        <attribute name="tagName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tagTagId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="labeledAntibodies" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LabeledAntibody" inverseName="tag" inverseEntity="LabeledAntibody" syncable="YES"/>
+    </entity>
+    <entity name="Tube" representedClassName="Tube" parentEntity="Object" syncable="YES">
+        <attribute name="tubAmount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tubFinishedAt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tubFinishedBy" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tubIsLow" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tubPlaceId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tubTubeId" optional="YES" attributeType="String" maxValueString="11" syncable="YES"/>
+        <attribute name="tubType" optional="YES" attributeType="String" maxValueString="80" syncable="YES"/>
+        <attribute name="tubVolume" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tubVolumeInit" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="finisher" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ZGroupPerson" inverseName="finishedTubes" inverseEntity="ZGroupPerson" syncable="YES"/>
+        <relationship name="place" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="tubes" inverseEntity="Place" syncable="YES"/>
+    </entity>
+    <entity name="ZFilePart" representedClassName="ZFilePart" parentEntity="Object" syncable="YES">
+        <attribute name="fptFileId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fptFilePartId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="fptPartId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="file" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="File" inverseName="fileparts" inverseEntity="File" syncable="YES"/>
+        <relationship name="part" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Part" inverseName="fileparts" inverseEntity="Part" syncable="YES"/>
+    </entity>
+    <entity name="ZGroupPerson" representedClassName="ZGroupPerson" parentEntity="Object" syncable="YES">
+        <attribute name="gpeActiveInGroup" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gpeAllPanels" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gpeErase" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gpeFinances" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gpeGroupId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gpeGroupPersonId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gpeOrders" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gpePersonId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gpeRole" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="zetIsCurrent" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="approvedOrders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReagentInstance" inverseName="approver" inverseEntity="ReagentInstance" syncable="YES"/>
+        <relationship name="commentWalls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CommentWall" syncable="YES"/>
+        <relationship name="finishedTubes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tube" inverseName="finisher" inverseEntity="Tube" syncable="YES"/>
+        <relationship name="group" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Group" inverseName="groupPersons" inverseEntity="Group" syncable="YES"/>
+        <relationship name="inactivatedObjects" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Object" inverseName="groupPersonInactivating" inverseEntity="Object" syncable="YES"/>
+        <relationship name="objects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Object" inverseName="groupPerson" inverseEntity="Object" syncable="YES"/>
+        <relationship name="orderedOrders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReagentInstance" inverseName="orderer" inverseEntity="ReagentInstance" syncable="YES"/>
+        <relationship name="person" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Person" inverseName="groupPersons" inverseEntity="Person" syncable="YES"/>
+        <relationship name="plans" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Plan" inverseName="groupPersons" inverseEntity="Plan" syncable="YES"/>
+        <relationship name="receivedOrders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReagentInstance" inverseName="receiver" inverseEntity="ReagentInstance" syncable="YES"/>
+        <relationship name="requestedOrders" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ReagentInstance" inverseName="requester" inverseEntity="ReagentInstance" syncable="YES"/>
+    </entity>
+    <entity name="ZGroupPersonPlan" representedClassName="ZGroupPersonPlan" parentEntity="Object" syncable="YES">
+        <attribute name="gppGroupPersonId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gppGroupPersonPlanId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gppPlanId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="ZLotEnsayo" representedClassName="ZLotEnsayo" parentEntity="Object" syncable="YES">
+        <attribute name="lenEnsayoId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lenLotEnsayoId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lenLotId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="ensayo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Ensayo" inverseName="lotEnsayos" inverseEntity="Ensayo" syncable="YES"/>
+        <relationship name="lot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lot" inverseName="lotEnsayos" inverseEntity="Lot" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Carrier" positionX="72" positionY="-457" width="128" height="90"/>
+        <element name="Clone" positionX="34" positionY="114" width="128" height="253"/>
+        <element name="ComertialReagent" positionX="90" positionY="-630" width="128" height="133"/>
+        <element name="CommentWall" positionX="-992" positionY="-918" width="128" height="118"/>
+        <element name="Ensayo" positionX="-1226" positionY="89" width="128" height="210"/>
+        <element name="File" positionX="-972" positionY="114" width="128" height="178"/>
+        <element name="Group" positionX="-1161" positionY="-882" width="128" height="165"/>
+        <element name="LabeledAntibody" positionX="-137" positionY="-0" width="128" height="270"/>
+        <element name="Lot" positionX="45" positionY="-255" width="128" height="330"/>
+        <element name="Object" positionX="-578" positionY="-540" width="128" height="388"/>
+        <element name="Panel" positionX="-641" positionY="-73" width="128" height="105"/>
+        <element name="Part" positionX="-1035" positionY="-223" width="128" height="223"/>
+        <element name="PartMain" positionX="-848" positionY="-270" width="128" height="103"/>
+        <element name="Person" positionX="-830" positionY="-882" width="128" height="163"/>
+        <element name="Place" positionX="-342" positionY="-441" width="128" height="225"/>
+        <element name="Plan" positionX="-1017" positionY="-397" width="128" height="118"/>
+        <element name="Plate" positionX="-1404" positionY="-637" width="128" height="118"/>
+        <element name="PlateWell" positionX="-1215" positionY="-648" width="128" height="118"/>
+        <element name="Protein" positionX="-407" positionY="500" width="128" height="150"/>
+        <element name="Provider" positionX="268" positionY="-514" width="128" height="120"/>
+        <element name="ReagentInstance" positionX="-126" positionY="-751" width="128" height="330"/>
+        <element name="Recipe" positionX="-245" positionY="-898" width="128" height="150"/>
+        <element name="RecipeObject" positionX="-398" positionY="-882" width="128" height="133"/>
+        <element name="Sample" positionX="-101" positionY="-388" width="128" height="208"/>
+        <element name="ScientificArticle" positionX="-614" positionY="-918" width="128" height="300"/>
+        <element name="Species" positionX="-261" positionY="408" width="128" height="135"/>
+        <element name="Step" positionX="-308" positionY="-685" width="128" height="133"/>
+        <element name="Tag" positionX="-614" positionY="36" width="128" height="163"/>
+        <element name="Tube" positionX="-135" positionY="-166" width="128" height="210"/>
+        <element name="ZFilePart" positionX="-1152" positionY="-81" width="128" height="118"/>
+        <element name="ZGroupPerson" positionX="-992" positionY="-801" width="128" height="360"/>
+        <element name="ZGroupPersonPlan" positionX="-1019" positionY="-504" width="128" height="88"/>
+        <element name="ZLotEnsayo" positionX="-1206" positionY="-774" width="128" height="118"/>
+    </elements>
+</model>

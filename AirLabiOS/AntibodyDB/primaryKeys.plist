@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Group</key>
+	<string>grpGroupId</string>
+	<key>ZGroupPerson</key>
+	<string>gpeGroupPersonId</string>
+	<key>Person</key>
+	<string>perPersonId</string>
+	<key>ComertialReagent</key>
+	<string>comComertialReagentId</string>
+	<key>ReagentInstance</key>
+	<string>reiReagentInstanceId</string>
+	<key>Place</key>
+	<string>plaPlaceId</string>
+	<key>Tag</key>
+	<string>tagTagId</string>
+	<key>Species</key>
+	<string>spcSpeciesId</string>
+	<key>Provider</key>
+	<string>proProviderId</string>
+	<key>Protein</key>
+	<string>proProteinId</string>
+	<key>Clone</key>
+	<string>cloCloneId</string>
+	<key>Lot</key>
+	<string>reiReagentInstanceId</string>
+	<key>LabeledAntibody</key>
+	<string>labLabeledAntibodyId</string>
+	<key>Panel</key>
+	<string>panPanelId</string>
+	<key>Tube</key>
+	<string>tubTubeId</string>
+	<key>ScientificArticle</key>
+	<string>sciScientificArticleId</string>
+	<key>Recipe</key>
+	<string>rcpRecipeId</string>
+	<key>Step</key>
+	<string>stpStepId</string>
+	<key>Plan</key>
+	<string>plnPlanId</string>
+	<key>Ensayo</key>
+	<string>enyEnsayoId</string>
+	<key>Part</key>
+	<string>prtPartId</string>
+	<key>RecipeObject</key>
+	<string>rcmRecipeObjectId</string>
+	<key>Sample</key>
+	<string>samSampleId</string>
+	<key>File</key>
+	<string>filFileId</string>
+	<key>ZFilePart</key>
+	<string>fptFilePartId</string>
+	<key>Plate</key>
+	<string>plaPlateId</string>
+	<key>PlateWell</key>
+	<string>pwlPlatewellId</string>
+	<key>ZLotEnsayo</key>
+	<string>lenLotEnsayoId</string>
+	<key>CommentWall</key>
+	<string>cwlCommentWallId</string>
+</dict>
+</plist>
